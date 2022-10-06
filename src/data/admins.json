@@ -1,6 +1,11 @@
-{
+[{
     "name": "esteban",
     "lastName": "frare",
     "email": "esteban.frare@radiumrocket.com"
-
+},
+{
+    "name": "Ayom",
+    "lastName": "Aristo",
+    "email": "ayom.aristo@radiumrocket.com"
 }
+]
