@@ -13,6 +13,10 @@ app.get('/', async (req, res) => {
   res.send('Hello World!');
 });
 
+//! Julian Flores & Diaz Camila workspace:
+app.use('/projects', require('./resources/projects'));
+//! End workspace (JF).
+
 app.get('/admins', (req, res) => {
   res.status(200).json({
     data: admins,
