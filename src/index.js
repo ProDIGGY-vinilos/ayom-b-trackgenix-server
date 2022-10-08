@@ -13,6 +13,12 @@ app.get('/', async (req, res) => {
   res.send('Hello World!');
 });
 
+// Dino Stampella Workspace
+const superAdminsRouter = require('./resources/super-admins');
+
+app.use('/superAdmins', superAdminsRouter);
+// End workspace (DS)
+
 app.get('/admins', (req, res) => {
   res.status(200).json({
     data: admins,
