@@ -36,4 +36,51 @@ router.delete('/delete/:id', (req, res) => {
   }
 });
 
+// GET BY FILTERS
+router.get('/getById/:id', (req, res) => {
+  const superAdminsId = req.params.id;
+  const foundSuperAdmin = superAdmins.find((superAdm) => superAdm.id === superAdminsId);
+  if (foundSuperAdmin) {
+    res.send(foundSuperAdmin);
+  } else {
+    res.send('SuperAdmin not founded');
+  }
+});
+router.get('/getByName/:name', (req, res) => {
+  const superAdminsName = req.params.name;
+  const foundSuperAdmin = superAdmins.find((superAdm) => superAdm.name === superAdminsName);
+  if (foundSuperAdmin) {
+    res.send(foundSuperAdmin);
+  } else {
+    res.send('SuperAdmin not founded');
+  }
+});
+router.get('/getByLastName/:lastName', (req, res) => {
+  const superAdminsLastName = req.params.lastName;
+  const foundSuperAdmin = superAdmins.find((superAdm) => superAdm.lastName === superAdminsLastName);
+  if (foundSuperAdmin) {
+    res.send(foundSuperAdmin);
+  } else {
+    res.send('SuperAdmin not founded');
+  }
+});
+router.get('/getByEmail/:email', (req, res) => {
+  const superAdminsEmail = req.params.email;
+  const foundSuperAdmin = superAdmins.find((superAdm) => superAdm.email === superAdminsEmail);
+  if (foundSuperAdmin) {
+    res.send(foundSuperAdmin);
+  } else {
+    res.send('SuperAdmin not founded');
+  }
+});
+router.get('/getByPassword/:password', (req, res) => {
+  const superAdminsPassword = req.params.password;
+  const foundSuperAdmin = superAdmins.find((superAdm) => superAdm.password === superAdminsPassword);
+  if (foundSuperAdmin) {
+    res.send(foundSuperAdmin);
+  } else {
+    res.send('SuperAdmin not founded');
+  }
+});
+
 module.exports = router;
