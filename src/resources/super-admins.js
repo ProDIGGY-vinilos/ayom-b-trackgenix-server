@@ -19,4 +19,21 @@ router.post('/add', (req, res) => {
   });
 });
 
+// DELETE SUPER-ADMIN
+router.delete('/delete/:id', (req, res) => {
+  const superAdminsId = req.params.id;
+  if (superAdmins.find((superAdmin) => superAdmin.id === req.params.id)) {
+    const filteredSuperAdmins = superAdmins.filter((superAdmin) => superAdmin.id !== superAdminsId);
+    fs.writeFile('src/data/super-admins.json', JSON.stringify(filteredSuperAdmins), (err) => {
+      if (err) {
+        res.send('Can not delete SuperAdmin');
+      } else {
+        res.send('SuperAdmin deleted successfully');
+      }
+    });
+  } else {
+    res.send('Non-existing SuperAdmin');
+  }
+});
+
 module.exports = router;
