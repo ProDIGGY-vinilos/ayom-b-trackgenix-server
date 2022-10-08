@@ -43,7 +43,7 @@ router.get('/getById/:id', (req, res) => {
   if (foundSuperAdmin) {
     res.send(foundSuperAdmin);
   } else {
-    res.send('SuperAdmin not founded');
+    res.send('SuperAdmin not found');
   }
 });
 router.get('/getByName/:name', (req, res) => {
@@ -52,7 +52,7 @@ router.get('/getByName/:name', (req, res) => {
   if (foundSuperAdmin) {
     res.send(foundSuperAdmin);
   } else {
-    res.send('SuperAdmin not founded');
+    res.send('SuperAdmin not found');
   }
 });
 router.get('/getByLastName/:lastName', (req, res) => {
@@ -61,7 +61,7 @@ router.get('/getByLastName/:lastName', (req, res) => {
   if (foundSuperAdmin) {
     res.send(foundSuperAdmin);
   } else {
-    res.send('SuperAdmin not founded');
+    res.send('SuperAdmin not found');
   }
 });
 router.get('/getByEmail/:email', (req, res) => {
@@ -70,7 +70,7 @@ router.get('/getByEmail/:email', (req, res) => {
   if (foundSuperAdmin) {
     res.send(foundSuperAdmin);
   } else {
-    res.send('SuperAdmin not founded');
+    res.send('SuperAdmin not found');
   }
 });
 router.get('/getByPassword/:password', (req, res) => {
@@ -79,7 +79,7 @@ router.get('/getByPassword/:password', (req, res) => {
   if (foundSuperAdmin) {
     res.send(foundSuperAdmin);
   } else {
-    res.send('SuperAdmin not founded');
+    res.send('SuperAdmin not found');
   }
 });
 
