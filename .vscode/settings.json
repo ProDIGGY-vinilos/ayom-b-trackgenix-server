@@ -1,7 +1,7 @@
 {
   "editor.detectIndentation": false,
   "editor.insertSpaces": true,
-  "editor.tabSize": 4,
+  "editor.tabSize": 2,
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
   "editor.guides.bracketPairsHorizontal": "active",
@@ -9,4 +9,7 @@
     "source.fixAll.eslint": true
   },
   "eslint.format.enable": true,
+  "editor.fontSize": 15,
+  "editor.fontFamily": "'Cascadia Code LP',Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
 }
