@@ -47,19 +47,27 @@ router.get('/getById/:id', (req, res) => {
   }
 });
 router.get('/getByName/:name', (req, res) => {
-  const superAdminsName = req.params.name;
-  const foundSuperAdmin = superAdmins.find((superAdm) => superAdm.name === superAdminsName);
-  if (foundSuperAdmin) {
-    res.send(foundSuperAdmin);
+  const foundSuperAdmins = [];
+  superAdmins.forEach((superAdmin) => {
+    if (superAdmin.name === req.params.name) {
+      foundSuperAdmins.push(superAdmin);
+    }
+  });
+  if (foundSuperAdmins) {
+    res.send(foundSuperAdmins);
   } else {
     res.send('SuperAdmin not found');
   }
 });
 router.get('/getByLastName/:lastName', (req, res) => {
-  const superAdminsLastName = req.params.lastName;
-  const foundSuperAdmin = superAdmins.find((superAdm) => superAdm.lastName === superAdminsLastName);
-  if (foundSuperAdmin) {
-    res.send(foundSuperAdmin);
+  const foundSuperAdmins = [];
+  superAdmins.forEach((superAdmin) => {
+    if (superAdmin.lastName === req.params.lastName) {
+      foundSuperAdmins.push(superAdmin);
+    }
+  });
+  if (foundSuperAdmins) {
+    res.send(foundSuperAdmins);
   } else {
     res.send('SuperAdmin not found');
   }
@@ -74,10 +82,14 @@ router.get('/getByEmail/:email', (req, res) => {
   }
 });
 router.get('/getByPassword/:password', (req, res) => {
-  const superAdminsPassword = req.params.password;
-  const foundSuperAdmin = superAdmins.find((superAdm) => superAdm.password === superAdminsPassword);
-  if (foundSuperAdmin) {
-    res.send(foundSuperAdmin);
+  const foundSuperAdmins = [];
+  superAdmins.forEach((superAdmin) => {
+    if (superAdmin.password === req.params.password) {
+      foundSuperAdmins.push(superAdmin);
+    }
+  });
+  if (foundSuperAdmins) {
+    res.send(foundSuperAdmins);
   } else {
     res.send('SuperAdmin not found');
   }
