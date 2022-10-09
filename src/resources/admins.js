@@ -131,4 +131,31 @@ router.get('/getListAdmin/:id/:name/:lastName/:email/:password', (req, res) => {
   res.send(foundAdmin);
 });
 
+// Edit admin method
+
+router.put('/modAdmin/:id', (req, res) => {
+  const foundAdmin = admins.some((admin) => JSON.stringify(admin.id) === req.params.id);
+  if (foundAdmin) {
+    const updateAdmin = req.body;
+    admins.forEach((admin) => {
+      if (JSON.stringify(admin.id) === req.params.id) {
+        admin.name = updateAdmin.name ? updateAdmin.name : admin.name;  // eslint-disable-line
+        admin.lastName = updateAdmin.lastName ? updateAdmin.lastName : admin.lastName; // eslint-disable-line
+        admin.email = updateAdmin.email ? updateAdmin.email : admin.email; // eslint-disable-line
+        admin.password = updateAdmin.password ? updateAdmin.password : admin.password; // eslint-disable-line
+        fs.writeFile('src/data/admins.json', JSON.stringify(admins), (err) => {
+          if (err) {
+            res.send('Problem when adding admin');
+          } else {
+            res.send('Admin created');
+          }
+        });
+        res.json({ msg: 'Admin updated', admin });
+      }
+    });
+  } else {
+    res.send('Cant modify unexistent admin');
+  }
+});
+
 module.exports = router;
