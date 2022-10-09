@@ -40,4 +40,21 @@ router.get('/getAdminById/:id', (req, res) => {
   }
 });
 
+// Delete admin method
+router.delete('/deleteAdmin/:id', (req, res) => {
+  const AdminId = req.params.id;
+  if (admins.find((admin) => JSON.stringify(admin.id) === AdminId)) {
+    const foundAdmin = admins.filter((admin) => JSON.stringify(admin.id) !== AdminId);
+    fs.writeFile('src/data/admins.json', JSON.stringify(foundAdmin), (err) => {
+      if (err) {
+        res.send('Cannot delete admin');
+      } else {
+        res.send('Admin deleted');
+      }
+    });
+  } else {
+    res.send('Non existent admin');
+  }
+});
+
 module.exports = router;
