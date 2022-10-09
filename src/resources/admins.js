@@ -57,4 +57,78 @@ router.delete('/deleteAdmin/:id', (req, res) => {
   }
 });
 
+// Filter admins method
+router.get('/getListAdmin/:id/:name/:lastName/:email/:password', (req, res) => {
+  const adminId = req.params.id;
+  const adminName = req.params.name;
+  const adminLastName = req.params.lastName;
+  const adminEmail = req.params.email;
+  const adminPass = req.params.password;
+  let counter = 0;
+  let counter2 = 0;
+  let counter3 = 0;
+
+  const foundAdmin = admins.filter((admin) => {
+    if (JSON.stringify(admin.id) === adminId && counter === 0) {
+      counter = 1;
+      counter3 = 1;
+      return true;
+    }
+    if (admin.email === adminEmail && counter === 0) {
+      counter = 1;
+      counter3 = 1;
+      return true;
+    }
+    if ((admin.name === adminName || admin.lastName === adminLastName
+         || admin.password === adminPass)
+      && (adminId === ':id' && adminEmail === ':email') && counter2 === 0) {
+      switch (true) {
+        case admin.name === adminName && admin.lastName === adminLastName
+        && admin.password === adminPass:
+          counter3 = 1;
+          counter2 = 1;
+          return true;
+        case admin.name === adminName && admin.lastName === adminLastName:
+          if (adminPass !== ':password') {
+            return false;
+          }
+          counter3 = 1;
+          counter2 = 1;
+          return true;
+        case admin.lastName === adminLastName && admin.password === adminPass:
+          if (adminName !== ':name') {
+            return false;
+          }
+          counter3 = 1;
+          counter2 = 1;
+          return true;
+        case admin.name === adminName && admin.password === adminPass:
+          if (adminLastName !== ':lastName') {
+            return false;
+          }
+          counter3 = 1;
+          counter2 = 1;
+          return true;
+        default:
+          switch (true) {
+            case adminName !== ':name' && adminLastName !== ':lastName':
+              return false;
+            case adminLastName !== ':lastName' && adminPass !== ':password':
+              return false;
+            case adminName !== ':name' && adminPass !== ':password':
+              return false;
+            default:
+              counter3 = 1;
+              return true;
+          }
+      }
+    }
+    return false;
+  });
+  if (counter3 === 0) {
+    res.send('Non existent admin');
+  }
+  res.send(foundAdmin);
+});
+
 module.exports = router;
