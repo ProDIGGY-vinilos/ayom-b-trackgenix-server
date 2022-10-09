@@ -7,6 +7,10 @@ const router = express.Router();
 // CREATE SUPER-ADMIN
 router.post('/add', (req, res) => {
   const newSuperAdmin = req.body;
+  if (Object.keys(newSuperAdmin).length !== 5) {
+    res.send('Please, complete all fields');
+    return;
+  }
   const newID = Number(superAdmins[superAdmins.length - 1].id) + 1;
   newSuperAdmin.id = newID.toString();
   superAdmins.push(newSuperAdmin);
