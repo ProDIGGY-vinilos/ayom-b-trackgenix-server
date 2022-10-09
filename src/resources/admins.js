@@ -29,4 +29,15 @@ router.post('/addAdmin', (req, res) => {
   }
 });
 
+// Get admin method
+router.get('/getAdminById/:id', (req, res) => {
+  const AdminId = req.params.id;
+  const foundAdmin = admins.find((admin) => JSON.stringify(admin.id) === AdminId);
+  if (foundAdmin) {
+    res.send(foundAdmin);
+  } else {
+    res.send('Admin not found');
+  }
+});
+
 module.exports = router;
