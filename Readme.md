@@ -44,6 +44,7 @@ npm run lint:fix
 |Photo | Name  | Mail | Github
 | :-----: | :-----: | :-----: | :-----: |
 <img src="https://avatars.githubusercontent.com/u/20587232?v=4" height="50" width="50">| Esteban Frare | esteban.frare@radiumrocket.com | [@estefrare](https://github.com/estefrare)
+<img src="https://" height="50" width="50">| Julian Flores | julianfloresdev@gmail.com | [@JulianF](https://github.com/JulianFloresDev)
 
 
 
