@@ -47,14 +47,16 @@ router.put('/edit/project/:id', (req, res) => {
     projectToEdit.endDate = req.body.endDate ? req.body.endDate : projectToEdit.endDate;
     fs.writeFile('src/data/projects.json', JSON.stringify(projectsList), (err) => {
       if (err) {
-        res.send('Cannot edit this project');
+        res.status(400)
+          .send('Cannot edit this project');
       } else {
         res.send('Project successfully updated!')
           .json(projectToEdit);
       }
     });
   } else {
-    res.send('This is not a valid project ID');
+    res.status(404)
+      .send('This is not a valid project ID');
   }
 });
 
@@ -68,7 +70,8 @@ router.put('/add/employee', (req, res, next) => {
   const employeeToAdd = req.body.employee;
   const filterProjects = findProjectOnReq(req);
   if (filterProjects.length === 0 || !req.body.employee.hasOwnProperty('rol')) {
-    res.send('Project invalid! Verify information sent.');
+    res.status(400)
+      .send('Project invalid! Verify information sent.');
   } else {
     const employeeList = filterProjects[0].employee;
     const employeeFinalId = employeeList.at(-1).id;
@@ -76,7 +79,8 @@ router.put('/add/employee', (req, res, next) => {
     filterProjects[0].employee.push(employeeToAdd);
     fs.writeFile('src/data/projects.json', JSON.stringify(projectsList), (err) => {
       if (err) {
-        res.send('Cannot edit this project');
+        res.status(400)
+          .send('Cannot edit this project');
       } else {
         res.send('Changes Done Successfully')
           .json(filterProjects);
@@ -96,14 +100,14 @@ router.put('/delete/employee', (req, res, next) => {
   const employeeToDelete = findEmployeeOnProject(filterProjects[0], req);
   if (filterProjects.length === 0
       || !(req.body.employee.hasOwnProperty('id') || req.body.employee.hasOwnProperty('name'))) {
-    res.json({
-      msg: 'Project invalid! Verify information sent.',
-    });
+    res.status(400)
+      .json({ msg: 'Project invalid! Verify information sent.' });
   } else {
     filterProjects[0].employee = filterProjects[0].employee.filter((emp) => emp.id !== employeeToDelete.id);
     fs.writeFile('src/data/projects.json', JSON.stringify(projectsList), (err) => {
       if (err) {
-        res.send('Cannot edit this project');
+        res.status(400)
+          .send('Cannot edit this project');
       } else {
         res.send('Employee Delete Successfully')
           .json(filterProjects);
@@ -130,7 +134,8 @@ router.get('/getAll', (req, res, next) => {
 router.get('/getByArgument', (req, res, next) => {
   const filterProjects = findProjectOnReq(req);
   if (filterProjects.length === 0) {
-    res.send('This data dosen\'t match with any project! Please check data entry');
+    res.status(400)
+      .send('This data dosen\'t match with any project! Please check data entry');
   } else {
     res.send('Changes done successfully')
       .json(filterProjects);
