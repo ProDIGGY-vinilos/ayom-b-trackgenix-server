@@ -25,41 +25,47 @@ router.put('/edit', (req, res) => {
   let dataError = 0;
   const editEmployee = req.body;
   const oldEmployee = employees.find((employee) => employee.id === editEmployee.id);
-  if (oldEmployee.name === editEmployee.name) {
-    dataError += dataError + 1;
+  // si no se encuentra el usuario a editar, hay que crearlo?
+  if (!oldEmployee) {
+    res.send('The user does not exist.');
   } else {
-    oldEmployee.name = editEmployee.name;
-  }
-  if (oldEmployee.lastName === editEmployee.lastName) {
-    dataError += dataError + 1;
-  } else {
-    oldEmployee.lastName = editEmployee.lastName;
-  }
-  if (oldEmployee.phone === editEmployee.phone) {
-    dataError += dataError + 1;
-  } else {
-    oldEmployee.phone = editEmployee.phone;
-  }
-  if (oldEmployee.email === editEmployee.email) {
-    dataError += dataError + 1;
-  } else {
-    oldEmployee.email = editEmployee.email;
-  }
-  if (oldEmployee.password === editEmployee.password) {
-    dataError += dataError + 1;
-  } else {
-    oldEmployee.password = editEmployee.password;
-  }
-  if (dataError === 5) {
-    res.send('New employee data is the same as previous!');
-  } else {
-    fs.writeFile('src/data/employees.json', JSON.stringify(employees), (err) => {
-      if (err) {
-        res.send('Could not edit user.');
-      } else {
-        res.send('User edited successfully.');
-      }
-    });
+    if (oldEmployee.name === editEmployee.name) {
+      dataError += 1;
+    } else {
+      oldEmployee.name = editEmployee.name;
+    }
+    if (oldEmployee.lastName === editEmployee.lastName) {
+      dataError += 1;
+    } else {
+      oldEmployee.lastName = editEmployee.lastName;
+    }
+    if (oldEmployee.phone === editEmployee.phone) {
+      dataError += 1;
+    } else {
+      oldEmployee.phone = editEmployee.phone;
+    }
+    if (oldEmployee.email === editEmployee.email) {
+      dataError += 1;
+    } else {
+      oldEmployee.email = editEmployee.email;
+    }
+    if (oldEmployee.password === editEmployee.password) {
+      dataError += 1;
+    } else {
+      oldEmployee.password = editEmployee.password;
+    }
+    if (dataError === 5) {
+      res.send('New employee data is the same as previous!');
+    } else {
+      fs.writeFile('src/data/employees.json', JSON.stringify(employees), (err) => {
+        if (err) {
+          res.send('Could not edit user.');
+          // como hacer saltar el error del fs?
+        } else {
+          res.send('User edited successfully.');
+        }
+      });
+    }
   }
 });
 
