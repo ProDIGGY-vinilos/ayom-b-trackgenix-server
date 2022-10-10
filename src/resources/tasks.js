@@ -23,4 +23,24 @@ router.post('/add', (req, res) => {
   });
 });
 
+// EDIT TASKS
+router.put('/edit/:id', (req, res) => {
+  const taskId = req.params.id;
+  if (Object.keys(req.body).length !== 2) {
+    res.send('Please, complete all fields');
+    return;
+  }
+  const oldTask = tasks.find(((task) => task.id === Number(taskId)));
+  const index = tasks.indexOf(oldTask);
+  tasks[index] = req.body;
+  tasks[index].id = Number(taskId);
+  fs.writeFile('src/data/tasks.json', JSON.stringify(tasks), (err) => {
+    if (err) {
+      res.send('Can not edit task');
+    } else {
+      res.send('Task edited successfully');
+    }
+  });
+});
+
 module.exports = router;
