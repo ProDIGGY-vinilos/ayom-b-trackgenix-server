@@ -1,21 +1,22 @@
 // use "import" to import libraries
 import express from 'express';
 
-// use "require" to import JSON files
-const admins = require('./data/admins.json');
+const timeSheets = require('./data/time-sheets.json');
+const timeSheetRouter = require('./resources/time-sheets');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use('/timeSheet', timeSheetRouter);
 
 app.get('/', async (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/admins', (req, res) => {
+app.get('/timeSheets', (req, res) => {
   res.status(200).json({
-    data: admins,
+    data: timeSheets,
   });
 });
 
