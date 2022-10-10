@@ -66,7 +66,7 @@ router.put('/edit/project/:id', (req, res) => {
 ? 1) "id" to find the project to edit employee list
 ? 2) "employee" must be an object that matches a real employee. Must have "rol" inside (DEV, QA, TL, PM)
 */
-router.put('/add/employee', (req, res, next) => {
+router.put('/add/employee', (req, res) => {
   const employeeToAdd = req.body.employee;
   const filterProjects = findProjectOnReq(req);
   if (filterProjects.length === 0 || !req.body.employee.hasOwnProperty('rol')) {
@@ -82,12 +82,10 @@ router.put('/add/employee', (req, res, next) => {
         res.status(400)
           .send('Cannot edit this project');
       } else {
-        res.send('Changes Done Successfully')
-          .json(filterProjects);
+        res.json(filterProjects);
       }
     });
   }
-  next();
 });
 
 /* Delete employee in projectsList
