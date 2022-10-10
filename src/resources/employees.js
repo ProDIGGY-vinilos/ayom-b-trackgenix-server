@@ -25,7 +25,6 @@ router.put('/edit', (req, res) => {
   let dataError = 0;
   const editEmployee = req.body;
   const oldEmployee = employees.find((employee) => employee.id === editEmployee.id);
-  // si no se encuentra el usuario a editar, hay que crearlo?
   if (!oldEmployee) {
     res.send('The user does not exist.');
   } else {
@@ -60,7 +59,6 @@ router.put('/edit', (req, res) => {
       fs.writeFile('src/data/employees.json', JSON.stringify(employees), (err) => {
         if (err) {
           res.send('Could not edit user.');
-          // como hacer saltar el error del fs?
         } else {
           res.send('User edited successfully.');
         }
