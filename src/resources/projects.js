@@ -1,11 +1,8 @@
-/* eslint-disable no-console */
 /* eslint-disable max-len */
-/* eslint-disable consistent-return */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable import/no-import-module-exports */
-/* eslint-disable no-nested-ternary */
-// eslint-disable-next-line import/no-import-module-exports
 import express from 'express';
+
 import fs from 'fs';
 
 const projectsList = require('../data/projects.json');
@@ -15,20 +12,47 @@ const router = express.Router();
 const findProjectOnReq = (request) => {
   const checkBody = (property) => request.body.hasOwnProperty(property);
 
-  const filterProjects = projectsList.filter((project) => (checkBody('id') ? project.id === Number(request.body.id)
-    : checkBody('name') ? project.name === String(request.body.name)
-      : checkBody('clientName') ? project.clientName === String(request.body.clientName)
-        : checkBody('startDate') ? project.startDate === String(request.body.startDate)
-          : checkBody('endDate') ? project.endDate === String(request.body.endDate) : false));
+  const filterProjects = projectsList.filter((project) => {
+    let find = false;
+    if (checkBody('id') && project.id === Number(request.body.id)) {
+      find = true;
+    }
+    if (checkBody('name') && project.name === String(request.body.name)) {
+      find = true;
+    }
+    if (checkBody('clientName') && project.clientName === String(request.body.clientName)) {
+      find = true;
+    }
+    if (checkBody('startDate') && project.startDate === String(request.body.startDate)) {
+      find = true;
+    }
+    if (checkBody('endDate') && project.endDate === String(request.body.endDate)) {
+      find = true;
+    }
+    if (find) {
+      return project.id || project.name || project.clientName || project.startDate || project.endDate;
+    }
+    return null;
+  });
   return filterProjects;
 };
 
 const findEmployeeOnProject = (project, request) => {
   const employeeMatch = (property) => request.body.employee.hasOwnProperty(property);
   const arrayOfEmployees = project.employee;
-  const employeeToDelete = arrayOfEmployees.filter((emp) => (employeeMatch('id') ? emp.id === Number(request.body.employee.id)
-    : employeeMatch('name') ? emp.name === String(request.body.employee.name)
-      : false));
+  const employeeToDelete = arrayOfEmployees.find((emp) => {
+    let find = false;
+    if (employeeMatch('id') && emp.id === Number(request.body.employee.id)) {
+      find = true;
+    }
+    if (employeeMatch('name') && emp.name === String(request.body.employee.name)) {
+      find = true;
+    }
+    if (find) {
+      return emp.id || emp.name;
+    }
+    return null;
+  });
   return employeeToDelete;
 };
 
@@ -64,7 +88,8 @@ router.put('/edit/project/:id', (req, res) => {
 !Edit Project to add employee
 ? On body must have 2 params:
 ? 1) "id" to find the project to edit employee list
-? 2) "employee" must be an object that matches a real employee. Must have "rol" inside (DEV, QA, TL, PM)
+? 2) "employee" must be an object that matches a real employee.
+?       Must have "rol" inside (DEV, QA, TL, PM)
 */
 router.put('/add/employee', (req, res) => {
   const employeeToAdd = req.body.employee;
@@ -93,15 +118,15 @@ router.put('/add/employee', (req, res) => {
 ? 1) "id" to find the project to edit employee list
 ? 2) Employee "name" or "id"
 */
-router.put('/delete/employee', (req, res, next) => {
+router.put('/delete/employee', (req, res) => {
   const filterProjects = findProjectOnReq(req);
   const employeeToDelete = findEmployeeOnProject(filterProjects[0], req);
-  if (filterProjects.length === 0
-      || !(req.body.employee.hasOwnProperty('id') || req.body.employee.hasOwnProperty('name'))) {
+  if (filterProjects.length === 0 || employeeToDelete.length === 0) {
     res.status(400)
-      .json({ msg: 'Project invalid! Verify information sent.' });
+      .send('Can not edit this Project or Employee');
   } else {
-    filterProjects[0].employee = filterProjects[0].employee.filter((emp) => emp.id !== employeeToDelete.id);
+    filterProjects[0].employee = filterProjects[0].employee
+      .filter((emp) => emp.id !== employeeToDelete.id);
     fs.writeFile('src/data/projects.json', JSON.stringify(projectsList), (err) => {
       if (err) {
         res.status(400)
@@ -112,7 +137,6 @@ router.put('/delete/employee', (req, res, next) => {
       }
     });
   }
-  next();
 });
 
 //! Get projects
@@ -135,8 +159,7 @@ router.get('/getByArgument', (req, res, next) => {
     res.status(400)
       .send('This data dosen\'t match with any project! Please check data entry');
   } else {
-    res.send('Changes done successfully')
-      .json(filterProjects);
+    res.json(filterProjects);
   }
   next();
 });
