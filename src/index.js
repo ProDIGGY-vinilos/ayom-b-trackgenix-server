@@ -15,6 +15,8 @@ app.get('/', async (req, res) => {
 
 //! Julian Flores & Diaz Camila workspace:
 app.use('/projects', require('./resources/projects'));
+
+app.use('/timeSheets', require('./resources/time-sheets'));
 //! End workspace (JF).
 
 app.get('/admins', (req, res) => {
