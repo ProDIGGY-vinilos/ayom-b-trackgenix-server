@@ -3,18 +3,20 @@ import express from 'express';
 
 // use "require" to import JSON files
 const admins = require('./data/admins.json');
+const adminRouter = require('./resources/admins');
+const projects = require('./resources/projects');
 
 const app = express();
 const port = process.env.PORT || 3000;
-const projects = require('./resources/projects');
 
 app.use(express.json());
+app.use('/admins', adminRouter);
+
+app.use('/projects', projects);
 
 app.get('/', async (req, res) => {
   res.send('Hello World!');
 });
-
-app.use('/projects', projects);
 
 app.get('/admins', (req, res) => {
   res.status(200).json({
