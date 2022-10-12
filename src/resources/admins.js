@@ -5,7 +5,7 @@ const admins = require('../data/admins.json');
 const router = express.Router();
 
 // Add admin method
-router.post('/addAdmin', (req, res) => {
+router.post('/add', (req, res) => {
   const newAdmin = req.body;
   if ((JSON.stringify(newAdmin) !== '{}') && (Object.keys(newAdmin)[0] === 'id')
   && !(admins.find((admin) => JSON.stringify(admin.id) === JSON.stringify(newAdmin.id)))) {
@@ -30,21 +30,21 @@ router.post('/addAdmin', (req, res) => {
 });
 
 // Get admin method
-router.get('/getAdminById/:id', (req, res) => {
-  const AdminId = req.params.id;
-  const foundAdmin = admins.find((admin) => JSON.stringify(admin.id) === AdminId);
+router.get('/getById/:id', (req, res) => {
+  const adminId = req.params.id;
+  const foundAdmin = admins.find((admin) => JSON.stringify(admin.id) === adminId);
   if (foundAdmin) {
     res.send(foundAdmin);
   } else {
-    res.send('Admin not found');
+    res.send('Admin not found, missing or incorrect id');
   }
 });
 
 // Delete admin method
-router.delete('/deleteAdmin/:id', (req, res) => {
-  const AdminId = req.params.id;
-  if (admins.find((admin) => JSON.stringify(admin.id) === AdminId)) {
-    const foundAdmin = admins.filter((admin) => JSON.stringify(admin.id) !== AdminId);
+router.delete('/delete/:id', (req, res) => {
+  const adminId = req.params.id;
+  if (admins.find((admin) => JSON.stringify(admin.id) === adminId)) {
+    const foundAdmin = admins.filter((admin) => JSON.stringify(admin.id) !== adminId);
     fs.writeFile('src/data/admins.json', JSON.stringify(foundAdmin), (err) => {
       if (err) {
         res.send('Cannot delete admin');
@@ -57,82 +57,46 @@ router.delete('/deleteAdmin/:id', (req, res) => {
   }
 });
 
-// Filter admins method
-router.get('/getListAdmin/:id/:name/:lastName/:email/:password', (req, res) => {
-  const adminId = req.params.id;
+// Filter admin methods
+router.get('/getByName/:name', (req, res) => {
   const adminName = req.params.name;
-  const adminLastName = req.params.lastName;
-  const adminEmail = req.params.email;
-  const adminPass = req.params.password;
-  let counter = false;
-  let counter2 = false;
-  let counter3 = false;
-
-  const foundAdmin = admins.filter((admin) => {
-    if (JSON.stringify(admin.id) === adminId && counter === false) {
-      counter = true;
-      counter3 = true;
-      return true;
-    }
-    if (admin.email === adminEmail && counter === false) {
-      counter = true;
-      counter3 = true;
-      return true;
-    }
-    if ((admin.name === adminName || admin.lastName === adminLastName
-         || admin.password === adminPass)
-      && (adminId === ':id' && adminEmail === ':email') && counter2 === false) {
-      switch (true) {
-        case admin.name === adminName && admin.lastName === adminLastName
-        && admin.password === adminPass:
-          counter3 = true;
-          counter2 = true;
-          return true;
-        case admin.name === adminName && admin.lastName === adminLastName:
-          if (adminPass !== ':password') {
-            return false;
-          }
-          counter3 = true;
-          counter2 = true;
-          return true;
-        case admin.lastName === adminLastName && admin.password === adminPass:
-          if (adminName !== ':name') {
-            return false;
-          }
-          counter3 = true;
-          counter2 = true;
-          return true;
-        case admin.name === adminName && admin.password === adminPass:
-          if (adminLastName !== ':lastName') {
-            return false;
-          }
-          counter3 = true;
-          counter2 = true;
-          return true;
-        default:
-          switch (true) {
-            case adminName !== ':name' && adminLastName !== ':lastName':
-              return false;
-            case adminLastName !== ':lastName' && adminPass !== ':password':
-              return false;
-            case adminName !== ':name' && adminPass !== ':password':
-              return false;
-            default:
-              counter3 = true;
-              return true;
-          }
-      }
-    }
-    return false;
-  });
-  if (counter3 === false) {
-    res.send('Non existent admin');
+  const foundAdmin = admins.filter((admin) => admin.name === adminName);
+  if (foundAdmin.length !== 0) {
+    res.send(foundAdmin);
+  } else {
+    res.send('Admin not found, missing or incorrect name');
   }
-  res.send(foundAdmin);
+});
+router.get('/getByLastName/:lastName', (req, res) => {
+  const adminLastName = req.params.lastName;
+  const foundAdmin = admins.filter((admin) => admin.lastName === adminLastName);
+  if (foundAdmin.length !== 0) {
+    res.send(foundAdmin);
+  } else {
+    res.send('Admin not found, missing or incorrect last name');
+  }
+});
+router.get('/getByEmail/:email', (req, res) => {
+  const adminEmail = req.params.email;
+  const foundAdmin = admins.find((admin) => admin.email === adminEmail);
+  if (foundAdmin !== undefined) {
+    res.send(foundAdmin);
+  } else {
+    res.send('Admin not found, missing or incorrect email');
+  }
+});
+router.get('/getByPassword/:password', (req, res) => {
+  const adminPassword = req.params.password;
+  const foundAdmin = admins.filter((admin) => admin.password === adminPassword);
+  if (foundAdmin.length !== 0) {
+    res.send(foundAdmin);
+  } else {
+    res.send('Admin not found, missing or incorrect password');
+  }
 });
 
 // Edit admin method
-router.put('/modAdmin/:id', (req, res) => {
+router.put('/update/:id', (req, res) => {
   const foundAdmin = admins.some((admin) => JSON.stringify(admin.id) === req.params.id);
   if (foundAdmin) {
     const updateAdmin = req.body;
