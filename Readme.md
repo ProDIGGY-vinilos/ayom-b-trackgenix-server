@@ -44,6 +44,8 @@ npm run lint:fix
 |Photo | Name  | Mail | Github
 | :-----: | :-----: | :-----: | :-----: |
 <img src="https://avatars.githubusercontent.com/u/20587232?v=4" height="50" width="50">| Esteban Frare | esteban.frare@radiumrocket.com | [@estefrare](https://github.com/estefrare)
+<img src="https://avatars.githubusercontent.com/u/96145652?v=4" height="50" width="50">| Juan Ignacio Vescovo | jivescovo@gmail.com | [@jivescovo](https://github.com/jivescovo)
+<img src="https://avatars.githubusercontent.com/u/111143526?v=4" height="50" width="50">| Maximiliano Licarzze | maxilicarzze@gmail.com | [@Licamus](https://github.com/Licamus)
 <img src="https://avatars.githubusercontent.com/u/109966958?v=4" height="50" width="50">| Camila Diaz | diazcamilae@gmail.com | [@cami-diaz](https://github.com/cami-diaz)
 <img src="https://avatars.githubusercontent.com/u/96145652?v=4" height="50" width="50">| Juan Ignacio Vescovo | jivescovo@gmail.com | [@jivescovo](https://github.com/jivescovo)
 <img src="https://avatars.githubusercontent.com/u/111143526?v=4" height="50" width="50">| Maximiliano Licarzze | maxilicarzze@gmail.com | [@Licamus](https://github.com/Licamus)
