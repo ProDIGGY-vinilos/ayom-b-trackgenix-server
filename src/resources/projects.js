@@ -148,7 +148,8 @@ router.put('/delete/employee', (req, res) => {
 
 //! Get projects
 router.get('/getAll', (req, res) => {
-  res.json(projectsList);
+  res.status(200)
+    .json(projectsList);
 });
 
 /* Get projects by argument
