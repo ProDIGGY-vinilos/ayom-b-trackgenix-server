@@ -14,7 +14,6 @@ app.use(express.json());
 app.use('/admins', adminRouter);
 app.use('/timeSheet', timeSheetRouter);
 app.use('/projects', projects);
-
 app.use('/employees', employees);
 
 app.get('/', async (req, res) => {
