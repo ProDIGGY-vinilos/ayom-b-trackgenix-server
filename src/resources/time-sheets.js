@@ -5,7 +5,7 @@ const timeSheets = require('../data/time-sheets.json');
 const router = express.Router();
 
 // Add time sheet
-router.post('/addTimeSheet', (req, res) => {
+router.post('/add', (req, res) => {
   const newTimeSheet = req.body;
   if ((JSON.stringify(newTimeSheet) !== '{}') && (Object.keys(newTimeSheet)[0] === 'id')
   && !(timeSheets.find((timeSheet) => JSON.stringify(timeSheet.id)
@@ -17,7 +17,7 @@ router.post('/addTimeSheet', (req, res) => {
         if (err) {
           res.send('Problem when adding time sheet');
         } else {
-          res.send('timeSheet created');
+          res.json({ msg: 'time sheet created', newTimeSheet });
         }
       });
     } else {
@@ -31,7 +31,7 @@ router.post('/addTimeSheet', (req, res) => {
 });
 
 // Get time sheet method
-router.get('/getTimeSheetById/:id', (req, res) => {
+router.get('/getById/:id', (req, res) => {
   const timeSheetId = req.params.id;
   const foundTimeSheet = timeSheets.find((timeSheet) => JSON.stringify(timeSheet.id)
   === timeSheetId);
@@ -43,7 +43,7 @@ router.get('/getTimeSheetById/:id', (req, res) => {
 });
 
 // Edit time Sheet method
-router.put('/modTimeSheet/:id', (req, res) => {
+router.put('/update/:id', (req, res) => {
   const foundTimeSheet = timeSheets.some((timeSheet) => JSON.stringify(timeSheet.id)
     === req.params.id);
   if (foundTimeSheet) {

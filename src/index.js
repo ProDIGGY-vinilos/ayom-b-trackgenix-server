@@ -1,7 +1,6 @@
 // use "import" to import libraries
 import express from 'express';
 
-const timeSheets = require('./data/time-sheets.json');
 const timeSheetRouter = require('./resources/time-sheets');
 
 const app = express();
@@ -12,12 +11,6 @@ app.use('/timeSheet', timeSheetRouter);
 
 app.get('/', async (req, res) => {
   res.send('Hello World!');
-});
-
-app.get('/timeSheets', (req, res) => {
-  res.status(200).json({
-    data: timeSheets,
-  });
 });
 
 app.listen(port, () => {
