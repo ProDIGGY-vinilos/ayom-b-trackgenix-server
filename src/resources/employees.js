@@ -8,17 +8,22 @@ router.post('/add', (req, res) => {
   const validKeys = ['id', 'name', 'lastName', 'phone', 'email', 'password'];
   const newEmployee = req.body;
   const newEmployeeKeys = Object.keys(newEmployee);
+  const existEmployee = employees.find((employee) => employee.id === newEmployee.id);
   if (newEmployeeKeys.length < 6) {
     res.send('Please complete all fields');
   } else if (newEmployeeKeys.join('') === validKeys.join('')) {
-    employees.push(newEmployee);
-    fs.writeFile('src/data/employees.json', JSON.stringify(employees), (err) => {
-      if (err) {
-        res.send('New employee not saved.');
-      } else {
-        res.send(`Employee created successfully: ${JSON.stringify(newEmployee, null, 4)}`);
-      }
-    });
+    if (!existEmployee) {
+      employees.push(newEmployee);
+      fs.writeFile('src/data/employees.json', JSON.stringify(employees), (err) => {
+        if (err) {
+          res.send('New employee not saved.');
+        } else {
+          res.send(`Employee created successfully: ${JSON.stringify(newEmployee, null, 4)}`);
+        }
+      });
+    } else {
+      res.send('The employee already exists!');
+    }
   } else {
     res.send('Fields for new user must be "ID, name, last name, phone, email and password".');
   }
