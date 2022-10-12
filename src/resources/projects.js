@@ -1,9 +1,7 @@
-/* eslint-disable max-len */
 /* eslint-disable no-prototype-builtins */
-/* eslint-disable import/no-import-module-exports */
-import express from 'express';
+const express = require('express');
 
-import fs from 'fs';
+const fs = require('fs');
 
 const projectsList = require('../data/projects.json');
 
@@ -30,7 +28,11 @@ const findProjectOnReq = (request) => {
       find = true;
     }
     if (find) {
-      return project.id || project.name || project.clientName || project.startDate || project.endDate;
+      return project.id
+        || project.name
+        || project.clientName
+        || project.startDate
+        || project.endDate;
     }
     return null;
   });
@@ -61,14 +63,19 @@ const findEmployeeOnProject = (project, request) => {
 ? On route must have ID number after /
 ? On body must have Property to edit with new value.
 */
-router.put('/edit/project/:id', (req, res) => {
+router.put('/edit/:id', (req, res) => {
   const projectToEdit = projectsList.find((project) => project.id === Number(req.params.id)) || [];
   if (projectToEdit.length !== 0) {
-    projectToEdit.name = req.body.name ? req.body.name : projectToEdit.name;
-    projectToEdit.clientName = req.body.clientName ? req.body.clientName : projectToEdit.clientName;
-    projectToEdit.description = req.body.description ? req.body.description : projectToEdit.description;
-    projectToEdit.startDate = req.body.startDate ? req.body.startDate : projectToEdit.startDate;
-    projectToEdit.endDate = req.body.endDate ? req.body.endDate : projectToEdit.endDate;
+    projectToEdit.name = req.body.name ? req.body.name
+      : projectToEdit.name;
+    projectToEdit.clientName = req.body.clientName ? req.body.clientName
+      : projectToEdit.clientName;
+    projectToEdit.description = req.body.description ? req.body.description
+      : projectToEdit.description;
+    projectToEdit.startDate = req.body.startDate ? req.body.startDate
+      : projectToEdit.startDate;
+    projectToEdit.endDate = req.body.endDate ? req.body.endDate
+      : projectToEdit.endDate;
     fs.writeFile('src/data/projects.json', JSON.stringify(projectsList), (err) => {
       if (err) {
         res.status(400)
@@ -140,9 +147,8 @@ router.put('/delete/employee', (req, res) => {
 });
 
 //! Get projects
-router.get('/getAll', (req, res, next) => {
+router.get('/getAll', (req, res) => {
   res.json(projectsList);
-  next();
 });
 
 /* Get projects by argument
@@ -153,7 +159,7 @@ router.get('/getAll', (req, res, next) => {
 ? "startDate"
 ? "endDate"
 */
-router.get('/getByArgument', (req, res, next) => {
+router.get('/getByArgument', (req, res) => {
   const filterProjects = findProjectOnReq(req);
   if (filterProjects.length === 0) {
     res.status(400)
@@ -161,7 +167,6 @@ router.get('/getByArgument', (req, res, next) => {
   } else {
     res.json(filterProjects);
   }
-  next();
 });
 
 module.exports = router;

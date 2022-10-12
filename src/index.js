@@ -6,6 +6,7 @@ const admins = require('./data/admins.json');
 
 const app = express();
 const port = process.env.PORT || 3000;
+const projects = require('./resources/projects');
 
 app.use(express.json());
 
@@ -14,7 +15,7 @@ app.get('/', async (req, res) => {
 });
 
 //! Julian Flores & Diaz Camila workspace:
-app.use('/projects', require('./resources/projects'));
+app.use('/projects', projects);
 //! End workspace (JF).
 
 app.get('/admins', (req, res) => {
