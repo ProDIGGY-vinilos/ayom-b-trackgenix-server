@@ -7,7 +7,7 @@ const router = express.Router();
 // Add admin method
 router.post('/addAdmin', (req, res) => {
   const newAdmin = req.body;
-  if ((JSON.stringify(newAdmin) !== '{}')
+  if ((JSON.stringify(newAdmin) !== '{}') && (Object.keys(newAdmin)[0] === 'id')
   && !(admins.find((admin) => JSON.stringify(admin.id) === JSON.stringify(newAdmin.id)))) {
     if (Object.keys(newAdmin)[1] === 'name' && Object.keys(newAdmin)[2] === 'lastName'
      && Object.keys(newAdmin)[3] === 'email' && Object.keys(newAdmin)[4] === 'password') {
@@ -25,7 +25,7 @@ router.post('/addAdmin', (req, res) => {
   } else if (JSON.stringify(newAdmin) === '{}') {
     res.send('Cannot add empty admin');
   } else {
-    res.send('Id cannot be repeated');
+    res.send('Id cannot be repeated or id property name is incorrect');
   }
 });
 
@@ -64,50 +64,50 @@ router.get('/getListAdmin/:id/:name/:lastName/:email/:password', (req, res) => {
   const adminLastName = req.params.lastName;
   const adminEmail = req.params.email;
   const adminPass = req.params.password;
-  let counter = 0;
-  let counter2 = 0;
-  let counter3 = 0;
+  let counter = false;
+  let counter2 = false;
+  let counter3 = false;
 
   const foundAdmin = admins.filter((admin) => {
-    if (JSON.stringify(admin.id) === adminId && counter === 0) {
-      counter = 1;
-      counter3 = 1;
+    if (JSON.stringify(admin.id) === adminId && counter === false) {
+      counter = true;
+      counter3 = true;
       return true;
     }
-    if (admin.email === adminEmail && counter === 0) {
-      counter = 1;
-      counter3 = 1;
+    if (admin.email === adminEmail && counter === false) {
+      counter = true;
+      counter3 = true;
       return true;
     }
     if ((admin.name === adminName || admin.lastName === adminLastName
          || admin.password === adminPass)
-      && (adminId === ':id' && adminEmail === ':email') && counter2 === 0) {
+      && (adminId === ':id' && adminEmail === ':email') && counter2 === false) {
       switch (true) {
         case admin.name === adminName && admin.lastName === adminLastName
         && admin.password === adminPass:
-          counter3 = 1;
-          counter2 = 1;
+          counter3 = true;
+          counter2 = true;
           return true;
         case admin.name === adminName && admin.lastName === adminLastName:
           if (adminPass !== ':password') {
             return false;
           }
-          counter3 = 1;
-          counter2 = 1;
+          counter3 = true;
+          counter2 = true;
           return true;
         case admin.lastName === adminLastName && admin.password === adminPass:
           if (adminName !== ':name') {
             return false;
           }
-          counter3 = 1;
-          counter2 = 1;
+          counter3 = true;
+          counter2 = true;
           return true;
         case admin.name === adminName && admin.password === adminPass:
           if (adminLastName !== ':lastName') {
             return false;
           }
-          counter3 = 1;
-          counter2 = 1;
+          counter3 = true;
+          counter2 = true;
           return true;
         default:
           switch (true) {
@@ -118,21 +118,20 @@ router.get('/getListAdmin/:id/:name/:lastName/:email/:password', (req, res) => {
             case adminName !== ':name' && adminPass !== ':password':
               return false;
             default:
-              counter3 = 1;
+              counter3 = true;
               return true;
           }
       }
     }
     return false;
   });
-  if (counter3 === 0) {
+  if (counter3 === false) {
     res.send('Non existent admin');
   }
   res.send(foundAdmin);
 });
 
 // Edit admin method
-
 router.put('/modAdmin/:id', (req, res) => {
   const foundAdmin = admins.some((admin) => JSON.stringify(admin.id) === req.params.id);
   if (foundAdmin) {
