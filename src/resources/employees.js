@@ -5,19 +5,22 @@ const employees = require('../data/employees.json');
 const router = express.Router();
 
 router.post('/add', (req, res) => {
+  const validKeys = ['id', 'name', 'lastName', 'phone', 'email', 'password'];
   const newEmployee = req.body;
   const newEmployeeKeys = Object.keys(newEmployee);
   if (newEmployeeKeys.length < 6) {
     res.send('Please complete all fields');
-  } else {
+  } else if (newEmployeeKeys.join('') === validKeys.join('')) {
     employees.push(newEmployee);
     fs.writeFile('src/data/employees.json', JSON.stringify(employees), (err) => {
       if (err) {
-        res.send('New user not saved.');
+        res.send('New employee not saved.');
       } else {
-        res.send('New user created.');
+        res.send(`Employee created successfully: ${JSON.stringify(newEmployee, null, 4)}`);
       }
     });
+  } else {
+    res.send('Fields for new user must be "ID, name, last name, phone, email and password".');
   }
 });
 
@@ -26,7 +29,7 @@ router.put('/edit', (req, res) => {
   const editEmployee = req.body;
   const oldEmployee = employees.find((employee) => employee.id === editEmployee.id);
   if (!oldEmployee) {
-    res.send('The user does not exist.');
+    res.send('The employee does not exist.');
   } else {
     if (oldEmployee.name === editEmployee.name) {
       dataError += 1;
