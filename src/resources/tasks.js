@@ -18,7 +18,7 @@ router.post('/add', (req, res) => {
     if (err) {
       res.send('Can not save new task');
     } else {
-      res.send('Task created successfully');
+      res.send(`Task created successfully: ${req.body.description}`);
     }
   });
 });
