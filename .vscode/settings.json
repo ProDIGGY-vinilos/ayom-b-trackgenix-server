@@ -9,7 +9,4 @@
     "source.fixAll.eslint": true
   },
   "eslint.format.enable": true,
-  "editor.fontSize": 15,
-  "editor.fontFamily": "'Cascadia Code LP',Consolas, 'Courier New', monospace",
-  "editor.fontLigatures": true,
 }
