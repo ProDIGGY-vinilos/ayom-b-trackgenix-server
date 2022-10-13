@@ -11,14 +11,18 @@ router.post('/add', (req, res) => {
     res.send('Please, complete all fields');
     return;
   }
-  const newID = Number(superAdmins[superAdmins.length - 1].id) + 1;
-  newSuperAdmin.id = newID.toString();
+  if (Object.keys(newSuperAdmin)[0] !== 'id' || Object.keys(newSuperAdmin)[1] !== 'name'
+  || Object.keys(newSuperAdmin)[2] !== 'lastName' || Object.keys(newSuperAdmin)[3] !== 'email'
+  || Object.keys(newSuperAdmin)[4] !== 'password') {
+    res.send('Incorrct or unordered properties');
+    return;
+  }
   superAdmins.push(newSuperAdmin);
   fs.writeFile('src/data/super-admins.json', JSON.stringify(superAdmins), (err) => {
     if (err) {
       res.send('Can not save new SuperAdmin');
     } else {
-      res.send('SuperAdmin created successfully');
+      res.send(`SuperAdmin created successfully: ${JSON.stringify(newSuperAdmin)}`);
     }
   });
 });

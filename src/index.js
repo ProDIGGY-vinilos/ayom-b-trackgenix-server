@@ -3,6 +3,7 @@ import express from 'express';
 
 // use "require" to import JSON files
 const admins = require('./data/admins.json');
+const superAdminsRouter = require('./resources/super-admins');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,11 +14,7 @@ app.get('/', async (req, res) => {
   res.send('Hello World!');
 });
 
-// Dino Stampella Workspace
-const superAdminsRouter = require('./resources/super-admins');
-
 app.use('/superAdmins', superAdminsRouter);
-// End workspace (DS)
 
 app.get('/admins', (req, res) => {
   res.status(200).json({
