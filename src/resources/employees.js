@@ -11,9 +11,9 @@ router.get('/', (req, res) => {
 
 router.get('/getById/:id', (req, res) => {
   const employeeId = req.params.id;
-  const checkEmployee = employees.find((employee) => employee.id === employeeId);
-  if (checkEmployee) {
-    res.send(checkEmployee);
+  const foundEmployee = employees.find((employee) => employee.id === employeeId);
+  if (foundEmployee) {
+    res.send(foundEmployee);
   } else {
     res.send(`Employee with the Id ${employeeId} NOT FOUND`);
   }
