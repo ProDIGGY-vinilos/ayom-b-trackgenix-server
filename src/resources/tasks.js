@@ -31,16 +31,20 @@ router.put('/edit/:id', (req, res) => {
     return;
   }
   const oldTask = tasks.find(((task) => task.id === Number(taskId)));
-  const index = tasks.indexOf(oldTask);
-  tasks[index] = req.body;
-  tasks[index].id = Number(taskId);
-  fs.writeFile('src/data/tasks.json', JSON.stringify(tasks), (err) => {
-    if (err) {
-      res.send('Can not edit task');
-    } else {
-      res.send('Task edited successfully');
-    }
-  });
+  if (oldTask) {
+    const index = tasks.indexOf(oldTask);
+    tasks[index] = req.body;
+    tasks[index].id = Number(taskId);
+    fs.writeFile('src/data/tasks.json', JSON.stringify(tasks), (err) => {
+      if (err) {
+        res.send(`Can not edit task with the id ${taskId}`);
+      } else {
+        res.send(`Task edited successfully: ${req.body.description}`);
+      }
+    });
+  } else {
+    res.send(`Task with the id ${taskId} not found.`);
+  }
 });
 
 module.exports = router;
