@@ -9,6 +9,8 @@ const timeSheetRouter = require('./resources/time-sheets');
 const adminRouter = require('./resources/admins');
 const projects = require('./resources/projects');
 
+const tasks = require('./resources/tasks');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -18,6 +20,8 @@ app.use('/superAdmins', superAdminsRouter);
 app.use('/timeSheet', timeSheetRouter);
 app.use('/projects', projects);
 app.use('/employees', employees);
+
+app.use('/tasks', tasks);
 
 app.get('/', async (req, res) => {
   res.send('Hello World!');
