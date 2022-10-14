@@ -1,6 +1,10 @@
+/* eslint-disable no-console */
 // use "import" to import libraries
 import express from 'express';
 
+import mongoose from 'mongoose';
+
+const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
 // use "require" to import JSON files
 const admins = require('./data/admins.json');
 const superAdminsRouter = require('./resources/super-admins');
@@ -35,7 +39,16 @@ app.get('/admins', (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Example app listening on port ${port}`);
-});
+mongoose.connect(
+  MONGO_URL,
+  (error) => {
+    if (error) {
+      console.log(`Fail to connect to database ${error}`);
+    } else {
+      console.log('Connected to database');
+      app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`);
+      });
+    }
+  },
+);
