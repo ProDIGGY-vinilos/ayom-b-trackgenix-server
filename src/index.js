@@ -8,6 +8,7 @@ const employees = require('./resources/employees');
 const timeSheetRouter = require('./resources/time-sheets');
 const adminRouter = require('./resources/admins');
 const projects = require('./resources/projects');
+const tasksRouter = require('./resources/tasks');
 
 const tasks = require('./resources/tasks');
 
@@ -20,6 +21,7 @@ app.use('/superAdmins', superAdminsRouter);
 app.use('/timeSheet', timeSheetRouter);
 app.use('/projects', projects);
 app.use('/employees', employees);
+app.use('/tasks', tasksRouter);
 
 app.use('/tasks', tasks);
 
