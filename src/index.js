@@ -38,9 +38,17 @@ app.get('/admins', (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Example app listening on port ${port}`);
-});
-
-mongoose.connect(MONGO_URL);
+mongoose.connect(
+  MONGO_URL,
+  (error) => {
+    if (error) {
+      console.log(`Fail to connect to database ${error}`);
+    } else {
+      console.log('Connected to database');
+      app.listen(port, () => {
+        // eslint-disable-next-line no-console
+        console.log(`Example app listening on port ${port}`);
+      });
+    }
+  },
+);
