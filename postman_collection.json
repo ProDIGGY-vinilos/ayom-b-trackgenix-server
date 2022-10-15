@@ -1,9 +1,55 @@
 {
 	"info": {
-		"_postman_id": "6d9fd284-f705-48c9-bbb0-43f3e1847a31",
+		"_postman_id": "4c1eab3f-134a-492a-a05d-24a8abe5fc56",
 		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23716914"
+		"_exporter_id": "23761134"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "Create Project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Testing\",\r\n        \"description\": \"This project is for testing purposes\",\r\n        \"startDate\": \"10-15-2022\",\r\n        \"endDate\": \"10-16-2022\",\r\n        \"clientName\": \"Guido\",\r\n        \"employee\": [\r\n            {\r\n            \"role\": \"DEV\",\r\n            \"rate\": \"100\"\r\n        },\r\n        {\r\n            \"role\": \"QA\",\r\n            \"rate\": \"250\"\r\n        }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }
