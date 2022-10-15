@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // use "import" to import libraries
 import express from 'express';
 
@@ -23,9 +24,20 @@ app.use('/projects', projects);
 app.use('/employees', employees);
 app.use('/tasks', tasksRouter);
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Example app listening on port ${port}`);
+app.get('/', async (req, res) => {
+  res.send('Hello World!');
 });
 
-mongoose.connect(MONGO_URL);
+mongoose.connect(
+  MONGO_URL,
+  (error) => {
+    if (error) {
+      console.log(`Fail to connect to database ${error}`);
+    } else {
+      console.log('Connected to database');
+      app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`);
+      });
+    }
+  },
+);
