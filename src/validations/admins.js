@@ -2,8 +2,8 @@ import Joi from 'joi';
 
 const validateCreation = (req, res, next) => {
   const adminValidation = Joi.object({
-    name: Joi.string().required().pattern(/^([^0-9]*)$/i), // Have to check if name and lastName have numebers
-    lastName: Joi.string().required().pattern(/^([^0-9]*)$/i),
+    name: Joi.string().required().alphanum().pattern(/^([^0-9]*)$/i, 'only letters'),
+    lastName: Joi.string().required().alphanum().pattern(/^([^0-9]*)$/i, 'only letters'),
     email: Joi.string().email().required(),
     password: Joi.string().alphanum().required(),
   });
