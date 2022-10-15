@@ -2,7 +2,7 @@ import Admins from '../models/Admins';
 
 const getAllAdmins = async (req, res) => {
   try {
-    const admins = await Admins.find(); // Finds all admins in the database
+    const admins = await Admins.find();
     return res.status(200).json({
       message: 'Admins found',
       data: admins,
@@ -26,14 +26,14 @@ const createAdmin = async (req, res) => {
       password: req.body.password,
     });
 
-    const result = await admin.save(); // Saves a new admin in the database
+    const result = await admin.save();
     return res.status(201).json({
       message: 'Admin created',
       data: result,
       error: false,
     });
   } catch (error) {
-    return res.status(400).json({ // Should it be type 500?
+    return res.status(400).json({
       message: 'An error ocurred',
       data: undefined,
       error,
