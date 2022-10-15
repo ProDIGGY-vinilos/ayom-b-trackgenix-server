@@ -1,10 +1,10 @@
 import Joi from 'joi';
 
-const adminValidations = (req, res, next) => {
+const editValidation = (req, res, next) => {
   const editAdmin = Joi.object({
-    name: Joi.string().alphanum().required(),
-    lastName: Joi.string().alphanum().required(),
-    email: Joi.string().email().required(),
+    name: Joi.string().alphanum().pattern(/([a-zA-Z])$/i, 'only letters').required(),
+    lastName: Joi.string().alphanum().pattern(/([a-zA-Z])$/i, 'only letters').required(),
+    email: Joi.string().email().lowercase().required(),
     password: Joi.string().alphanum().required(),
   });
 
@@ -22,5 +22,5 @@ const adminValidations = (req, res, next) => {
 };
 
 export default {
-  adminValidations,
+  editValidation,
 };

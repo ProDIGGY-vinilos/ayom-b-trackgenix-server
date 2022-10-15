@@ -7,6 +7,6 @@ const router = express.Router();
 router
   .get('/:id', adminsControllers.getAdminById)
   .delete('/:id', adminsControllers.deleteAdmin)
-  .put('/:id', adminValidations.editAdmin, adminsControllers.editAdmin);
+  .put('/:id', adminValidations.editValidation, adminsControllers.editAdmin);
 
 export default router;
