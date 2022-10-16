@@ -2,6 +2,7 @@
 // use "import" to import libraries
 import express from 'express';
 
+// eslint-disable-next-line import/no-unresolved
 import mongoose from 'mongoose';
 
 const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
