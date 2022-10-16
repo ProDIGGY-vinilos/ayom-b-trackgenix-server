@@ -5,15 +5,15 @@ const getAdminById = async (req, res) => {
     const { id } = req.params;
     const admin = await Admins.findById(id);
 
-    return res.status(302).json({
+    return res.status(200).json({
       message: 'Admin Found',
       data: admin,
       error: false,
     });
   } catch (err) {
-    return res.status(408)
+    return res.status(404)
       .json({
-        message: 'Something was wrong!',
+        message: `Something was wrong: ${err.message}`,
         error: err,
       });
   }
@@ -31,9 +31,9 @@ const deleteAdmin = async (req, res) => {
         error: false,
       });
   } catch (err) {
-    return res.status(408)
+    return res.status(404)
       .json({
-        message: 'Something was wrong!',
+        message: `Something was wrong: ${err.message}`,
         error: err,
       });
   }
@@ -48,14 +48,14 @@ const editAdmin = async (req, res) => {
       { new: true },
     );
 
-    return res.status(202)
+    return res.status(200)
       .json({
         message: `Admin with id ${id} found and successfully edited!`,
         data: admin,
         error: false,
       });
   } catch (err) {
-    return res.status(408)
+    return res.status(404)
       .json({
         message: 'Something was wrong!',
         error: err,
