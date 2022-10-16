@@ -31,7 +31,7 @@ const projectSchema = new Schema({
       enum: ['DEV', 'QA', 'PM', 'TL'],
     },
     rate: {
-      type: String,
+      type: Number,
       required: true,
     },
   }],
