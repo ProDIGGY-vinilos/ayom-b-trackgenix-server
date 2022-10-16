@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 // use "import" to import libraries
 import express from 'express';
-
-// eslint-disable-next-line import/no-unresolved
 import mongoose from 'mongoose';
+import projectsRouter from './routes/projects';
 
 const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
 // use "require" to import JSON files
@@ -12,7 +11,6 @@ const superAdminsRouter = require('./resources/super-admins');
 const employees = require('./resources/employees');
 const timeSheetRouter = require('./resources/time-sheets');
 const adminRouter = require('./resources/admins');
-const projects = require('./resources/projects');
 const tasksRouter = require('./resources/tasks');
 
 const tasks = require('./resources/tasks');
@@ -24,7 +22,7 @@ app.use(express.json());
 app.use('/admins', adminRouter);
 app.use('/superAdmins', superAdminsRouter);
 app.use('/timeSheet', timeSheetRouter);
-app.use('/projects', projects);
+app.use('/projects', projectsRouter);
 app.use('/employees', employees);
 app.use('/tasks', tasksRouter);
 

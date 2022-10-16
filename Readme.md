@@ -40,10 +40,10 @@ npm run lint:fix
 
 ### Members
 
-(example)
 |Photo | Name  | Mail | Github
 | :-----: | :-----: | :-----: | :-----: |
-<img src="https://avatars.githubusercontent.com/u/20587232?v=4" height="50" width="50">| Esteban Frare | esteban.frare@radiumrocket.com | [@estefrare](https://github.com/estefrare)
+<img src="https://avatars.githubusercontent.com/u/100219704?v=4" height="50" width="50">| Ignacio Aristo| verona.baudracco@radiumrocket.com | [@baudraccoverona](https://https://https://github.com/baudraccoverona)
+<img src="https://avatars.githubusercontent.com/u/72083744?v=4" height="50" width="50">| Ignacio Aristo| ignacio.aristo@radiumrocket.com | [@ignacioaristo](https://https://github.com/ignacioaristo)
 <img src="https://avatars.githubusercontent.com/u/96196361?v=4" height="50" width="50">| Julian Flores | julianfloresdev@gmail.com | [@JulianF](https://github.com/JulianFloresDev)
 <img src="https://avatars.githubusercontent.com/u/96145652?v=4" height="50" width="50">| Juan Ignacio Vescovo | jivescovo@gmail.com | [@jivescovo](https://github.com/jivescovo)
 <img src="https://avatars.githubusercontent.com/u/111143526?v=4" height="50" width="50">| Maximiliano Licarzze | maxilicarzze@gmail.com | [@Licamus](https://github.com/Licamus)
