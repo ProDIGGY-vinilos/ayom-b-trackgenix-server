@@ -6,12 +6,10 @@ const getAllAdmins = async (req, res) => {
     return res.status(200).json({
       message: 'Admins found',
       data: admins,
-      error: false,
     });
   } catch (error) {
-    return res.json({
+    return res.status(404).json({
       message: 'An error ocurred',
-      data: undefined,
       error,
     });
   }
@@ -30,12 +28,10 @@ const createAdmin = async (req, res) => {
     return res.status(201).json({
       message: 'Admin created',
       data: result,
-      error: false,
     });
   } catch (error) {
     return res.status(400).json({
       message: 'An error ocurred',
-      data: undefined,
       error,
     });
   }
