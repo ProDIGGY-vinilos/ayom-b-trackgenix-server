@@ -4,11 +4,12 @@ import express from 'express';
 
 import mongoose from 'mongoose';
 
+import employeeRouter from './routes/employees';
+
 const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
 // use "require" to import JSON files
 const admins = require('./data/admins.json');
 const superAdminsRouter = require('./resources/super-admins');
-const employees = require('./resources/employees');
 const timeSheetRouter = require('./resources/time-sheets');
 const adminRouter = require('./resources/admins');
 const projects = require('./resources/projects');
@@ -24,7 +25,7 @@ app.use('/admins', adminRouter);
 app.use('/superAdmins', superAdminsRouter);
 app.use('/timeSheet', timeSheetRouter);
 app.use('/projects', projects);
-app.use('/employees', employees);
+app.use('/employees', employeeRouter);
 app.use('/tasks', tasksRouter);
 
 app.use('/tasks', tasks);

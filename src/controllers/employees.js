@@ -1,9 +1,8 @@
-import Employees from "../models/Employees";
+import Employees from '../models/Employees';
 
 const getAllEmployees = async (req, res) => {
   try {
-
-    const employees = await Employees.find()
+    const employees = await Employees.find();
 
     return res.status(200).json({
       message: 'Employee found',
@@ -13,7 +12,7 @@ const getAllEmployees = async (req, res) => {
   } catch (error) {
     return res.json({
       message: 'An error ocurred',
-      error: error,
+      error,
     });
   }
 };
@@ -37,10 +36,10 @@ const createEmployee = async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       message: 'An error ocurred',
-      error: error,
+      error,
     });
   }
-}
+};
 
 export default {
   getAllEmployees,
