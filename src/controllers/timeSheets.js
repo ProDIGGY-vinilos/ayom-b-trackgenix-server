@@ -20,6 +20,27 @@ const getTimeSheetById = async (req, res) => {
   }
 };
 
+// Delete by Id
+
+const deleteTimeSheet = async (req, res) => {
+  try {
+    const { id } = req.params.id;
+    const result = await TimeSheets.findByIdAndDelete(id);
+
+    return res.status(200).json({
+      message: `TimeSheet with the id ${id} deleted`,
+      data: result,
+      error: false,
+    });
+  } catch (err) {
+    return res.json({
+      message: 'An error ocurred',
+      error: err,
+    });
+  }
+};
+
 export default {
   getTimeSheetById,
+  deleteTimeSheet,
 };
