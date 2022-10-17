@@ -3,16 +3,17 @@ import Projects from '../models/Projects';
 const createProject = async (req, res) => {
   // si ya existe el proyecto, crearlo de nuevo? con que dato valido si ya existe?
   try {
+    // const employees = new Employees({
+    //   role: req.body.employee.role,
+    //   rate: req.body.employee.rate,
+    // });
     const project = new Projects({
       name: req.body.name,
       description: req.body.description,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
       clientName: req.body.clientName,
-      employee: [{ // se deberia poder cargar mas de un empleado a la vez?
-        role: req.body.employee[0].role,
-        rate: req.body.employee[0].rate,
-      }],
+      employees: req.body.employee,
     });
     const result = await project.save();
     return res.status(201).json({
@@ -22,7 +23,7 @@ const createProject = async (req, res) => {
     });
   } catch (error) {
     return res.status(400).json({
-      message: 'Error crating project.',
+      message: 'Error creating project.',
       data: undefined,
       error: 'error',
     });
