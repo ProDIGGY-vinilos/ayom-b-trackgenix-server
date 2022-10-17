@@ -1,12 +1,15 @@
 import Projects from '../models/Projects';
 
 const createProject = async (req, res) => {
-  // si ya existe el proyecto, crearlo de nuevo? con que dato valido si ya existe?
   try {
-    // const employees = new Employees({
-    //   role: req.body.employee.role,
-    //   rate: req.body.employee.rate,
-    // });
+    const existProject = await Projects.findOne({ name: req.body.name });
+    if (existProject) {
+      return res.status(400).json({
+        message: 'The project alredy exists!',
+        data: undefined,
+        error: true,
+      });
+    }
     const project = new Projects({
       name: req.body.name,
       description: req.body.description,
@@ -25,7 +28,7 @@ const createProject = async (req, res) => {
     return res.status(400).json({
       message: 'Error creating project.',
       data: undefined,
-      error: 'error',
+      error: true,
     });
   }
 };
