@@ -8,9 +8,9 @@ const getAllSuperAdmins = async (req, res) => {
       message: 'Super Admin found',
       data: superAdmins,
     });
-  } catch (error) {
-    return res.json({
-      message: `An error ocurred ${error}`,
+  } catch (err) {
+    return res.status(400).json({
+      message: `An error ocurred ${err}`,
     });
   }
 };
@@ -29,9 +29,9 @@ const createSuperAdmin = async (req, res) => {
       message: 'Super Admin created successfully',
       data: result,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(400).json({
-      message: `An error ocurred ${error}`,
+      message: `An error ocurred ${err}`,
     });
   }
 };
