@@ -22,7 +22,7 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  employee: [{
+  employees: [{
     role: {
       type: String,
       required: true,
