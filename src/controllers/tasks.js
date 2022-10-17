@@ -19,7 +19,7 @@ const getAllTasks = async (req, res) => {
 
 const createNewTask = async (req, res) => {
   try {
-    const newTask = Tasks.create({
+    const newTask = await Tasks.create({
       description: req.body.description,
     });
     const newTaskCreated = await newTask.save();
