@@ -8,13 +8,11 @@ const getAllTasks = async (req, res) => {
       .json({
         message: 'Tasks found!',
         data: taskList,
-        error: false,
       });
   } catch (err) {
     return res.status(404)
       .json({
-        message: 'There was an error sending the request!',
-        error: err,
+        message: `There was an error sending the request! Error: ${err.message}`,
       });
   }
 };
@@ -29,13 +27,11 @@ const createNewTask = async (req, res) => {
       .json({
         message: 'Task successfully created!',
         data: newTaskCreated,
-        error: false,
       });
   } catch (err) {
     return res.status(400)
       .json({
-        message: 'Something was wrong with this request!',
-        error: err,
+        message: `Something was wrong with this request! Error: ${err.message}`,
       });
   }
 };
