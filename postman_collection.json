@@ -1,11 +1,32 @@
 {
 	"info": {
-		"_postman_id": "6d9fd284-f705-48c9-bbb0-43f3e1847a31",
+		"_postman_id": "e2c4cee3-7786-489b-842c-81d1ded95565",
 		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23716914"
+		"_exporter_id": "23779120"
 	},
 	"item": [
+		{
+			"name": "SuperAdmins",
+			"item": [
+				{
+					"name": "GetAllSuperAdmins",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "CreateSuperAdmin",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Admins Get By Id",
 			"request": {

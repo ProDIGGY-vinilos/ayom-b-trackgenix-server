@@ -5,7 +5,7 @@ import superAdminsValidations from '../validations/superAdmins';
 const router = express.Router();
 
 router
-  .get('/', superAdminsControllers.getAllsuperAdmins)
+  .get('/', superAdminsControllers.getAllSuperAdmins)
   .post('/', superAdminsValidations.validateCreation, superAdminsControllers.createSuperAdmin);
 
 export default router;
