@@ -7,9 +7,9 @@ const getAllAdmins = async (req, res) => {
       message: 'Admins found',
       data: admins,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(404).json({
-      message: `An error ocurred: ${error}`,
+      message: `An error ocurred: ${err}`,
     });
   }
 };
@@ -28,9 +28,9 @@ const createAdmin = async (req, res) => {
       message: 'Admin created',
       data: result,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(400).json({
-      message: `An error ocurred: ${error}`,
+      message: `An error ocurred: ${err}`,
     });
   }
 };
