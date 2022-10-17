@@ -9,6 +9,6 @@ router
   .get('/:id', timeSheetsControllers.getTimeSheetById)
   .post('/', timeSheetsValidations.validateCreation, timeSheetsControllers.createTimeSheet)
   .delete('/:id', timeSheetsControllers.deleteTimeSheet)
-  .put('/:id', timeSheetsControllers.editTimeSheet);
+  .put('/:id', timeSheetsValidations.validateCreation, timeSheetsControllers.editTimeSheet);
 
 export default router;
