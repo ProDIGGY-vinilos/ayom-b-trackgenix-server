@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
