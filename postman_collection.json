@@ -1,9 +1,88 @@
 {
 	"info": {
-		"_postman_id": "6d9fd284-f705-48c9-bbb0-43f3e1847a31",
+		"_postman_id": "78d75c72-bc7a-47e9-9318-223418ea0e02",
 		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23716914"
+		"_exporter_id": "23779120"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "Timesheet",
+			"item": [
+				{
+					"name": "GetTimeSheetById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/timeSheet/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"timeSheet",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTimeSheet",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/timeSheet/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"timeSheet",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditTimeSheet",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Description edited\",\r\n    \"date\": \"10-01-1999\",\r\n    \"task\": \"FE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/timeSheet/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"timeSheet",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }

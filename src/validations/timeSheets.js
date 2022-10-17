@@ -9,7 +9,7 @@ const validateCreation = (req, res, next) => {
 
   const validation = timeSheetValidation.validate(req.body);
 
-  if (validation.err) {
+  if (validation.error) {
     return res.status(400).json({
       message: `There was an error: ${validation.error.datails[0].message}`,
       data: undefined,
