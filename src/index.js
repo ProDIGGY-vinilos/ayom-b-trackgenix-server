@@ -1,15 +1,14 @@
 /* eslint-disable no-console */
 // use "import" to import libraries
 import express from 'express';
-
 import mongoose from 'mongoose';
+import timeSheetRouter from './routes/timeSheets';
 
 const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
 // use "require" to import JSON files
 const admins = require('./data/admins.json');
 const superAdminsRouter = require('./resources/super-admins');
 const employees = require('./resources/employees');
-const timeSheetRouter = require('./resources/time-sheets');
 const adminRouter = require('./resources/admins');
 const projects = require('./resources/projects');
 const tasksRouter = require('./resources/tasks');
