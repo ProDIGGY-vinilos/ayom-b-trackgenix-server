@@ -9,8 +9,7 @@ const getAllAdmins = async (req, res) => {
     });
   } catch (error) {
     return res.status(404).json({
-      message: 'An error ocurred',
-      error,
+      message: `An error ocurred: ${error}`,
     });
   }
 };
@@ -31,8 +30,7 @@ const createAdmin = async (req, res) => {
     });
   } catch (error) {
     return res.status(400).json({
-      message: 'An error ocurred',
-      error,
+      message: `An error ocurred: ${error}`,
     });
   }
 };
