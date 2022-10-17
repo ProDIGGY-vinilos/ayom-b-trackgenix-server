@@ -1,9 +1,46 @@
 {
-	"info": {
-		"_postman_id": "6d9fd284-f705-48c9-bbb0-43f3e1847a31",
-		"name": "Trackgenix Tests",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23716914"
-	},
-	"item": []
+  "info": {
+    "_postman_id": "3cea9b1f-f6a4-4363-9891-dcad85b4cf9f",
+    "name": "week 09",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "http://localhost:3000/employees",
+      "id": "b5e9afca-4e06-49fe-98fd-5702d784d765",
+      "request": {
+        "method": "POST",
+        "header": [
+          
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"name\": \"Maximiliano\",\r\n        \"lastName\": \"Licarzze\",\r\n        \"phone\": \"4851981280\",\r\n        \"email\": \"bblackstone8@canalblog.com\",\r\n        \"password\": \"iniN6OfE\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:3000/employees"
+      },
+      "response": [
+        
+      ]
+    },
+    {
+      "name": "http://localhost:3000/employees",
+      "id": "2f54eb8e-0e24-42ed-a3e6-31f7653458f3",
+      "request": {
+        "method": "GET",
+        "header": [
+          
+        ],
+        "url": "http://localhost:3000/employees"
+      },
+      "response": [
+        
+      ]
+    }
+  ]
 }
