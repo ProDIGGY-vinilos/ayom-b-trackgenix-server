@@ -1,7 +1,5 @@
 import TimeSheets from '../models/TimeSheets';
 
-// Get by Id
-
 const getTimeSheetById = async (req, res) => {
   try {
     const searchId = req.params.id;
@@ -10,17 +8,13 @@ const getTimeSheetById = async (req, res) => {
     return res.status(200).json({
       message: 'TimeSheet found',
       data: timeSheets,
-      error: false,
     });
-  } catch (error) {
-    return res.json({
-      message: 'An error ocurred',
-      error: true,
+  } catch (err) {
+    return res.status(400).json({
+      message: `An error ocurred ${err}`,
     });
   }
 };
-
-// Delete by Id
 
 const deleteTimeSheet = async (req, res) => {
   try {
@@ -30,17 +24,13 @@ const deleteTimeSheet = async (req, res) => {
     return res.status(200).json({
       message: `TimeSheet with the id ${searchId} deleted`,
       data: result,
-      error: false,
     });
-  } catch (error) {
-    return res.json({
-      message: 'An error ocurred',
-      error: true,
+  } catch (err) {
+    return res.status(400).json({
+      message: `An error ocurred ${err}`,
     });
   }
 };
-
-// Edit by Id
 
 const editTimeSheet = async (req, res) => {
   try {
@@ -54,12 +44,10 @@ const editTimeSheet = async (req, res) => {
     return res.status(200).json({
       message: `TimeSheet with the id ${searchId} edited`,
       data: result,
-      error: false,
     });
-  } catch (error) {
-    return res.json({
-      message: 'An error ocurred',
-      error: true,
+  } catch (err) {
+    return res.status(400).json({
+      message: `An error ocurred ${err}`,
     });
   }
 };
