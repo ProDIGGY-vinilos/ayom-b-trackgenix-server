@@ -161,6 +161,62 @@
 				}
 			},
 			"response": []
-		}
+		},
+    {
+      "name": "Admin getAll",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/admins/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "admins",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\n{\n  \"name\": \"Slade\",\n  \"lastName\": \"Kilkenny\",\n  \"email\": \"skilkenny0@army.mil\",\n  \"password\": \"NzxSNoaUHu\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/admins/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "admins",
+            ""
+          ]
+        },
+        "description": "Change the body as you see fit, to add a new admin to the DB"
+      },
+      "response": []
+    }
 	]
 }

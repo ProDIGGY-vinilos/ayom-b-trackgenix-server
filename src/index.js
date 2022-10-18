@@ -8,7 +8,6 @@ import adminRouter from './routes/admins';
 import employeeRouter from './routes/employees';
 
 const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
-// use "require" to import JSON files
 const superAdminsRouter = require('./resources/super-admins');
 const timeSheetRouter = require('./resources/time-sheets');
 const projects = require('./resources/projects');
