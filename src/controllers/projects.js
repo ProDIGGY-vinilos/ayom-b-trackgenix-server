@@ -6,8 +6,6 @@ const createProject = async (req, res) => {
     if (existProject) {
       return res.status(400).json({
         message: 'The project alredy exists!',
-        data: undefined,
-        error: true,
       });
     }
     const project = new Projects({
@@ -22,13 +20,10 @@ const createProject = async (req, res) => {
     return res.status(201).json({
       message: 'The project was created.',
       data: result,
-      error: false,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(400).json({
       message: 'Error creating project.',
-      data: undefined,
-      error: true,
     });
   }
 };
@@ -39,12 +34,10 @@ const getAllProjects = async (req, res) => {
     return res.status(200).json({
       message: 'Projects found:',
       data: projects,
-      error: false,
     });
-  } catch (error) {
+  } catch (err) {
     return res.json({
       message: 'Error getting projects.',
-      error: 'error',
     });
   }
 };
