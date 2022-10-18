@@ -7,12 +7,10 @@ const getAllTimeSheets = async (req, res) => {
     return res.status(200).json({
       message: 'TimeSheets found',
       data: timeSheets,
-      error: false,
     });
   } catch (err) {
-    return res.json({
+    return res.status(400).json({
       message: 'Has occurred a problem, searching TimeSheets',
-      error: err,
     });
   }
 };
