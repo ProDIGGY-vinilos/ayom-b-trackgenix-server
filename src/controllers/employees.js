@@ -7,7 +7,6 @@ const getAllEmployees = async (req, res) => {
     return res.status(200).json({
       message: 'Employee found',
       data: employees,
-      error: false,
     });
   } catch (err) {
     return res.json({
@@ -31,7 +30,6 @@ const createEmployee = async (req, res) => {
     return res.status(201).json({
       message: 'Employee created successfully',
       data: result,
-      error: false,
     });
   } catch (err) {
     return res.status(400).json({
