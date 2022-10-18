@@ -10,7 +10,7 @@ const getAllTimeSheets = async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({
-      message: 'Has occurred a problem, searching TimeSheets',
+      message: `Has occurred a problem: ${err}`,
     });
   }
 };
