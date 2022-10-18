@@ -28,13 +28,11 @@ const createTimeSheet = async (req, res) => {
     const result = await timeSheets.save();
     return res.status(201).json({
       message: 'TimeSheet created successfully',
-      date: result,
-      error: false,
+      data: result,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(400).json({
-      message: 'Problem detected, creating TimeSheet',
-      error: true,
+      message: `Problem detected, creating TimeSheet ${err}`,
     });
   }
 };
