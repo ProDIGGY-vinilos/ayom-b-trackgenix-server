@@ -1,9 +1,76 @@
 {
 	"info": {
-		"_postman_id": "6d9fd284-f705-48c9-bbb0-43f3e1847a31",
+		"_postman_id": "ab37ff15-4e6b-43b4-ac82-14b0b1e8974f",
 		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23716914"
+		"_exporter_id": "23742677"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "Get employee by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/employees/634d8c845702c8f99755b537",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees",
+						"634d8c845702c8f99755b537"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit employee",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Manuela\",\r\n    \"lastName\": \"Stampella\",\r\n    \"phone\": \"3465663173\",\r\n    \"email\": \"manuelita@gmail.com\",\r\n    \"password\": \"234sd25g4g5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/employees/634d8c845702c8f99755b537",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees",
+						"634d8c845702c8f99755b537"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete employee",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/employees/634d90aedc08792c8d2fae9c",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees",
+						"634d8dd80949819b38831d67"
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }

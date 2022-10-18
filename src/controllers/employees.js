@@ -39,12 +39,9 @@ const editEmployee = async (req, res) => {
 const deleteEmployee = async (req, res) => {
   try {
     const { id } = req.params;
-    const employee = await Employees.findByIdAndDelete(id);
+    await Employees.findByIdAndDelete(id);
 
-    return res.status(200).json({
-      message: `${employee.name} ${employee.lastName} has been deleted!`,
-      data: employee,
-    });
+    return res.status(204).json();
   } catch (err) {
     return res.status(404).json({
       message: `Something was wrong: ${err.message}`,
