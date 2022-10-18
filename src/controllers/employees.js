@@ -9,9 +9,8 @@ const getAllEmployees = async (req, res) => {
       data: employees,
     });
   } catch (err) {
-    return res.json({
+    return res.status(400).json({
       message: 'An error ocurred',
-      error: err,
     });
   }
 };
@@ -34,7 +33,6 @@ const createEmployee = async (req, res) => {
   } catch (err) {
     return res.status(400).json({
       message: `An error ocurred: ${err}`,
-      error: err,
     });
   }
 };
