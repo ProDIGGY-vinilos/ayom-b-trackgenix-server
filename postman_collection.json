@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4c1eab3f-134a-492a-a05d-24a8abe5fc56",
+		"_postman_id": "b52848b4-75fd-473d-bdd3-a696da11d452",
 		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23742677"
+		"_exporter_id": "23776410"
 	},
 	"item": [
 		{
@@ -336,6 +336,51 @@
 					"port": "3000",
 					"path": [
 						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Get All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/employees",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Maximiliano\",\r\n        \"lastName\": \"Licarzze\",\r\n        \"phone\": \"4851981280\",\r\n        \"email\": \"bblackstone8@canalblog.com\",\r\n        \"password\": \"iniN6OfE\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/employees",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees"
 					]
 				}
 			},
