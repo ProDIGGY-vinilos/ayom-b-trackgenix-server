@@ -1,13 +1,106 @@
 {
 	"info": {
-		"_postman_id": "4e4c2086-122e-4949-a9bf-66e0f73d421b",
-		"name": "TimeSheeet Test",
+		"_postman_id": "6d9fd284-f705-48c9-bbb0-43f3e1847a31",
+		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23716914"
 	},
 	"item": [
 		{
-			"name": "Get By Argument on Body",
+			"name": "Admins Get By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/admins/634a0b062943924391b3b042",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admins",
+						"634a0b062943924391b3b042"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Delete by Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/admins/634a0b062943924391b3b042",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admins",
+						"634a0b062943924391b3b042"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admins Edit by Id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Patricia123\",\r\n    \"lastName\": \"sanchez44\",\r\n    \"email\": \"lanuevaShopie@gmail.com\",\r\n    \"password\": \"dasc23rqefaDSFGAevq\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/admins/6349fef374e909409eb16955",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admins",
+						"6349fef374e909409eb16955"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tasks Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"pepe-pepe-pepeeeee!!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tasks Get All",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -16,7 +109,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"task\": \"Check Status\",\r\n    \"date\": \"30/10/2021\"\r\n}",
+					"raw": "{\r\n    \"_id\": \"634def9dc4b1b7e14320adf7\",\r\n    \"name\": \"raúl\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -24,42 +117,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/timeSheets/getByArgument",
+					"raw": "localhost:3000/tasks",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"timeSheets",
-						"getByArgument"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Task",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"task\": \"Eat an apple\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:3000/timeSheets/delete",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"timeSheets",
-						"delete"
+						"tasks"
 					]
 				}
 			},
