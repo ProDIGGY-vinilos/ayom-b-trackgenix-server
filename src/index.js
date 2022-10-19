@@ -1,19 +1,16 @@
 /* eslint-disable no-console */
 // use "import" to import libraries
 import express from 'express';
+
 import mongoose from 'mongoose';
+import timeSheetRouter from './routes/timeSheets';
+import tasksRouter from './routes/tasks';
+import adminRouter from './routes/admins';
 import projectsRouter from './routes/projects';
 
 const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
-// use "require" to import JSON files
-const admins = require('./data/admins.json');
 const superAdminsRouter = require('./resources/super-admins');
 const employees = require('./resources/employees');
-const timeSheetRouter = require('./resources/time-sheets');
-const adminRouter = require('./resources/admins');
-const tasksRouter = require('./resources/tasks');
-
-const tasks = require('./resources/tasks');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,20 +19,12 @@ app.use(express.json());
 app.use('/admins', adminRouter);
 app.use('/superAdmins', superAdminsRouter);
 app.use('/timeSheet', timeSheetRouter);
-app.use('/projects', projectsRouter);
 app.use('/employees', employees);
 app.use('/tasks', tasksRouter);
-
-app.use('/tasks', tasks);
+app.use('/projects', projectsRouter);
 
 app.get('/', async (req, res) => {
   res.send('Hello World!');
-});
-
-app.get('/admins', (req, res) => {
-  res.status(200).json({
-    data: admins,
-  });
 });
 
 mongoose.connect(
