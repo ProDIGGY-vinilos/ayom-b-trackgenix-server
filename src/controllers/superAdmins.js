@@ -1,4 +1,4 @@
-import SuperAdmins from '../models/Employees';
+import SuperAdmins from '../models/SuperAdmins';
 
 const getSuperAdminById = async (req, res) => {
   try {
@@ -6,7 +6,7 @@ const getSuperAdminById = async (req, res) => {
     const superAdmin = await SuperAdmins.findById(id);
 
     return res.status(200).json({
-      message: `Employee found: ${superAdmin.name} ${superAdmin.lastName}!`,
+      message: `SuperAdmin found: ${superAdmin.name} ${superAdmin.lastName}!`,
       data: superAdmin,
     });
   } catch (err) {
