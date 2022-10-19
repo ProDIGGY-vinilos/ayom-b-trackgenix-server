@@ -23,7 +23,7 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  employee: [{
+  employees: [{
     role: {
       type: String,
       required: true,
@@ -35,5 +35,4 @@ const projectSchema = new Schema({
     },
   }],
 });
-
 export default mongoose.model('Project', projectSchema);

@@ -11,7 +11,6 @@ const getProjectById = async (req, res) => {
     }
     return res.status(400).json({
       msg: `Cannot find project with ID: ${req.params.id}`,
-      error: true,
     });
   } catch (err) {
     return res.status(500).json({
