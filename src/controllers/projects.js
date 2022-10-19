@@ -2,7 +2,7 @@ import Projects from '../models/Projects';
 
 const createProject = async (req, res) => {
   try {
-    const existProject = await Projects.findOne({ name: req.body.name });
+    const existProject = await Projects.find({ name: req.body.name });
     if (existProject) {
       return res.status(400).json({
         message: 'The project alredy exists!',
@@ -23,21 +23,26 @@ const createProject = async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({
-      message: 'Error creating project.',
+      message: `Error creating project. ${err}`,
     });
   }
 };
 
 const getAllProjects = async (req, res) => {
   try {
-    const projects = await Projects.find();
+    const projects = await Projects.find(req.query);
+    if (!projects.length) {
+      return res.status(400).json({
+        message: 'Non existent project!',
+      });
+    }
     return res.status(200).json({
       message: 'Projects found:',
       data: projects,
     });
   } catch (err) {
-    return res.json({
-      message: 'Error getting projects.',
+    return res.status(400).json({
+      message: `Error getting projects. ${err}`,
     });
   }
 };
