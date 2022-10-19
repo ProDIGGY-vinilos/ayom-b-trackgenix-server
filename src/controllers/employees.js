@@ -10,7 +10,7 @@ const getAllEmployees = async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({
-      message: 'An error ocurred',
+      message: `An error ocurred: ${err}`,
     });
   }
 };
