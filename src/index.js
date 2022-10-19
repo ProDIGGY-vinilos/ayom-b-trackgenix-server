@@ -6,19 +6,18 @@ import mongoose from 'mongoose';
 import timeSheetRouter from './routes/timeSheets';
 import tasksRouter from './routes/tasks';
 import adminRouter from './routes/admins';
+import superAdminRouter from './routes/superAdmins';
 import projectsRouter from './routes/projects';
-
 import employeeRouter from './routes/employees';
 
 const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
-const superAdminsRouter = require('./resources/super-admins');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/admins', adminRouter);
-app.use('/superAdmins', superAdminsRouter);
+app.use('/superAdmins', superAdminRouter);
 app.use('/timeSheet', timeSheetRouter);
 app.use('/employees', employeeRouter);
 app.use('/tasks', tasksRouter);
