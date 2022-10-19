@@ -1,12 +1,224 @@
 {
 	"info": {
-		"_postman_id": "8936ba7a-7106-4f83-af25-fba0700b96ce",
-		"name": "Trackgenix Tests Copy",
+		"_postman_id": "4c1eab3f-134a-492a-a05d-24a8abe5fc56",
+		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23742677"
 	},
 	"item": [
 		{
+			"name": "Admins Get By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/admins/634a0b062943924391b3b042",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admins",
+						"634a0b062943924391b3b042"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Delete by Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/admins/634a0b062943924391b3b042",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admins",
+						"634a0b062943924391b3b042"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admins Edit by Id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Patricia123\",\r\n    \"lastName\": \"sanchez44\",\r\n    \"email\": \"lanuevaShopie@gmail.com\",\r\n    \"password\": \"dasc23rqefaDSFGAevq\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/admins/6349fef374e909409eb16955",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admins",
+						"6349fef374e909409eb16955"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tasks Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"pepe-pepe-pepeeeee!!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tasks Get All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+    {
+      "name": "Admin getAll",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/admins/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "admins",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\n{\n  \"name\": \"Slade\",\n  \"lastName\": \"Kilkenny\",\n  \"email\": \"skilkenny0@army.mil\",\n  \"password\": \"NzxSNoaUHu\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/admins/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "admins",
+            ""
+          ]
+        },
+        "description": "Change the body as you see fit, to add a new admin to the DB"
+      },
+      "response": []
+    },
+    {
+			"name": "Create Project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Testing\",\r\n        \"description\": \"This project is for testing purposes\",\r\n        \"startDate\": \"10-15-2022\",\r\n        \"endDate\": \"10-16-2022\",\r\n        \"clientName\": \"Guido\",\r\n        \"employee\": [\r\n            {\r\n            \"role\": \"DEV\",\r\n            \"rate\": \"100\"\r\n        },\r\n        {\r\n            \"role\": \"QA\",\r\n            \"rate\": \"250\"\r\n        }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+    {
 			"name": "Admins Get By Id",
 			"request": {
 				"method": "GET",
