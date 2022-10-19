@@ -101,9 +101,21 @@
 		},
 		{
 			"name": "Tasks Get All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"634def9dc4b1b7e14320adf7\",\r\n    \"name\": \"raúl\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "localhost:3000/tasks",
 					"host": [
