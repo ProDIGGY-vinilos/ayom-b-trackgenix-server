@@ -16,7 +16,6 @@ const getProjectById = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       msg: `There was an error: ${err}`,
-      error: true,
     });
   }
 };
@@ -32,12 +31,10 @@ const deleteProject = async (req, res) => {
     }
     return res.status(404).json({
       msg: `Cannot delete project with ID: ${req.params.id}`,
-      error: true,
     });
   } catch (err) {
     return res.status(500).json({
       msg: `There was an error: ${err}`,
-      error: true,
     });
   }
 };
@@ -57,12 +54,10 @@ const updateProject = async (req, res) => {
     }
     return res.status(404).json({
       msg: `Cannot find project with ID: ${req.params.id}`,
-      error: true,
     });
   } catch (err) {
     return res.status(500).json({
       msg: `There was an error: ${err}`,
-      error: true,
     });
   }
 };
