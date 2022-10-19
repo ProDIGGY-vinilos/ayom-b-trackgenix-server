@@ -51,8 +51,12 @@ const deleteEmployee = async (req, res) => {
 
 const getAllEmployees = async (req, res) => {
   try {
-    const employees = await Employees.find();
-
+    const employees = await Employees.find(req.query);
+    if (!employees.length) {
+      return res.status(400).json({
+        message: 'Employee not found',
+      });
+    }
     return res.status(200).json({
       message: 'Employee found',
       data: employees,
