@@ -2,12 +2,6 @@ import Projects from '../models/Projects';
 
 const createProject = async (req, res) => {
   try {
-    const existProject = await Projects.find({ name: req.body.name });
-    if (existProject) {
-      return res.status(400).json({
-        message: 'The project alredy exists!',
-      });
-    }
     const project = new Projects({
       name: req.body.name,
       description: req.body.description,
