@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "b52848b4-75fd-473d-bdd3-a696da11d452",
+		"_postman_id": "4dd83182-c631-438b-b905-590e3d30a2cb",
 		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23776410"
+		"_exporter_id": "23769353"
 	},
 	"item": [
 		{
@@ -275,63 +275,63 @@
 			},
 			"response": []
 		},
-    {
-      "name": "Admin getAll",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:3000/admins/",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "3000",
-          "path": [
-            "admins",
-            ""
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Admin create",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "\n{\n  \"name\": \"Slade\",\n  \"lastName\": \"Kilkenny\",\n  \"email\": \"skilkenny0@army.mil\",\n  \"password\": \"NzxSNoaUHu\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:3000/admins/",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "3000",
-          "path": [
-            "admins",
-            ""
-          ]
-        },
-        "description": "Change the body as you see fit, to add a new admin to the DB"
-      },
-      "response": []
-    },
-    {
+		{
+			"name": "Admin getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/admins/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admins",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n  \"name\": \"Slade\",\n  \"lastName\": \"Kilkenny\",\n  \"email\": \"skilkenny0@army.mil\",\n  \"password\": \"NzxSNoaUHu\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/admins/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admins",
+						""
+					]
+				},
+				"description": "Change the body as you see fit, to add a new admin to the DB"
+			},
+			"response": []
+		},
+		{
 			"name": "Create Project",
 			"request": {
 				"method": "POST",
@@ -376,7 +376,7 @@
 			},
 			"response": []
 		},
-    {
+		{
 			"name": "Admins Get By Id",
 			"request": {
 				"method": "GET",
@@ -654,7 +654,7 @@
 			},
 			"response": []
 		},
-    {
+		{
 			"name": "Get employee by id",
 			"request": {
 				"method": "GET",
@@ -707,7 +707,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/employees/634d90aedc08792c8d2fae9c",
+					"raw": "localhost:3000/employees/634d8dd80949819b38831d67",
 					"host": [
 						"localhost"
 					],
@@ -715,6 +715,75 @@
 					"path": [
 						"employees",
 						"634d8dd80949819b38831d67"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/projects/634b3e933f07c7b4d8da2ac5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"projects",
+						"634b3e933f07c7b4d8da2ac5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Projects",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/projects/634b3e933f07c7b4d8da2ac5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"projects",
+						"634b3e933f07c7b4d8da2ac5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Project",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Camila\",\r\n        \"description\": \"This project is for testing purposes\",\r\n        \"startDate\": \"10-15-2022\",\r\n        \"endDate\": \"10-16-2022\",\r\n        \"clientName\": \"Guido\",\r\n        \"employee\": [\r\n            {\r\n            \"role\": \"DEV\",\r\n            \"rate\": \"100\"\r\n        },\r\n        {\r\n            \"role\": \"QA\",\r\n            \"rate\": \"250\"\r\n        }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/projects/634b3e933f07c7b4d8da2ac5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"projects",
+						"634b3e933f07c7b4d8da2ac5"
 					]
 				}
 			},
