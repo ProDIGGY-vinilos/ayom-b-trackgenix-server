@@ -3,7 +3,7 @@ import Joi from 'joi';
 const validateCreation = (req, res, next) => {
   const employeeValidation = Joi.object({
     role: Joi.string().valid('DEV', 'QA', 'PM', 'TL').required(),
-    rate: Joi.string().required(),
+    rate: Joi.number().required(),
   });
   const projectValidation = Joi.object({
     name: Joi.string().min(3).required(),
