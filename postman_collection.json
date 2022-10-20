@@ -7,6 +7,152 @@
 	},
 	"item": [
 		{
+			"name": "SuperAdmins",
+			"item": [
+				{
+					"name": "GetAllSuperAdmins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/superAdmins",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"superAdmins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllSuperAdminsByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/superAdmins?name=Kirby",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"superAdmins"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Kirby"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllSuperAdminsByLastname",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/superAdmins?lastName=Gauge",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"superAdmins"
+							],
+							"query": [
+								{
+									"key": "lastName",
+									"value": "Gauge"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllSuperAdminsByEmail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/superAdmins?email=kgauge0@uiuc.edu",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"superAdmins"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "kgauge0@uiuc.edu"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllSuperAdminsByPassword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/superAdmins?password=8vaymhuZDC",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"superAdmins"
+							],
+							"query": [
+								{
+									"key": "password",
+									"value": "8vaymhuZDC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateSuperAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lodovico\",\r\n    \"lastName\": \"Iiannone\",\r\n    \"email\": \"liiannone0@ihg.com\",\r\n    \"password\": \"JBGkgzZbq5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/superAdmins",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"superAdmins"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+    {
 			"name": "Timesheet",
 			"item": [
 				{
@@ -84,7 +230,7 @@
 				}
 			]
 		},
-    {
+		{
 			"name": "Admins Get By Id",
 			"request": {
 				"method": "GET",
