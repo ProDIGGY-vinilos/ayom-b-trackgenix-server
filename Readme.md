@@ -38,6 +38,20 @@ npm run lint:fix
 
 <br>
 
+## Technologies
+
+Currently using this technologies:
+
+```console
+- Node JS
+- Express
+- Nodemon
+- Mongoose
+- JOI
+- Mongo DB
+- ESlint
+```
+
 ### Members
 
 |Photo | Name  | Mail | Github
