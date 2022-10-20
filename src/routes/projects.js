@@ -8,7 +8,12 @@ router
   .get('/:id', projectsControllers.getProjectById)
   .put('/:id', projectsValidations.validateCreation, projectsControllers.updateProject)
   .delete('/:id', projectsControllers.deleteProject)
+
   .post('/', projectsValidations.validateCreation, projectsControllers.createProject)
   .get('/', projectsControllers.getAllProjects);
 
 export default router;
+
+// getProjectById,
+// deleteProject,
+// updateProject,
