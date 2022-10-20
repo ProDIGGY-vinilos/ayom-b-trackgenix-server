@@ -40,19 +40,16 @@ const getTaskById = async (req, res) => {
     const task = await Tasks.findById({ _id: req.params.id });
     if (task) {
       return res.status(200).json({
-        msg: 'Task found succesfully',
+        message: 'Task found successfully',
         data: task,
-        error: false,
       });
     }
     return res.status(400).json({
-      msg: `Cannot find task with ID: ${req.params.id}`,
-      error: true,
+      message: `Cannot find task with ID: ${req.params.id}`,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${error}`,
-      error: true,
+      message: `There was an error: ${err}`,
     });
   }
 };
@@ -62,19 +59,16 @@ const deleteTask = async (req, res) => {
     const taskToDelete = await Tasks.findByIdAndDelete({ _id: req.params.id });
     if (taskToDelete) {
       return res.status(200).json({
-        msg: 'Task delete succesfully',
+        message: 'Task delete succesfully',
         data: taskToDelete,
-        error: false,
       });
     }
     return res.status(404).json({
-      msg: `Cannot delete task with ID: ${req.params.id}`,
-      error: true,
+      message: `Cannot delete task with ID: ${req.params.id}`,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${error}`,
-      error: true,
+      message: `There was an error: ${err}`,
     });
   }
 };
@@ -88,19 +82,16 @@ const updateTask = async (req, res) => {
     );
     if (taskToUpdate) {
       return res.status(200).json({
-        msg: 'Taskupdated succesfully',
+        message: 'Task updated successfully',
         data: taskToUpdate,
-        error: false,
       });
     }
     return res.status(404).json({
-      msg: `Cannot find task with ID: ${req.params.id}`,
-      error: true,
+      message: `Cannot find task with ID: ${req.params.id}`,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${error}`,
-      error: true,
+      message: `There was an error: ${err}`,
     });
   }
 };
