@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-// use "import" to import libraries
 import express from 'express';
-
 import mongoose from 'mongoose';
 import projectsRouter from './routes/projects';
 import timeSheetRouter from './routes/timeSheets';
