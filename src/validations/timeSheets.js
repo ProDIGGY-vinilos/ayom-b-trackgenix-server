@@ -9,9 +9,9 @@ const validateCreation = (req, res, next) => {
 
   const validation = timeSheetValidation.validate(req.body);
 
-  if (validation.error) {
+  if (validation.err) {
     return res.status(400).json({
-      message: `There was an error: ${validation.error.datails[0].message}`,
+      message: `There was an error: ${validation.err.message}`,
     });
   }
 
