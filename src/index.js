@@ -1,18 +1,14 @@
 /* eslint-disable no-console */
-import express from 'express';
 import mongoose from 'mongoose';
-import router from './routes';
+import dotenv from 'dotenv';
+import app from './app';
 
-const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
+dotenv.config();
 
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.use(express.json());
-app.use('/api', router);
+const port = process.env.PORT;
 
 mongoose.connect(
-  MONGO_URL,
+  process.env.MONGO_URL,
   (error) => {
     if (error) {
       console.log(`Fail to connect to database ${error}`);
