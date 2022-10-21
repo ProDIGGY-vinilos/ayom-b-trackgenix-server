@@ -3,7 +3,7 @@ import TimeSheetsModel from '../models/TimeSheets';
 const getTimeSheetById = async (req, res) => {
   try {
     const searchId = req.params.id;
-    const timeSheets = await TimeSheetsModel.findById({ _id: searchId });
+    const timeSheets = await TimeSheetsModel.findById({ _id: searchId }).populate('project').populate('task').populate('employee');
 
     return res.status(200).json({
       message: 'TimeSheet found',
@@ -52,7 +52,7 @@ const editTimeSheet = async (req, res) => {
 };
 const getAllTimeSheets = async (req, res) => {
   try {
-    const timeSheets = await TimeSheetsModel.find();
+    const timeSheets = await TimeSheetsModel.find().populate('project').populate('task').populate('employee');
 
     return res.status(200).json({
       message: 'TimeSheets found',
@@ -70,7 +70,10 @@ const createTimeSheet = async (req, res) => {
     const timeSheets = new TimeSheetsModel({
       description: req.body.description,
       date: req.body.date,
+      project: req.body.project,
       task: req.body.task,
+      employee: req.body.employee,
+      hours: req.body.hours,
     });
 
     const result = await timeSheets.save();
