@@ -129,7 +129,27 @@
 					"response": []
 				},
 				{
-					"name": "CreateSuperAdmin Copy",
+					"name": "Get SuperAdmin by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/superAdmins/634cd7099c51012284376479",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"superAdmins",
+								"634cd7099c51012284376479"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateSuperAdmin",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -177,26 +197,6 @@
 					"response": []
 				},
 				{
-					"name": "Get SuperAdmin by Id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/api/superAdmins/634cd7099c51012284376479",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"superAdmins",
-								"634cd7099c51012284376479"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Edit SuperAdmin",
 					"request": {
 						"method": "PUT",
@@ -230,6 +230,25 @@
 		{
 			"name": "Timesheet",
 			"item": [
+				{
+					"name": "GetAllTimeSheets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/timeSheet",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"timeSheet"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "GetTimeSheetById",
 					"protocolProfileBehavior": {
@@ -301,25 +320,6 @@
 								"api",
 								"timeSheet",
 								"634cae60982688571ffa7469"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetAllTimeSheets",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/api/timeSheet",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"timeSheet"
 							]
 						}
 					},
@@ -504,6 +504,27 @@
 			"name": "Admins",
 			"item": [
 				{
+					"name": "Admin getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admins/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admins",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Admins Get By Id",
 					"request": {
 						"method": "GET",
@@ -573,27 +594,6 @@
 					"response": []
 				},
 				{
-					"name": "Admin getAll",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/admins/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"admins",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Admin create",
 					"request": {
 						"method": "POST",
@@ -655,6 +655,27 @@
 					"response": []
 				},
 				{
+					"name": "Get Project By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/projects/634b3e933f07c7b4d8da2ac5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"projects",
+								"634b3e933f07c7b4d8da2ac5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Project",
 					"request": {
 						"method": "POST",
@@ -677,27 +698,6 @@
 							"path": [
 								"api",
 								"projects"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Project By ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/projects/634b3e933f07c7b4d8da2ac5",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"projects",
-								"634b3e933f07c7b4d8da2ac5"
 							]
 						}
 					},
@@ -760,6 +760,45 @@
 			"name": "Employee",
 			"item": [
 				{
+					"name": "Employee Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get employee by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/employees/634d8c845702c8f99755b537",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"employees",
+								"634d8c845702c8f99755b537"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete employee",
 					"request": {
 						"method": "DELETE",
@@ -810,26 +849,6 @@
 					"response": []
 				},
 				{
-					"name": "Get employee by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/api/employees/634d8c845702c8f99755b537",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"employees",
-								"634d8c845702c8f99755b537"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Employee Create",
 					"request": {
 						"method": "POST",
@@ -843,25 +862,6 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "localhost:3000/api/employees",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"employees"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Employee Get All",
-					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
 							"raw": "localhost:3000/api/employees",
 							"host": [
