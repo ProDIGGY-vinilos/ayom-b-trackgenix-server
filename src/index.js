@@ -1,16 +1,11 @@
 /* eslint-disable no-console */
-import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import router from './routes';
+import app from './app';
 
 dotenv.config();
 
-const app = express();
 const port = process.env.PORT;
-
-app.use(express.json());
-app.use('/api', router);
 
 mongoose.connect(
   process.env.MONGO_URL,
