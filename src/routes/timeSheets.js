@@ -4,11 +4,10 @@ import timeSheetsValidations from '../validations/timeSheets';
 
 const router = express.Router();
 
-router
-  .get('/:id', timeSheetsControllers.getTimeSheetById)
-  .delete('/:id', timeSheetsControllers.deleteTimeSheet)
-  .put('/:id', timeSheetsValidations.validateCreation, timeSheetsControllers.editTimeSheet)
-  .get('/', timeSheetsControllers.getAllTimeSheets)
-  .post('/', timeSheetsValidations.validateCreation, timeSheetsControllers.createTimeSheet);
+router.get('/:id', timeSheetsControllers.getTimeSheetById);
+router.delete('/:id', timeSheetsControllers.deleteTimeSheet);
+router.put('/:id', timeSheetsValidations.validateCreation, timeSheetsControllers.editTimeSheet);
+router.get('/', timeSheetsControllers.getAllTimeSheets);
+router.post('/', timeSheetsValidations.validateCreation, timeSheetsControllers.createTimeSheet);
 
 export default router;
