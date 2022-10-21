@@ -4,11 +4,10 @@ import projectsValidations from '../validations/projects';
 
 const router = express.Router();
 
-router
-  .get('/:id', projectsControllers.getProjectById)
-  .put('/:id', projectsValidations.validateCreation, projectsControllers.updateProject)
-  .delete('/:id', projectsControllers.deleteProject)
-  .post('/', projectsValidations.validateCreation, projectsControllers.createProject)
-  .get('/', projectsControllers.getAllProjects);
+router.get('/:id', projectsControllers.getProjectById);
+router.put('/:id', projectsValidations.validateCreation, projectsControllers.updateProject);
+router.delete('/:id', projectsControllers.deleteProject);
+router.post('/', projectsValidations.validateCreation, projectsControllers.createProject);
+router.get('/', projectsControllers.getAllProjects);
 
 export default router;

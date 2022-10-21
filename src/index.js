@@ -1,12 +1,7 @@
 /* eslint-disable no-console */
 import express from 'express';
 import mongoose from 'mongoose';
-import projectsRouter from './routes/projects';
-import timeSheetRouter from './routes/timeSheets';
-import tasksRouter from './routes/tasks';
-import adminRouter from './routes/admins';
-import superAdminRouter from './routes/superAdmins';
-import employeeRouter from './routes/employees';
+import router from './routes';
 
 const MONGO_URL = 'mongodb+srv://BaSP-database-ayom-b:BaSP2022@cluster0.esbghj2.mongodb.net/?retryWrites=true&w=majority';
 
@@ -14,16 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use('/admins', adminRouter);
-app.use('/superAdmins', superAdminRouter);
-app.use('/timeSheet', timeSheetRouter);
-app.use('/projects', projectsRouter);
-app.use('/employees', employeeRouter);
-app.use('/tasks', tasksRouter);
-
-app.get('/', async (req, res) => {
-  res.send('Hello World!');
-});
+app.use('/api', router);
 
 mongoose.connect(
   MONGO_URL,
