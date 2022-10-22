@@ -13,7 +13,7 @@ export default [
     name: 'Agna',
     lastName: 'Polley',
     email: 'apolley1@ebay.co.uk',
-    password: 'EGsryusXOawK',
+    password: 'EGsry456awK',
   },
   {
     _id: mongoose.Types.ObjectId('63533d49fc13ae16b7000002'),
