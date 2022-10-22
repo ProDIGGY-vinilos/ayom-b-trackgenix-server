@@ -9,8 +9,16 @@ export default [
     endDate: '9-12-2022',
     clientName: 'Schumm LLC',
     employees: [
-      mongoose.Types.ObjectId('6352daf070bd974cac6927cc'),
-      mongoose.Types.ObjectId('6352dbec0259a3a36db761d3'),
+      {
+        employee: mongoose.Types.ObjectId('6352daf070bd974cac6927cc'),
+        role: 'DEV',
+        rate: '150',
+      },
+      {
+        employee: mongoose.Types.ObjectId('6352dbec0259a3a36db761d3'),
+        role: 'QA',
+        rate: '250',
+      },
     ],
   },
   {
@@ -21,9 +29,21 @@ export default [
     endDate: '8-11-2022',
     clientName: 'Hane LLC',
     employees: [
-      mongoose.Types.ObjectId('6352daf070bd974cac6927cc'),
-      mongoose.Types.ObjectId('6352dafc15b1b196950a8583'),
-      mongoose.Types.ObjectId('6352daf6f8285eeb69b2fabe'),
+      {
+        employee: mongoose.Types.ObjectId('6352daf070bd974cac6927cc'),
+        role: 'DEV',
+        rate: '100',
+      },
+      {
+        employee: mongoose.Types.ObjectId('6352dafc15b1b196950a8583'),
+        role: 'TL',
+        rate: '300',
+      },
+      {
+        employee: mongoose.Types.ObjectId('6352daf6f8285eeb69b2fabe'),
+        role: 'QA',
+        rate: '145',
+      },
     ],
   },
   {
@@ -34,8 +54,16 @@ export default [
     endDate: '7-22-2022',
     clientName: 'Mraz, Fritsch and Schumm',
     employees: [
-      mongoose.Types.ObjectId('6352dbec0259a3a36db761d3'),
-      mongoose.Types.ObjectId('6352daf6f8285eeb69b2fabe'),
+      {
+        employee: mongoose.Types.ObjectId('6352dbec0259a3a36db761d3'),
+        role: 'QA',
+        rate: '200',
+      },
+      {
+        employee: mongoose.Types.ObjectId('6352daf6f8285eeb69b2fabe'),
+        role: 'PM',
+        rate: '350',
+      },
     ],
   },
 ];
