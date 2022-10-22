@@ -2,7 +2,7 @@ import Projects from '../models/Projects';
 
 const getProjectById = async (req, res) => {
   try {
-    const project = await Projects.findById({ _id: req.params.id });
+    const project = await Projects.findById({ _id: req.params.id }).populate('employees');
     if (project) {
       return res.status(200).json({
         msg: 'Project found succesfully',
@@ -68,7 +68,7 @@ const createProject = async (req, res) => {
       startDate: req.body.startDate,
       endDate: req.body.endDate,
       clientName: req.body.clientName,
-      employees: req.body.employee,
+      employees: req.body.employees,
     });
     const result = await project.save();
     return res.status(201).json({
