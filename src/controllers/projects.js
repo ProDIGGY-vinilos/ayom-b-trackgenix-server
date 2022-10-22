@@ -2,7 +2,13 @@ import Projects from '../models/Projects';
 
 const getProjectById = async (req, res) => {
   try {
-    const project = await Projects.findById({ _id: req.params.id }).populate('employees');
+    const project = await Projects.findById({ _id: req.params.id }).populate({
+      path: 'employees',
+      populate: {
+        path:
+      'employee',
+      },
+    });
     if (project) {
       return res.status(200).json({
         msg: 'Project found succesfully',
@@ -84,7 +90,13 @@ const createProject = async (req, res) => {
 
 const getAllProjects = async (req, res) => {
   try {
-    const projects = await Projects.find(req.query);
+    const projects = await Projects.find(req.query).populate({
+      path: 'employees',
+      populate: {
+        path:
+      'employee',
+      },
+    });
     if (!projects.length) {
       return res.status(400).json({
         message: 'Non existent project!',
