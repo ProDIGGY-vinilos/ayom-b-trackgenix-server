@@ -1,5 +1,7 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 import request from 'supertest';
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import app from '../app';
 import Project from '../models/Projects';
 import projectSeed from '../seeds/projects';
@@ -8,27 +10,28 @@ beforeAll(async () => {
   await Project.collection.insertMany(projectSeed);
 });
 
-// const mockedProject = {
-//   name: 'Stronghold',
-//   description: 'Other superficial bite of breast, left breast',
-//   startDate: '2022-01-04T03:00:00.000Z',
-//   endDate: '2022-09-12T03:00:00.000Z',
-//   clientName: 'Schumm LLC',
-//   employees: [
-//     {
-//       employee: mongoose.Types.ObjectId('6352daf070bd974cac6927cc'),
-//       role: 'DEV',
-//       rate: '150',
-//     },
-//     {
-//       employee: mongoose.Types.ObjectId('6352dbec0259a3a36db761d3'),
-//       role: 'QA',
-//       rate: '250',
-//     },
-//   ],
-// };
+const mockedProject = {
+  name: 'Stronghold',
+  description: 'Other superficial bite of breast, left breast',
+  startDate: '2022-01-04T03:00:00.000Z',
+  endDate: '2022-09-12T03:00:00.000Z',
+  clientName: 'Schumm LLC',
+  employees: [
+    {
+      employee: mongoose.Types.ObjectId('6352daf070bd974cac6927cc'),
+      role: 'DEV',
+      rate: '150',
+    },
+    {
+      employee: mongoose.Types.ObjectId('6352dbec0259a3a36db761d3'),
+      role: 'QA',
+      rate: '250',
+    },
+  ],
+};
 
-// let projectId;
+// eslint-disable-next-line no-unused-vars
+let projectId;
 
 describe('GET all projects', () => {
   describe('Success cases', () => {
@@ -76,5 +79,80 @@ describe('GET all projects', () => {
       await Project.collection.insertMany(projectSeed);
     });
     // How to trigger an error in .find() method of mongoose?
+  });
+});
+
+describe('CREATE project', () => {
+  describe('Sucess cases', () => {
+    test('Return status code 201 without errors', async () => {
+      const response = await request(app).post('/api/projects').send(mockedProject);
+
+      expect(response.status).toBe(201);
+      await Project.deleteMany();
+      await Project.collection.insertMany(projectSeed);
+    });
+    test('Return success message', async () => {
+      const response = await request(app).post('/api/projects').send(mockedProject);
+
+      expect(response.body.message).toBe('The project was created.');
+      await Project.deleteMany();
+      await Project.collection.insertMany(projectSeed);
+    });
+    test('Return created project', async () => {
+      const response = await request(app).post('/api/projects').send(mockedProject);
+      // eslint-disable-next-line no-underscore-dangle
+      projectId = response.body.data._id; // Get mongoose id
+      let i = 0;
+      for (const property in response.body.data) {
+        if (property === '_id') {
+          break;
+        }
+        if (property === 'employees') {
+          const dataEmployee = response.body.data.employees;
+          for (let j = 0; j < dataEmployee.length; j += 1) {
+            expect(dataEmployee[j].role).toBe(mockedProject.employees[j].role);
+            // eslint-disable-next-line max-len
+            expect(dataEmployee[j].rate).toBe(parseInt(mockedProject.employees[j].rate, 10));
+          }
+        } else {
+          expect(property).toEqual(Object.keys(mockedProject)[i]);
+          expect(response.body.data[property]).toEqual(mockedProject[property]);
+        }
+        i += 1;
+      }
+    });
+  });
+  describe('Failure cases', () => {
+    test('Return status code 400 when invalid project', async () => {
+      const invalidMockedProject = structuredClone(mockedProject);
+      invalidMockedProject.invalid = 1;
+      const response = await request(app).post('/api/projects').send(invalidMockedProject);
+
+      expect(response.status).toBe(400);
+    });
+    test('Return no project added to DB', async () => {
+      const invalidMockedProject = structuredClone(mockedProject);
+      invalidMockedProject.invalid = 1;
+      const originalProjectCount = await Project.countDocuments({});
+      await request(app).post('/api/projects').send(invalidMockedProject);
+      const newProjectCount = await Project.countDocuments({});
+
+      expect(originalProjectCount).toEqual(newProjectCount);
+    });
+    test('Return no created project', async () => {
+      const invalidMockedProject = structuredClone(mockedProject);
+      invalidMockedProject.invalid = 1;
+      const response = await request(app).post('/api/projects').send(invalidMockedProject);
+
+      expect(response.body.data).toBe(undefined);
+    });
+    test('Return error message', async () => {
+      const invalidMockedProject = structuredClone(mockedProject);
+      invalidMockedProject.invalid = 1;
+      const response = await request(app).post('/api/projects').send(invalidMockedProject);
+
+      expect(response.error).toBeTruthy();
+    });
+    // How to trigger an error in .save() method of mongoose?
   });
 });
