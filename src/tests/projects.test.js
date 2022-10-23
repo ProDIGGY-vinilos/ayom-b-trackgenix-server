@@ -30,7 +30,6 @@ const mockedProject = {
   ],
 };
 
-// eslint-disable-next-line no-unused-vars
 let projectId;
 
 describe('GET all projects', () => {
@@ -154,5 +153,60 @@ describe('CREATE project', () => {
       expect(response.error).toBeTruthy();
     });
     // How to trigger an error in .save() method of mongoose?
+  });
+});
+
+describe('GET project by id', () => {
+  describe('Success cases', () => {
+    test('Return status code 200', async () => {
+      const response = await request(app).get(`/api/projects/${projectId}`).send();
+
+      expect(response.status).toBe(200);
+    });
+    // test('Return requested object', async () => {
+    //   const response = await request(app).get(`/api/projects/${projectId}`).send();
+
+    //   console.log(response.body.data);
+    // let i = 0;
+    // for (const property in response.body.data) {
+    //   if (property === '__v') {
+    //     break;
+    //   }
+    //   if (property === '_id') {
+    //     expect(response.body.data[property]).toEqual(projectId);
+    //   } else {
+    //     expect(property).toEqual(Object.keys(mockedProject)[i]);
+    //     expect(response.body.data[property]).toEqual(mockedProject[property]);
+    //   }
+    //   i++;
+    // }
+    // });
+    test('Return no error', async () => {
+      const response = await request(app).get(`/api/projects/${projectId}`).send();
+
+      expect(response.error).toBeFalsy();
+    });
+  });
+  describe('Failure cases', () => {
+    test('Return error status code 400', async () => {
+      const response = await request(app).get(`/api/projects/${mongoose.Types.ObjectId(0)}`).send();
+
+      expect(response.status).toBe(400);
+      // expect(response.text).
+      // toBe(`{"msg":"Cannot find project with ID: ${mongoose.Types.ObjectId(0)}"}`);
+      // Every instance of mongoose.Types.ObjectId is different, therefore cant check for message.
+    });
+    test('Return error status code 500', async () => {
+      const response = await request(app).get('/api/projects/0').send();
+
+      expect(response.status).toBe(500);
+    });
+    // Exceedingly comlicated check for the error message
+    // test('Return error message', async () => {
+    //   const response = await request(app).get('/api/projects/0').send();
+    //   // console.log(response.error);
+    //   expect(response.error).toBeTruthy();
+    //   // expect(response.error.text).toBe(`There was an error: ${response.error}`);
+    // });
   });
 });
