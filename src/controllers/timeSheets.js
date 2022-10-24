@@ -26,9 +26,15 @@ const deleteTimeSheet = async (req, res) => {
   try {
     const searchId = req.params.id;
     const result = await TimeSheetsModel.findByIdAndDelete({ _id: searchId });
-
+    if (!result) {
+      return res.status(404).json({
+        message: 'TimeSheet not found',
+        error: true,
+      });
+    }
     return res.status(204).json({
       data: result,
+      error: false,
     });
   } catch (err) {
     return res.status(400).json({
