@@ -51,10 +51,16 @@ const editTimeSheet = async (req, res) => {
       { ...req.body },
       { new: true },
     );
-
+    if (!result) {
+      return res.status(404).json({
+        message: 'TimeSheet not found',
+        error: true,
+      });
+    }
     return res.status(200).json({
       message: `TimeSheet with the id ${searchId} edited`,
       data: result,
+      error: false,
     });
   } catch (err) {
     return res.status(400).json({
