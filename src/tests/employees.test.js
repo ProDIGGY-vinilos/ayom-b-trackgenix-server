@@ -16,4 +16,15 @@ describe('GET BY ID /employees/:id', () => {
     const response = await request(app).get('/api/employees/628e3acafb848cdc505426a5').send();
     expect(response.status).toEqual(404);
   });
+  test('response should return an specific employee', async () => {
+    const response = await request(app).get('/api/employees/6352dafc15b1b196950a8583').send();
+    const employee = {
+      name: 'Rita',
+      lastName: 'Milstein',
+      phone: '7131297018',
+      email: 'maju_12puet@hotmail.com',
+      password: '10we43qovls823mf7',
+    };
+    expect(response.body.data).toMatchObject(employee);
+  });
 });
