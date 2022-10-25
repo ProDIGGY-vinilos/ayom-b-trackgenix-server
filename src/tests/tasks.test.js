@@ -113,3 +113,58 @@ describe('CREATE /tasks', () => {
     });
   });
 });
+
+describe('UPDATE /tasks', () => {
+  const taskToUpdateId = '63534ef4fc13ae1a7100001e';
+  const falseTaskToUpdateId = '63534ef4fc13ae1a7101101e';
+  const updatedTask = {
+    description: 'BE',
+  };
+  const falseUpdatedTask = {
+    description: 'EE',
+  };
+  describe('Successful cases:', () => {
+    test('Should return status code 200', async () => {
+      const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);
+
+      expect(response.status).toBe(200);
+    });
+    test('Should return a success message', async () => {
+      const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);
+
+      expect(response.body.message).toMatch('Task updated successfully');
+    });
+    test('Should return Error: false', async () => {
+      const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);
+
+      expect(response.body.error).toBeFalsy();
+    });
+    test('Task edited should have the same content as request body', async () => {
+      const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);
+
+      expect(response.body.data.description).toBe(updatedTask.description);
+    });
+    test('Task Id should not be changed', async () => {
+      const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);
+      // eslint-disable-next-line no-underscore-dangle
+      expect(response.body.data._id).toBe(taskToUpdateId);
+    });
+  });
+  describe('Failed cases:', () => {
+    test('Should return status code 404 (bad request)', async () => {
+      const response = await request(app).put(`/api/task/${taskToUpdateId}`).send(updatedTask);
+
+      expect(response.status).toBe(404);
+    });
+    test('Should return status code 404 (incorrect id)', async () => {
+      const response = await request(app).put(`/api/task/${falseTaskToUpdateId}`).send(updatedTask);
+
+      expect(response.status).toBe(404);
+    });
+    test('Should return status code 404 (incorrect body)', async () => {
+      const response = await request(app).put(`/api/task/${taskToUpdateId}`).send(falseUpdatedTask);
+
+      expect(response.status).toBe(404);
+    });
+  });
+});
