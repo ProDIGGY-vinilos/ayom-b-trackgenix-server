@@ -64,14 +64,6 @@ describe('Success GET /timeSheet test', () => {
     const response = await request(app).get('/api/timeSheet').send();
     expect(response.status).toBeLessThan(400);
   });
-  test('GET should return any response in json format.', async () => {
-    const response = await request(app).get('/api/timeSheet/').send();
-    expect(typeof response).toBe('object');
-  });
-  test('GET should return a success status code.', async () => {
-    const response = await request(app).get('/api/timeSheet/').send();
-    expect(response.status).toBeLessThan(400);
-  });
   test('GET should return at least one timesheet.', async () => {
     const response = await request(app).get('/api/timeSheet').send();
     expect(response.body.data.length).toBeGreaterThan(0);
@@ -88,10 +80,6 @@ describe('Success GET /timeSheet test', () => {
 describe('Failed GET /timeSheet test', () => {
   test('GET should return a fail status code if sent a bad path as URL.', async () => {
     const response = await request(app).get('/api/notTimeSheetPath').send();
-    expect(response.status).toBeGreaterThanOrEqual(400);
-  });
-  test('GET should return a fail status code if sent a bad path as URL.', async () => {
-    const response = await request(app).get('/api/notTimeSheetPath/').send();
     expect(response.status).toBeGreaterThanOrEqual(400);
   });
 });
