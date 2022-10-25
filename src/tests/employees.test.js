@@ -128,7 +128,7 @@ describe('POST Employee Controller', () => {
     expect(response.status).toBe(400);
   });
 
-  test('response should return a 400 status if the last name is spelled wrong, it returns me an undefined data', async () => {
+  test('response should me an undefined data if the last name is spelled wrong', async () => {
     const response = await request(app).post('/api/employees').send({
       name: 'Rita',
       lastName: 'Mil*stein',

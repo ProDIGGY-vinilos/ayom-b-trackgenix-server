@@ -8,10 +8,12 @@ const getEmployeeById = async (req, res) => {
     return res.status(200).json({
       message: `Employee found: ${employee.name} ${employee.lastName}!`,
       data: employee,
+      error: false,
     });
   } catch (err) {
     return res.status(404).json({
       message: `Something was wrong: ${err.message}`,
+      error: true,
     });
   }
 };
@@ -28,10 +30,12 @@ const editEmployee = async (req, res) => {
     return res.status(200).json({
       message: `Employee with the ID: ${id}, has been successfully edited!`,
       data: employee,
+      error: false,
     });
   } catch (err) {
     return res.status(404).json({
       message: `Something was wrong: ${err.message}`,
+      error: true,
     });
   }
 };
@@ -45,6 +49,7 @@ const deleteEmployee = async (req, res) => {
   } catch (err) {
     return res.status(404).json({
       message: `Something was wrong: ${err.message}`,
+      error: true,
     });
   }
 };
@@ -55,15 +60,18 @@ const getAllEmployees = async (req, res) => {
     if (!employees.length) {
       return res.status(400).json({
         message: 'Employee not found',
+        error: true,
       });
     }
     return res.status(200).json({
       message: 'Employee found',
       data: employees,
+      error: false,
     });
   } catch (err) {
     return res.status(400).json({
       message: `An error ocurred: ${err}`,
+      error: true,
     });
   }
 };
@@ -82,10 +90,12 @@ const createEmployee = async (req, res) => {
     return res.status(201).json({
       message: 'Employee created successfully',
       data: result,
+      error: false,
     });
   } catch (err) {
     return res.status(400).json({
       message: `An error ocurred: ${err}`,
+      error: true,
     });
   }
 };
