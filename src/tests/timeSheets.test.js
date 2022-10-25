@@ -72,14 +72,6 @@ describe('Success GET /timeSheet test', () => {
     const response = await request(app).get('/api/timeSheet/').send();
     expect(response.status).toBeLessThan(400);
   });
-  test('GET should return a fail status code if sent a bad path as URL.', async () => {
-    const response = await request(app).get('/api/notTimeSheetPath').send();
-    expect(response.status).toBeGreaterThanOrEqual(400);
-  });
-  test('GET should return a fail status code if sent a bad path as URL.', async () => {
-    const response = await request(app).get('/api/notTimeSheetPath/').send();
-    expect(response.status).toBeGreaterThanOrEqual(400);
-  });
   test('GET should return at least one timesheet.', async () => {
     const response = await request(app).get('/api/timeSheet').send();
     expect(response.body.data.length).toBeGreaterThan(0);
@@ -93,20 +85,33 @@ describe('Success GET /timeSheet test', () => {
     expect(response.body.data.length).toBe(timeSheetSeed.length);
   });
 });
+describe('Failed GET /timeSheet test', () => {
+  test('GET should return a fail status code if sent a bad path as URL.', async () => {
+    const response = await request(app).get('/api/notTimeSheetPath').send();
+    expect(response.status).toBeGreaterThanOrEqual(400);
+  });
+  test('GET should return a fail status code if sent a bad path as URL.', async () => {
+    const response = await request(app).get('/api/notTimeSheetPath/').send();
+    expect(response.status).toBeGreaterThanOrEqual(400);
+  });
+});
 
 describe('Success POST /timeSheet test', () => {
   test('POST should return any response in json format.', async () => {
     const response = await request(app).post('/api/timeSheet').send(correctTimeSheet);
     expect(typeof response).toBe('object');
   });
+  test('POST should return status code 201 if sent correct timesheet as body param.', async () => {
+    const response = await request(app).post('/api/timeSheet').send(correctTimeSheet);
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('TimeSheet created successfully');
+  });
+});
+
+describe('Failed POST /timeSheet test', () => {
   test('POST new timeSheet should return status code greater than 400 if nothing sent as body param', async () => {
     const response = await request(app).post('/api/timeSheet').send();
     expect(response.status).toBeGreaterThanOrEqual(400);
-  });
-  test('POST should return status code 201 if sent correct timesheet as body param.', async () => {
-    const response = await request(app).post('/api/timeSheet').send(correctTimeSheet);
-    expect(response.status).toBeGreaterThanOrEqual(201);
-    expect(response.body.message).toBe('TimeSheet created successfully');
   });
   test('POST should return status code greater than or 400 if sent incorrect timesheet as body param.', async () => {
     const response = await request(app).post('/api/timeSheet').send(incorrectTimeSheets[0]);
