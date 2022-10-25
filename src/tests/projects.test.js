@@ -83,15 +83,11 @@ describe('CREATE project', () => {
       const response = await request(app).post('/api/projects').send(mockedProject);
 
       expect(response.status).toBe(201);
-      await Project.deleteMany();
-      await Project.collection.insertMany(projectSeed);
     });
     test('Returns success message', async () => {
       const response = await request(app).post('/api/projects').send(mockedProject);
 
       expect(response.body.message).toBe('The project was created.');
-      await Project.deleteMany();
-      await Project.collection.insertMany(projectSeed);
     });
     test('Returns created project', async () => {
       const response = await request(app).post('/api/projects').send(mockedProject);
