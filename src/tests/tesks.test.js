@@ -61,3 +61,50 @@ describe('GETALL /tasks', () => {
     });
   });
 });
+
+describe('CREATE /tasks', () => {
+  const newTask = {
+    description: 'BE',
+  };
+  const falseNewTask = {
+    description: 'EE',
+  };
+  describe('Successful cases:', () => {
+    test('Should return status code 201', async () => {
+      const response = await request(app).post('/api/tasks').send(newTask);
+      expect(response.status).toBe(201);
+    });
+    test('New task should have the same content of the request body', async () => {
+      const response = await request(app).post('/api/tasks').send(newTask);
+
+      expect(response.body.data.description).toBe(newTask.description);
+    });
+    test('Should return a success message', async () => {
+      const response = await request(app).post('/api/tasks').send(newTask);
+
+      expect(response.body.message).toMatch('Task successfully created!');
+    });
+    test('Should have Error: false', async () => {
+      const response = await request(app).post('/api/tasks').send(newTask);
+
+      expect(response.body.error).toBeFalsy();
+    });
+  });
+  describe('Failed cases:', () => {
+    test('Should return status code 404 (bad request)', async () => {
+      const response = await request(app).post('/api/task').send(newTask);
+
+      expect(response.status).toBe(404);
+    });
+    test('Should return status code 406 (body not send)', async () => {
+      const response = await request(app).post('/api/tasks').send();
+
+      expect(response.status).toBe(406);
+    });
+    test('Should return status code 406 (incorrect body)', async () => {
+      const response = await request(app).post('/api/tasks').send(falseNewTask);
+
+      expect(response.status).toBe(406);
+    });
+  });
+});
