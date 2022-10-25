@@ -35,6 +35,11 @@ describe('GETALL /tasks', () => {
 
       expect(response.body.data.length).toBeGreaterThan(0);
     });
+    test('Should return all tasks', async () => {
+      const response = await request(app).get('/api/tasks').send();
+
+      expect(response.body.data.length).toEqual(tasksSeed.length);
+    });
     test('Retourned should have fiteled value', async () => {
       const response = await request(app).get('/api/tasks').send(filterByDescription);
 
