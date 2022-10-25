@@ -3,15 +3,23 @@ import Tasks from '../models/Tasks';
 const getAllTasks = async (req, res) => {
   try {
     const taskList = await Tasks.find(req.body || {}).exec();
-    return res.status(200)
-      .json({
-        message: 'Tasks found!',
-        data: taskList,
-      });
+    if (taskList.length > 0) {
+      return res.status(200)
+        .json({
+          message: 'Tasks found!',
+          data: taskList,
+          error: false,
+        });
+    }
+    return res.status(400).json({
+      message: 'Cannot find tasks!',
+      error: true,
+    });
   } catch (err) {
     return res.status(404)
       .json({
         message: `There was an error sending the request! Error: ${err.message}`,
+        error: true,
       });
   }
 };
@@ -26,11 +34,13 @@ const createNewTask = async (req, res) => {
       .json({
         message: 'Task successfully created!',
         data: newTaskCreated,
+        error: false,
       });
   } catch (err) {
     return res.status(400)
       .json({
         message: `Something was wrong with this request! Error: ${err.message}`,
+        error: true,
       });
   }
 };
@@ -42,14 +52,17 @@ const getTaskById = async (req, res) => {
       return res.status(200).json({
         message: 'Task found successfully',
         data: task,
+        error: false,
       });
     }
-    return res.status(400).json({
+    return res.status(404).json({
       message: `Cannot find task with ID: ${req.params.id}`,
+      error: true,
     });
   } catch (err) {
-    return res.status(500).json({
+    return res.status(400).json({
       message: `There was an error: ${err}`,
+      error: true,
     });
   }
 };
@@ -61,6 +74,7 @@ const deleteTask = async (req, res) => {
       return res.status(200).json({
         message: 'Task delete succesfully',
         data: taskToDelete,
+        error: false,
       });
     }
     return res.status(404).json({
@@ -69,6 +83,7 @@ const deleteTask = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       message: `There was an error: ${err}`,
+      error: true,
     });
   }
 };
@@ -84,6 +99,7 @@ const updateTask = async (req, res) => {
       return res.status(200).json({
         message: 'Task updated successfully',
         data: taskToUpdate,
+        error: false,
       });
     }
     return res.status(404).json({
@@ -92,6 +108,7 @@ const updateTask = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       message: `There was an error: ${err}`,
+      error: true,
     });
   }
 };
