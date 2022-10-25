@@ -28,10 +28,13 @@ const editEmployee = async (req, res) => {
     return res.status(200).json({
       message: `Employee with the ID: ${id}, has been successfully edited!`,
       data: employee,
+      error: false,
     });
   } catch (err) {
     return res.status(404).json({
       message: `Something was wrong: ${err.message}`,
+      data: undefined,
+      error: true,
     });
   }
 };
@@ -53,17 +56,22 @@ const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employees.find(req.query);
     if (!employees.length) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: 'Employee not found',
+        data: undefined,
+        error: true,
       });
     }
     return res.status(200).json({
       message: 'Employee found',
       data: employees,
+      error: false,
     });
   } catch (err) {
-    return res.status(400).json({
+    return res.status(404).json({
       message: `An error ocurred: ${err}`,
+      data: undefined,
+      error: true,
     });
   }
 };
