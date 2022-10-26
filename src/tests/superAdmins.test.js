@@ -11,7 +11,7 @@ const superAdminValid = {
   name: 'Verona',
   lastName: 'Baudracco',
   email: 'ReDesaparecidaLaVero@gmail.com',
-  password: 'NoEsVeronicaEsVERONA',
+  password: 'NoEsVeronicaEsVERONA01',
 };
 
 const superAdminInvalid = {
@@ -76,13 +76,13 @@ describe('GET all /api/superAdmins', () => {
         name: 'Ignacio',
         lastName: 'Aristo',
         email: 'NoMeDigan_Nacho@gmail.com',
-        password: 'elMrSatanSinRulos',
+        password: 'elMrSatanSinRulos01',
       },
       {
         name: 'Verona',
         lastName: 'Baudracco',
         email: 'ReDesaparecidaLaVero@gmail.com',
-        password: 'NoEsVeronicaEsVERONA',
+        password: 'NoEsVeronicaEsVERONA01',
       }]);
     });
     test('if send an invalid superAdmin property on query params it should return a valid request with all superAdmins', async () => {
@@ -189,9 +189,19 @@ describe('DELETE-BY-ID /api/superAdmins', () => {
 
 describe('POST /api/superAdmins', () => {
   describe('Success POST test', () => {
-    test('', async () => {});
+    test('if send completly full body object it should return a valid response with new superAdmin', async () => {
+      const response = await request(app).post('/api/superAdmins').send(superAdminValid);
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe('Super Admin created successfully');
+      expect(response.body.data).toMatchObject(superAdminValid);
+    });
   });
   describe('Wrong POST test', () => {
+    test('if send a missing property as body it should return status code 400', async () => {
+      const response = await request(app).post('/api/superAdmins').send(superAdminInvalid.missingProp);
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('message');
+    });
     test('if send an invalid proeprty value it should return status code 400', async () => {
       const response = await request(app).post('/api/superAdmins').send(superAdminInvalid.name);
       expect(response.status).toBe(400);
@@ -208,7 +218,7 @@ describe('POST /api/superAdmins', () => {
       expect(response.body).toHaveProperty('message');
     });
     test('if send an invalid proeprty value it should return status code 400', async () => {
-      const response = await request(app).post('/api/superAdmins').send(superAdminInvalid.passsword);
+      const response = await request(app).post('/api/superAdmins').send(superAdminInvalid.password);
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('message');
     });

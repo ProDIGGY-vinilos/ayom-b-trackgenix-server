@@ -6,14 +6,14 @@ export default [
     name: 'Ignacio',
     lastName: 'Aristo',
     email: 'NoMeDigan_Nacho@gmail.com',
-    password: 'elMrSatanSinRulos',
+    password: 'elMrSatanSinRulos01',
   },
   {
     _id: mongoose.Types.ObjectId('6352d7e777ae480815a63af2'),
     name: 'Verona',
     lastName: 'Baudracco',
     email: 'ReDesaparecidaLaVero@gmail.com',
-    password: 'NoEsVeronicaEsVERONA',
+    password: 'NoEsVeronicaEsVERONA01',
   },
   {
     _id: mongoose.Types.ObjectId('6352d3e9239ac7eb3f7d3e88'),
