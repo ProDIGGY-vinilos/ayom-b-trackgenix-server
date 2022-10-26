@@ -4,7 +4,6 @@ const getAdminById = async (req, res) => {
   try {
     const { id } = req.params;
     const admin = await Admins.findById(id);
-
     return res.status(200).json({
       message: 'Admin Found',
       data: admin,
@@ -43,14 +42,19 @@ const editAdmin = async (req, res) => {
       { ...req.body },
       { new: true },
     );
-
+    if (!admin) {
+      return res.status(404).json({
+        message: `Admin with ${id} dont exist on DB.`,
+        error: true,
+      });
+    }
     return res.status(200)
       .json({
         message: `Admin with id ${id} found and successfully edited!`,
         data: admin,
       });
   } catch (err) {
-    return res.status(404)
+    return res.status(400)
       .json({
         message: `Something was wrong: ${err.message}`,
       });
