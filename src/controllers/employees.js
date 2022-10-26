@@ -11,7 +11,7 @@ const getEmployeeById = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(404).json({
+    return res.status(400).json({
       message: `Something was wrong: ${err.message}`,
       error: true,
     });
@@ -45,9 +45,9 @@ const deleteEmployee = async (req, res) => {
     const { id } = req.params;
     await Employees.findByIdAndDelete(id);
 
-    return res.status(204).json();
+    return res.status(200).json();
   } catch (err) {
-    return res.status(404).json({
+    return res.status(400).json({
       message: `Something was wrong: ${err.message}`,
       error: true,
     });
@@ -87,7 +87,7 @@ const createEmployee = async (req, res) => {
     });
 
     const result = await employee.save();
-    return res.status(201).json({
+    return res.status(200).json({
       message: 'Employee created successfully',
       data: result,
       error: false,
