@@ -25,13 +25,21 @@ const getSuperAdminById = async (req, res) => {
     const { id } = req.params;
     const superAdmin = await SuperAdmins.findById(id);
 
-    return res.status(200).json({
-      message: `SuperAdmin found: ${superAdmin.name} ${superAdmin.lastName}!`,
-      data: superAdmin,
+    if (superAdmin) {
+      return res.status(200).json({
+        message: `SuperAdmin found: ${superAdmin.name} ${superAdmin.lastName}!`,
+        data: superAdmin,
+        error: false,
+      });
+    }
+    return res.status(404).json({
+      message: `Cannot find Super Admin with this ID: ${req.params.id}`,
+      error: true,
     });
   } catch (err) {
-    return res.status(404).json({
+    return res.status(400).json({
       message: `Something was wrong: ${err.message}`,
+      error: true,
     });
   }
 };
@@ -80,12 +88,18 @@ const editSuperAdmin = async (req, res) => {
 const deleteSuperAdmin = async (req, res) => {
   try {
     const { id } = req.params;
-    await SuperAdmins.findByIdAndDelete(id);
-
-    return res.status(204).json();
-  } catch (err) {
+    const superAdminToDelete = await SuperAdmins.findByIdAndDelete(id);
+    if (superAdminToDelete) {
+      return res.status(204).json();
+    }
     return res.status(404).json({
+      message: `Cannot delete Super Admin with this ID: ${req.params.id}`,
+      error: true,
+    });
+  } catch (err) {
+    return res.status(400).json({
       message: `Something was wrong: ${err.message}`,
+      error: true,
     });
   }
 };
