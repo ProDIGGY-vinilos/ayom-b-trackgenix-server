@@ -8,6 +8,8 @@ beforeAll(async () => {
   await Project.collection.insertMany(projectSeed);
 });
 
+let projectId;
+
 const mockedProject = {
   name: 'Stronghold',
   description: 'Other superficial bite of breast, left breast',
@@ -27,8 +29,6 @@ const mockedProject = {
     },
   ],
 };
-
-let projectId;
 
 describe('GET all projects', () => {
   describe('Success cases', () => {
@@ -115,14 +115,16 @@ describe('CREATE project', () => {
   });
   describe('Failure cases', () => {
     test('Returns status code 400 when invalid project', async () => {
-      const invalidMockedProject = structuredClone(mockedProject);
+      let invalidMockedProject = {};
+      invalidMockedProject = Object.assign(invalidMockedProject, mockedProject);
       invalidMockedProject.invalid = 1;
       const response = await request(app).post('/api/projects').send(invalidMockedProject);
 
       expect(response.status).toBe(400);
     });
     test('Returns no project added to DB', async () => {
-      const invalidMockedProject = structuredClone(mockedProject);
+      let invalidMockedProject = {};
+      invalidMockedProject = Object.assign(invalidMockedProject, mockedProject);
       invalidMockedProject.invalid = 1;
       const originalProjectCount = await Project.countDocuments({});
       await request(app).post('/api/projects').send(invalidMockedProject);
@@ -131,14 +133,16 @@ describe('CREATE project', () => {
       expect(originalProjectCount).toEqual(newProjectCount);
     });
     test('Returns no created project', async () => {
-      const invalidMockedProject = structuredClone(mockedProject);
+      let invalidMockedProject = {};
+      invalidMockedProject = Object.assign(invalidMockedProject, mockedProject);
       invalidMockedProject.invalid = 1;
       const response = await request(app).post('/api/projects').send(invalidMockedProject);
 
       expect(response.body.data).toBe(undefined);
     });
     test('Returns error message', async () => {
-      const invalidMockedProject = structuredClone(mockedProject);
+      let invalidMockedProject = {};
+      invalidMockedProject = Object.assign(invalidMockedProject, mockedProject);
       invalidMockedProject.invalid = 1;
       const response = await request(app).post('/api/projects').send(invalidMockedProject);
 
@@ -191,6 +195,59 @@ describe('GET project by id', () => {
       const response = await request(app).get('/api/projects/0').send();
 
       expect(response.status).toBe(500);
+    });
+  });
+});
+
+describe('UPDATE /api/projects', () => {
+  describe('Success cases', () => {
+    test('should return status code 200', async () => {
+      const mockedProjectUpdated = mockedProject;
+      mockedProjectUpdated.name = 'Emanuel';
+      const response = await request(app).put(`/api/projects/${projectId}`).send(mockedProjectUpdated);
+      expect(response.status).toBe(200);
+    });
+    test('should return project', async () => {
+      const mockedProjectUpdated = mockedProject;
+      mockedProjectUpdated.name = 'Emanuel';
+      const response = await request(app).put(`/api/projects/${projectId}`).send(mockedProjectUpdated);
+      expect(response.body.data).not.toBe(undefined);
+    });
+  });
+  describe('failure cases', () => {
+    test('should return status code 404', async () => {
+      const mockedProjectUpdated = mockedProject;
+      const response = await request(app).put(`/api/projects/${mongoose.Types.ObjectId(0)}`).send(mockedProjectUpdated);
+      expect(response.status).toBe(404);
+    });
+    test('should return undefined data', async () => {
+      const mockedProjectUpdated = mockedProject;
+      mockedProjectUpdated.name = 'Emanuel';
+      const response = await request(app).put(`/api/projects/${mongoose.Types.ObjectId(0)}`).send(mockedProjectUpdated);
+      expect(response.body.data).toBe(undefined);
+    });
+  });
+});
+
+describe('DELETE /api/projects', () => {
+  describe('Success cases', () => {
+    test('should return status code 200', async () => {
+      const response = await request(app).delete(`/api/projects/${projectId}`).send();
+      expect(response.status).toBe(200);
+    });
+    test('should return undefined data', async () => {
+      const response = await request(app).delete(`/api/projects/${projectId}`).send();
+      expect(response.body.data).toBe(undefined);
+    });
+  });
+  describe('failure cases', () => {
+    test('should return status code 404', async () => {
+      const response = await request(app).delete(`/api/projects/${mongoose.Types.ObjectId(0)}`).send();
+      expect(response.status).toBe(404);
+    });
+    test('should return undefined data', async () => {
+      const response = await request(app).delete(`/api/projects/${mongoose.Types.ObjectId(0)}`).send();
+      expect(response.body.data).toBe(undefined);
     });
   });
 });
