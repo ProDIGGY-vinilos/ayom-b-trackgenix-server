@@ -20,7 +20,7 @@ const validateCreation = (req, res, next) => {
     startDate: Joi.date().required(),
     endDate: Joi.date().required(),
     clientName: Joi.string().min(3).required(),
-    employees: employeeForProjectValidation.required(),
+    employees: Joi.array().items(employeeForProjectValidation).required(),
   });
 
   const timeSheetValidation = Joi.object({
