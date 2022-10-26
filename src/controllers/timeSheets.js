@@ -4,10 +4,16 @@ const getTimeSheetById = async (req, res) => {
   try {
     const searchId = req.params.id;
     const timeSheets = await TimeSheetsModel.findById({ _id: searchId }).populate('project').populate('task').populate('employee');
-
+    if (!timeSheets) {
+      return res.status(404).json({
+        message: 'TimeSheet not found',
+        error: true,
+      });
+    }
     return res.status(200).json({
       message: 'TimeSheet found',
       data: timeSheets,
+      error: false,
     });
   } catch (err) {
     return res.status(400).json({
@@ -20,9 +26,15 @@ const deleteTimeSheet = async (req, res) => {
   try {
     const searchId = req.params.id;
     const result = await TimeSheetsModel.findByIdAndDelete({ _id: searchId });
-
+    if (!result) {
+      return res.status(404).json({
+        message: 'TimeSheet not found',
+        error: true,
+      });
+    }
     return res.status(204).json({
       data: result,
+      error: false,
     });
   } catch (err) {
     return res.status(400).json({
@@ -39,10 +51,16 @@ const editTimeSheet = async (req, res) => {
       { ...req.body },
       { new: true },
     );
-
+    if (!result) {
+      return res.status(404).json({
+        message: 'TimeSheet not found',
+        error: true,
+      });
+    }
     return res.status(200).json({
       message: `TimeSheet with the id ${searchId} edited`,
       data: result,
+      error: false,
     });
   } catch (err) {
     return res.status(400).json({
