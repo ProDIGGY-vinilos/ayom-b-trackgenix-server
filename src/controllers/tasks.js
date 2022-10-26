@@ -55,13 +55,14 @@ const getTaskById = async (req, res) => {
         error: false,
       });
     }
-    return res.status(400).json({
+    return res.status(404).json({
       message: `Cannot find task with ID: ${req.params.id}`,
       error: true,
     });
   } catch (err) {
-    return res.status(500).json({
+    return res.status(400).json({
       message: `There was an error: ${err}`,
+      error: true,
     });
   }
 };
@@ -70,17 +71,15 @@ const deleteTask = async (req, res) => {
   try {
     const taskToDelete = await Tasks.findByIdAndDelete({ _id: req.params.id });
     if (taskToDelete) {
-      return res.status(200).json({
-        message: 'Task delete succesfully',
-        data: taskToDelete,
-        error: false,
+      return res.status(204).json({
       });
     }
     return res.status(404).json({
       message: `Cannot delete task with ID: ${req.params.id}`,
+      error: true,
     });
   } catch (err) {
-    return res.status(500).json({
+    return res.status(400).json({
       message: `There was an error: ${err}`,
       error: true,
     });
