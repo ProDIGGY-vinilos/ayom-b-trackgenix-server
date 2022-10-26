@@ -224,3 +224,30 @@ describe('POST /api/superAdmins', () => {
     });
   });
 });
+
+describe('PUT /api/superAdmins', () => {
+  const id = '6352d7e777ae480815a63af2';
+  describe('Success PUT tests', () => {
+    test('if send a VALID id as params & a VALID object as body it should return a valid request', async () => {
+      const response = await request(app).put(`/api/superAdmins/${id}`).send(superAdminValid);
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe(`SuperAdmin with the ID: ${id}, has been successfully edited!`);
+      expect(response.body.data).toMatchObject(superAdminValid);
+    });
+  });
+  describe('Wrong PUT tests', () => {
+    test('if send a VALID ID as params but an INVALID object as body ir shoul return a bad request', async () => {
+      const response = await request(app).put(`/api/superAdmins/${id}`).send(superAdminInvalid.name);
+      expect(response.status).toBe(400);
+    });
+    test('if send a VALID ID as params but an INVALID object as body ir shoul return a bad request', async () => {
+      const response = await request(app).put(`/api/superAdmins/${id}`).send(superAdminInvalid.missingProp);
+      expect(response.status).toBe(400);
+    });
+    test('if send an INVALID ID it should retunr a bad request', async () => {
+      const response = await request(app).put('/api/superAdmins/48r812382472t829t2gw').send(superAdminValid);
+      expect(response.status).toBe(404);
+      expect(response.body).toHaveProperty('message');
+    });
+  });
+});
