@@ -31,7 +31,7 @@ const editEmployee = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(404).json({
+    return res.status(400).json({
       message: `Something was wrong: ${err.message}`,
       data: undefined,
       error: true,
@@ -68,7 +68,7 @@ const getAllEmployees = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(404).json({
+    return res.status(400).json({
       message: `An error ocurred: ${err}`,
       data: undefined,
       error: true,
