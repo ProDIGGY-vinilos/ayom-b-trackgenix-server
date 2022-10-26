@@ -59,6 +59,7 @@ describe('Edit function', () => {
     expect(response.status).toBe(400);
   });
 });
+
 describe('GET BY ID Employees Controller', () => {
   test('response should return a 200 status', async () => {
     const response = await request(app).get('/api/employees/6352daf070bd974cac6927cc').send();
@@ -86,12 +87,12 @@ describe('GET BY ID Employees Controller', () => {
 });
 
 describe('DELETE Employees Controller', () => {
-  test('response should return a 204 status when the employee was successfully deleted', async () => {
+  test('response should return a 200 status when the employee was successfully deleted', async () => {
     const response = await request(app).delete('/api/employees/6352daf070bd974cac6927cc').send();
     expect(response.status).toEqual(200);
   });
 
-  test('response should return a 404 status if the employee does not exist', async () => {
+  test('response should return a 400 status if the employee does not exist', async () => {
     const response = await request(app).delete('/api/employees/628e3acafb848cdc505426a55').send();
     expect(response.status).toEqual(400);
   });
@@ -103,7 +104,7 @@ describe('DELETE Employees Controller', () => {
 });
 
 describe('POST Employee Controller', () => {
-  test('response should return a 201 status when the employee was successfully created', async () => {
+  test('response should return a 200 status when the employee was successfully created', async () => {
     const response = await request(app).post('/api/employees').send({
       name: 'Rita',
       lastName: 'Milstein',
@@ -180,7 +181,7 @@ describe('POST Employee Controller', () => {
     expect(response.status).toBe(400);
   });
 
-  test('response should me an undefined data if the last name is spelled wrong', async () => {
+  test('response should return an undefined data if the last name is spelled wrong', async () => {
     const response = await request(app).post('/api/employees').send({
       name: 'Rita',
       lastName: 'Mil*stein',
