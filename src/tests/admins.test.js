@@ -100,3 +100,26 @@ describe('PUT:', () => {
     });
   });
 });
+
+describe('DELETE:', () => {
+  describe('Success DEL /api/admins/:id tests:', () => {
+    test('if send a VALID ID it should return status code 204.', async () => {
+      const response = await request(app).del('/api/admins/63533d49fc13ae16b7000000').send();
+      expect(response.status).toBe(204);
+    });
+  });
+  describe('Incorrect DEL /api/admins/:id tests:', () => {
+    test('if send an INVALID ID it should return status code 404.', async () => {
+      const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
+      expect(response.status).toBe(404);
+    });
+    test('if send an INVALID ID it should return error message on body.', async () => {
+      const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
+      expect(response.body.message).toBe('Something was wrong: ID doesnt match with a valid admin!');
+    });
+    test('if send an INVALID ID it should return true error property on body.', async () => {
+      const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
+      expect(response.body.error).toBeTruthy();
+    });
+  });
+});

@@ -21,15 +21,15 @@ const deleteAdmin = async (req, res) => {
     const { id } = req.params;
     const admin = await Admins.findByIdAndDelete(id);
 
-    return res.status(200)
-      .json({
-        message: `Admin with id: ${id} was successfully deleted!`,
-        data: admin,
-      });
+    if (!admin) {
+      throw new Error('ID doesnt match with a valid admin!');
+    }
+    return res.status(204).json();
   } catch (err) {
     return res.status(404)
       .json({
         message: `Something was wrong: ${err.message}`,
+        error: true,
       });
   }
 };
