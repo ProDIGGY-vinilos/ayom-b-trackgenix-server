@@ -123,3 +123,40 @@ describe('DELETE:', () => {
     });
   });
 });
+
+describe('Post Function', () => {
+  test('Should return status code 201', async () => {
+    const response = await request(app).post('/api/admins/').send(correctAdminMock);
+    expect(response.status).toBe(201);
+    expect(response.body.data).toBeDefined();
+    expect(response.body.error).toBeFalsy();
+    expect(response.body.message).toBe('Admin created');
+  });
+  test('Should return status code 404 wrong path', async () => {
+    const response = await request(app).post('/api/admin/').send(correctAdminMock);
+    expect(response.status).toBe(404);
+    expect(response.error).toBeTruthy();
+    expect(response.body.data).toBeUndefined();
+  });
+  test('Should return status code 400 because of an invalid body', async () => {
+    const response = await request(app).post('/api/admins/').send(incorrectAdminMock);
+    expect(response.status).toBe(400);
+  });
+});
+
+describe('getAll function', () => {
+  test('Should return status code 200', async () => {
+    const response = await request(app).get('/api/admins').send();
+    expect(response.status).toBe(200);
+    expect(response.body.error).toBeFalsy();
+    expect(response.body.data).toBeDefined();
+    expect(response.body.message).toBe('Admins found');
+    expect(response.body.data.length).toBe(adminSeed.length);
+  });
+  test('Errors in the getAll', async () => {
+    const response = await request(app).get('/api/admin').send();
+    expect(response.status).toBe(404);
+    expect(response.error).toBeTruthy();
+    expect(response.body.data).toBeUndefined();
+  });
+});
