@@ -67,7 +67,7 @@ const getAllAdmins = async (req, res) => {
     if (!admins.length) {
       return res.status(404).json({
         message: 'Admin not found',
-        data: undefined,
+
         error: true,
       });
     }
@@ -77,9 +77,8 @@ const getAllAdmins = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(404).json({
+    return res.status(400).json({
       message: `An error ocurred: ${err}`,
-      data: undefined,
       error: true,
     });
   }
@@ -103,7 +102,6 @@ const createAdmin = async (req, res) => {
   } catch (err) {
     return res.status(400).json({
       message: `An error ocurred: ${err}`,
-      data: undefined,
       error: true,
     });
   }
