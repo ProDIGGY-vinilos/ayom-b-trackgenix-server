@@ -33,7 +33,7 @@ const editEmployee = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(404).json({
+    return res.status(400).json({
       message: `Something was wrong: ${err.message}`,
       error: true,
     });
@@ -58,7 +58,7 @@ const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employees.find(req.query);
     if (!employees.length) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: 'Employee not found',
         error: true,
       });
