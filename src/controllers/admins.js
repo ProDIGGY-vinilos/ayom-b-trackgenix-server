@@ -67,7 +67,6 @@ const getAllAdmins = async (req, res) => {
     if (!admins.length) {
       return res.status(404).json({
         message: 'Admin not found',
-
         error: true,
       });
     }
