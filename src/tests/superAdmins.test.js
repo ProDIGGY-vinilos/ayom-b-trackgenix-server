@@ -58,11 +58,8 @@ describe('GET all /api/superAdmins', () => {
     });
     test('if send an object with invalid properties on body it should return ALL Super Admins', async () => {
       const response = await request(app).get('/api/superAdmins').send({ football: 'allways' });
-      expect(response.body.data.length).toBe(superAdminsSeed.length);
-    });
-    test('if send an object with invalid properties on body it should return 200 status code', async () => {
-      const response = await request(app).get('/api/superAdmins').send();
       expect(response.status).toBe(200);
+      expect(response.body.data.length).toBe(superAdminsSeed.length);
     });
     test('if send a valid superAdmin property on query params it should return this exactly superAdmin', async () => {
       const response = await request(app).get('/api/superAdmins/?name=Verona').send();
@@ -236,11 +233,11 @@ describe('PUT /api/superAdmins', () => {
     });
   });
   describe('Wrong PUT tests', () => {
-    test('if send a VALID ID as params but an INVALID object as body ir shoul return a bad request', async () => {
+    test('if send a VALID ID as params but an object with an INVALID property as body it should return a bad request', async () => {
       const response = await request(app).put(`/api/superAdmins/${id}`).send(superAdminInvalid.name);
       expect(response.status).toBe(400);
     });
-    test('if send a VALID ID as params but an INVALID object as body ir shoul return a bad request', async () => {
+    test('if send a VALID ID as params but an object with an INVALID propertyas body it should return a bad request', async () => {
       const response = await request(app).put(`/api/superAdmins/${id}`).send(superAdminInvalid.missingProp);
       expect(response.status).toBe(400);
     });
