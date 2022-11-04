@@ -98,8 +98,8 @@ const getAllProjects = async (req, res) => {
       },
     });
     if (!projects.length) {
-      return res.status(400).json({
-        message: 'Non existent project!',
+      return res.status(200).json({
+        message: 'Projects List Empty',
       });
     }
     return res.status(200).json({

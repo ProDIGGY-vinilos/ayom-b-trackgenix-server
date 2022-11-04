@@ -56,11 +56,11 @@ describe('GET all projects', () => {
     });
   });
   describe('Failure cases', () => {
-    test('Returns status code 400', async () => {
+    test('Returns status code 200', async () => {
       await Project.deleteMany();
       const response = await request(app).get('/api/projects').send();
 
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(200);
     });
     test('Returns no projects', async () => {
       const response = await request(app).get('/api/projects').send();
@@ -70,7 +70,7 @@ describe('GET all projects', () => {
     test('Returns error message', async () => {
       const response = await request(app).get('/api/projects').send();
 
-      expect(response.body.message).toBe('Non existent project!');
+      expect(response.body.message).toBe('Projects List Empty');
 
       await Project.collection.insertMany(projectSeed);
     });

@@ -58,8 +58,8 @@ const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employees.find(req.query);
     if (!employees.length) {
-      return res.status(404).json({
-        message: 'Employee not found',
+      return res.status(200).json({
+        message: 'Employees List Empty',
         error: true,
       });
     }

@@ -95,8 +95,8 @@ describe('GET all /api/superAdmins', () => {
     });
     test('if send an INVALID query params it should return "Admin Not Found" with 404 status code', async () => {
       const response = await request(app).get('/api/superAdmins/?name=Alberto&lastName=queMalPensado').send();
-      expect(response.status).toBe(404);
-      expect(response.body.message).toBe('Super Admin not found');
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('Super Admin List Empty');
     });
   });
 });
