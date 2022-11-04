@@ -60,7 +60,7 @@ describe('GET by id:', () => {
   describe('Incorrect GET /api/admins/:id', () => {
     test('when send an INVALID id it should send a 404 status code', async () => {
       const response = await callIncorrectGETRequest();
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(400);
     });
     test('if send an INVALID id it must to have body message property', async () => {
       const response = await callIncorrectGETRequest();
@@ -115,7 +115,7 @@ describe('DELETE:', () => {
     });
     test('if send an INVALID ID it should return error message on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
-      expect(response.body.message).toBe('Something was wrong: ID doesnt match with a valid admin!');
+      expect(response.body.message).toBe('ID doesnt match with a valid admin!');
     });
     test('if send an INVALID ID it should return true error property on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();

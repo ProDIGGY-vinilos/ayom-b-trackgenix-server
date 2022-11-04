@@ -243,7 +243,7 @@ describe('PUT /api/superAdmins', () => {
     });
     test('if send an INVALID ID it should retunr a bad request', async () => {
       const response = await request(app).put('/api/superAdmins/48r812382472t829t2gw').send(superAdminValid);
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('message');
     });
   });

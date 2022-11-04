@@ -1,5 +1,15 @@
 import Tasks from '../models/Tasks';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
+
 const getAllTasks = async (req, res) => {
   try {
     const taskList = await Tasks.find(req.body || {}).exec();
@@ -47,7 +57,15 @@ const createNewTask = async (req, res) => {
 
 const getTaskById = async (req, res) => {
   try {
-    const task = await Tasks.findById({ _id: req.params.id });
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+
+    const task = await Tasks.findById({ _id: id });
     if (task) {
       return res.status(200).json({
         message: 'Task found successfully',
@@ -56,7 +74,7 @@ const getTaskById = async (req, res) => {
       });
     }
     return res.status(404).json({
-      message: `Cannot find task with ID: ${req.params.id}`,
+      message: `Cannot find task with ID: ${id}`,
       error: true,
     });
   } catch (err) {
@@ -69,13 +87,20 @@ const getTaskById = async (req, res) => {
 
 const deleteTask = async (req, res) => {
   try {
-    const taskToDelete = await Tasks.findByIdAndDelete({ _id: req.params.id });
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const taskToDelete = await Tasks.findByIdAndDelete({ _id: id });
     if (taskToDelete) {
       return res.status(204).json({
       });
     }
     return res.status(404).json({
-      message: `Cannot delete task with ID: ${req.params.id}`,
+      message: `Cannot delete task with ID: ${id}`,
       error: true,
     });
   } catch (err) {
@@ -88,8 +113,16 @@ const deleteTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+
     const taskToUpdate = await Tasks.findByIdAndUpdate(
-      { _id: req.params.id },
+      { _id: id },
       req.body,
       { new: true },
     );
@@ -101,7 +134,7 @@ const updateTask = async (req, res) => {
       });
     }
     return res.status(404).json({
-      message: `Cannot find task with ID: ${req.params.id}`,
+      message: `Cannot find task with ID: ${id}`,
     });
   } catch (err) {
     return res.status(500).json({

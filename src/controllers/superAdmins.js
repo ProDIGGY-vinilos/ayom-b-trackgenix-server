@@ -1,5 +1,15 @@
 import SuperAdmins from '../models/SuperAdmins';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
+
 const getAllSuperAdmins = async (req, res) => {
   try {
     const superAdmins = await SuperAdmins.find(req.query);
@@ -23,6 +33,12 @@ const getAllSuperAdmins = async (req, res) => {
 const getSuperAdminById = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const superAdmin = await SuperAdmins.findById(id);
 
     if (superAdmin) {
@@ -33,7 +49,7 @@ const getSuperAdminById = async (req, res) => {
       });
     }
     return res.status(404).json({
-      message: `Cannot find Super Admin with this ID: ${req.params.id}`,
+      message: `Cannot find Super Admin with this ID: ${id}`,
       error: true,
     });
   } catch (err) {
@@ -68,6 +84,12 @@ const createSuperAdmin = async (req, res) => {
 const editSuperAdmin = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const superAdmin = await SuperAdmins.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
@@ -88,12 +110,18 @@ const editSuperAdmin = async (req, res) => {
 const deleteSuperAdmin = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const superAdminToDelete = await SuperAdmins.findByIdAndDelete(id);
     if (superAdminToDelete) {
       return res.status(204).json();
     }
     return res.status(404).json({
-      message: `Cannot delete Super Admin with this ID: ${req.params.id}`,
+      message: `Cannot delete Super Admin with this ID: ${id}`,
       error: true,
     });
   } catch (err) {

@@ -1,8 +1,24 @@
 import Employees from '../models/Employees';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
+
 const getEmployeeById = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const employee = await Employees.findById(id);
 
     return res.status(200).json({
@@ -21,6 +37,12 @@ const getEmployeeById = async (req, res) => {
 const editEmployee = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const employee = await Employees.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
@@ -43,6 +65,12 @@ const editEmployee = async (req, res) => {
 const deleteEmployee = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     await Employees.findByIdAndDelete(id);
 
     return res.status(200).json();

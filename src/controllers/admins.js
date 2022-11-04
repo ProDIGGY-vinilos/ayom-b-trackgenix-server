@@ -1,8 +1,24 @@
 import Admins from '../models/Admins';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
+
 const getAdminById = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const admin = await Admins.findById(id);
     return res.status(200).json({
       message: 'Admin Found',
@@ -19,10 +35,20 @@ const getAdminById = async (req, res) => {
 const deleteAdmin = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const admin = await Admins.findByIdAndDelete(id);
 
     if (!admin) {
-      throw new Error('ID doesnt match with a valid admin!');
+      return res.status(404)
+        .json({
+          message: 'ID doesnt match with a valid admin!',
+          error: true,
+        });
     }
     return res.status(204).json();
   } catch (err) {
@@ -37,6 +63,12 @@ const deleteAdmin = async (req, res) => {
 const editAdmin = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const admin = await Admins.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
@@ -91,7 +123,6 @@ const createAdmin = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-
     const result = await admin.save();
     return res.status(201).json({
       message: 'Admin created',

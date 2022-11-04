@@ -191,11 +191,6 @@ describe('GET project by id', () => {
 
       expect(response.status).toBe(400);
     });
-    test('Returns error status code 500', async () => {
-      const response = await request(app).get('/api/projects/0').send();
-
-      expect(response.status).toBe(500);
-    });
   });
 });
 

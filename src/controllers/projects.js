@@ -1,8 +1,25 @@
 import Projects from '../models/Projects';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
+
 const getProjectById = async (req, res) => {
   try {
-    const project = await Projects.findById({ _id: req.params.id }).populate({
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const project = await Projects.findById(id).populate({
       path: 'employees',
       populate: {
         path:
@@ -16,7 +33,7 @@ const getProjectById = async (req, res) => {
       });
     }
     return res.status(400).json({
-      msg: `Cannot find project with ID: ${req.params.id}`,
+      msg: `Cannot find project with ID: ${id}`,
     });
   } catch (err) {
     return res.status(500).json({
@@ -27,7 +44,14 @@ const getProjectById = async (req, res) => {
 
 const deleteProject = async (req, res) => {
   try {
-    const projectToDelete = await Projects.findByIdAndDelete({ _id: req.params.id });
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const projectToDelete = await Projects.findByIdAndDelete(id);
     if (projectToDelete) {
       return res.status(200).json({
         msg: 'Project delete succesfully',
@@ -35,7 +59,7 @@ const deleteProject = async (req, res) => {
       });
     }
     return res.status(404).json({
-      msg: `Cannot delete project with ID: ${req.params.id}`,
+      msg: `Cannot delete project with ID: ${id}`,
     });
   } catch (err) {
     return res.status(500).json({
@@ -46,8 +70,15 @@ const deleteProject = async (req, res) => {
 
 const updateProject = async (req, res) => {
   try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const projectToUpdate = await Projects.findByIdAndUpdate(
-      { _id: req.params.id },
+      { _id: id },
       req.body,
       { new: true },
     );
@@ -58,7 +89,7 @@ const updateProject = async (req, res) => {
       });
     }
     return res.status(404).json({
-      msg: `Cannot find project with ID: ${req.params.id}`,
+      msg: `Cannot find project with ID: ${id}`,
     });
   } catch (err) {
     return res.status(500).json({

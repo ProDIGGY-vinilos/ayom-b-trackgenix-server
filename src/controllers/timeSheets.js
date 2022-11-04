@@ -1,9 +1,25 @@
 import TimeSheetsModel from '../models/TimeSheets';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
+
 const getTimeSheetById = async (req, res) => {
   try {
-    const searchId = req.params.id;
-    const timeSheets = await TimeSheetsModel.findById({ _id: searchId }).populate('project').populate('task').populate('employee');
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const timeSheets = await TimeSheetsModel.findById({ _id: id }).populate('project').populate('task').populate('employee');
     if (!timeSheets) {
       return res.status(404).json({
         message: 'TimeSheet not found',
@@ -24,8 +40,14 @@ const getTimeSheetById = async (req, res) => {
 
 const deleteTimeSheet = async (req, res) => {
   try {
-    const searchId = req.params.id;
-    const result = await TimeSheetsModel.findByIdAndDelete({ _id: searchId });
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const result = await TimeSheetsModel.findByIdAndDelete({ _id: id });
     if (!result) {
       return res.status(404).json({
         message: 'TimeSheet not found',
@@ -45,9 +67,15 @@ const deleteTimeSheet = async (req, res) => {
 
 const editTimeSheet = async (req, res) => {
   try {
-    const searchId = req.params.id;
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const result = await TimeSheetsModel.findByIdAndUpdate(
-      { _id: searchId },
+      { _id: id },
       { ...req.body },
       { new: true },
     );
@@ -58,7 +86,7 @@ const editTimeSheet = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: `TimeSheet with the id ${searchId} edited`,
+      message: `TimeSheet with the id ${id} edited`,
       data: result,
       error: false,
     });
