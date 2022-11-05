@@ -87,7 +87,7 @@ const createEmployee = async (req, res) => {
     });
 
     const result = await employee.save();
-    return res.status(200).json({
+    return res.status(201).json({
       message: 'Employee created successfully',
       data: result,
       error: false,

@@ -104,7 +104,7 @@ describe('DELETE Employees Controller', () => {
 });
 
 describe('POST Employee Controller', () => {
-  test('response should return a 200 status when the employee was successfully created', async () => {
+  test('response should return a 201 status when the employee was successfully created', async () => {
     const response = await request(app).post('/api/employees').send({
       name: 'Rita',
       lastName: 'Milstein',
@@ -112,7 +112,7 @@ describe('POST Employee Controller', () => {
       email: 'maju_12puet@hotmail.com',
       password: '10we43qovls823mf7',
     });
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
   });
 
   test('response should return a 404 status when the route is wrong', async () => {
