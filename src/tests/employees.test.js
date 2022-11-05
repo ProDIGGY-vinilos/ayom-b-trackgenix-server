@@ -29,7 +29,7 @@ describe('getAll function', () => {
     expect(response.status).toBe(200);
     expect(response.body.error).toBeFalsy();
     expect(response.body.data).toBeDefined();
-    expect(response.body.message).toBe('Employee found');
+    expect(response.body.message).toBe('Employees found');
     expect(response.body.data.length).toBe(employeesSeed.length);
   });
   test('Errors in the getAll', async () => {
@@ -46,7 +46,7 @@ describe('Edit function', () => {
     expect(response.status).toBe(200);
     expect(response.body.error).toBeFalsy();
     expect(response.body.data).toBeDefined();
-    expect(response.body.message).toBe(`Employee with the ID: ${employeeId}, has been successfully edited!`);
+    expect(response.body.message).toBe(`Employee with id:${employeeId} updated successfully`);
   });
   test('Should return status code 404 because not found the employee', async () => {
     const response = await request(app).put(`/api/employee/${employeeId}`).send(mockEmployee);
@@ -66,8 +66,8 @@ describe('GET BY ID Employees Controller', () => {
     expect(response.status).toBe(200);
   });
   test('response should return a status 400 if the id does not exist', async () => {
-    const response = await request(app).get('/api/employees/628e3acafb848cdc505426a5').send();
-    expect(response.status).toEqual(400);
+    const response = await request(app).get('/api/employees/628e3acafb848cdc505426jj').send();
+    expect(response.status).toEqual(500);
   });
   test('response should return a status 404 if the route is not correct', async () => {
     const response = await request(app).get('/employees/628e3acafb848cdc505426a5').send();
@@ -94,7 +94,7 @@ describe('DELETE Employees Controller', () => {
 
   test('response should return a 400 status if the employee does not exist', async () => {
     const response = await request(app).delete('/api/employees/628e3acafb848cdc505426a55').send();
-    expect(response.status).toEqual(400);
+    expect(response.status).toEqual(500);
   });
 
   test('response should return a status 404 if the route is not correct', async () => {
@@ -104,7 +104,7 @@ describe('DELETE Employees Controller', () => {
 });
 
 describe('POST Employee Controller', () => {
-  test('response should return a 201 status when the employee was successfully created', async () => {
+  test('response should return a 200 status when the employee was successfully created', async () => {
     const response = await request(app).post('/api/employees').send({
       name: 'Rita',
       lastName: 'Milstein',
@@ -112,7 +112,7 @@ describe('POST Employee Controller', () => {
       email: 'maju_12puet@hotmail.com',
       password: '10we43qovls823mf7',
     });
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(200);
   });
 
   test('response should return a 404 status when the route is wrong', async () => {
