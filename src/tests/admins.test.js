@@ -39,7 +39,7 @@ describe('GET by id:', () => {
     test('if send a VALID id it must have a body message equal to "Admin Found with id"', async () => {
       const response = await callCorrectGETRequest();
       console.log('test', response.body.message);
-      expect(response.body.message).toBe(`Admin with id:63533d49fc13ae16b7000000 found`);
+      expect(response.body.message).toBe('Admin with id:63533d49fc13ae16b7000000 found');
     });
     test('if send a VALID id it must have a body data property of "name"', async () => {
       const response = await callCorrectGETRequest();
@@ -116,7 +116,7 @@ describe('DELETE:', () => {
     });
     test('if send an INVALID ID it should return error message on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
-      expect(response.body.message).toBe(`Cannot delete Admin with id: 63533d49fc13ae16b7000099`);
+      expect(response.body.message).toBe('Cannot delete Admin with id: 63533d49fc13ae16b7000099');
     });
     test('if send an INVALID ID it should return true error property on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
@@ -161,4 +161,3 @@ describe('getAll function', () => {
     expect(response.body.data).toBeUndefined();
   });
 });
-
