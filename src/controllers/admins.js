@@ -2,15 +2,15 @@ import mongoose from 'mongoose';
 import Admins from '../models/Admins';
 
 const getAdminById = async (req, res) => {
-  if (req.params.id && !mongoose.Types.ObjectId.isValid(req.params.id)) {
+  const { id } = req.params;
+  if (id && !mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({
-      message: `Cannot get Admin by ${req.params.id}`,
+      message: `${id} is an invalid id`,
       data: undefined,
       error: true,
     });
   }
   try {
-    const { id } = req.params;
     const admin = await Admins.findById(id);
     if (admin) {
       return res.status(200).json({
@@ -20,7 +20,7 @@ const getAdminById = async (req, res) => {
       });
     }
     return res.status(404).json({
-      message: `Admin with id ${req.params.id} not found`,
+      message: `Admin with id ${id} not found`,
       data: undefined,
       error: true,
     });
