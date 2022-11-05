@@ -36,9 +36,10 @@ describe('GET by id:', () => {
       const response = await callCorrectGETRequest();
       expect(response.status).toBe(200);
     });
-    test('if send a VALID id it must have a body message equal to "Admin Found"', async () => {
+    test('if send a VALID id it must have a body message equal to "Admin Found with id"', async () => {
       const response = await callCorrectGETRequest();
-      expect(response.body.message).toBe('Admin Found');
+      console.log('test', response.body.message);
+      expect(response.body.message).toBe(`Admin with id:63533d49fc13ae16b7000000 found`);
     });
     test('if send a VALID id it must have a body data property of "name"', async () => {
       const response = await callCorrectGETRequest();
@@ -58,9 +59,9 @@ describe('GET by id:', () => {
     });
   });
   describe('Incorrect GET /api/admins/:id', () => {
-    test('when send an INVALID id it should send a 404 status code', async () => {
+    test('when send an INVALID id it should send a 500 status code', async () => {
       const response = await callIncorrectGETRequest();
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(500);
     });
     test('if send an INVALID id it must to have body message property', async () => {
       const response = await callIncorrectGETRequest();
@@ -109,13 +110,13 @@ describe('DELETE:', () => {
     });
   });
   describe('Incorrect DEL /api/admins/:id tests:', () => {
-    test('if send an INVALID ID it should return status code 404.', async () => {
+    test('if send an INVALID ID it should return status code 500.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(500);
     });
     test('if send an INVALID ID it should return error message on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
-      expect(response.body.message).toBe('Something was wrong: ID doesnt match with a valid admin!');
+      expect(response.body.message).toBe(`Cannot delete Admin with id: 63533d49fc13ae16b7000099`);
     });
     test('if send an INVALID ID it should return true error property on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
@@ -130,7 +131,7 @@ describe('Post Function', () => {
     expect(response.status).toBe(201);
     expect(response.body.data).toBeDefined();
     expect(response.body.error).toBeFalsy();
-    expect(response.body.message).toBe('Admin created');
+    expect(response.body.message).toBe('Admin created successfully');
   });
   test('Should return status code 404 wrong path', async () => {
     const response = await request(app).post('/api/admin/').send(correctAdminMock);
@@ -160,3 +161,4 @@ describe('getAll function', () => {
     expect(response.body.data).toBeUndefined();
   });
 });
+

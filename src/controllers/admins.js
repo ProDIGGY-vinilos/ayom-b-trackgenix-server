@@ -5,13 +5,13 @@ const getAdminById = async (req, res) => {
     const { id } = req.params;
     const admin = await Admins.findById(id);
     return res.status(200).json({
-      message: 'Admin Found',
+      message: `Admin with id:${req.params.id} found`,
       data: admin,
     });
   } catch (err) {
-    return res.status(404)
+    return res.status(500)
       .json({
-        message: `Something was wrong: ${err.message}`,
+        message: `Cannot get Admin with id:${req.params.id}`,
       });
   }
 };
@@ -22,13 +22,16 @@ const deleteAdmin = async (req, res) => {
     const admin = await Admins.findByIdAndDelete(id);
 
     if (!admin) {
-      throw new Error('ID doesnt match with a valid admin!');
+      throw new Error(`Admin with id:${id} not found`);
     }
-    return res.status(204).json();
+    return res.status(204).json({
+      message: `Admin with id:${id} delete successfully`,
+      error: false,
+    });
   } catch (err) {
-    return res.status(404)
+    return res.status(500)
       .json({
-        message: `Something was wrong: ${err.message}`,
+        message: `Cannot delete Admin with id: ${req.params.id}`,
         error: true,
       });
   }
@@ -44,19 +47,19 @@ const editAdmin = async (req, res) => {
     );
     if (!admin) {
       return res.status(404).json({
-        message: `Admin with ${id} dont exist on DB.`,
+        message: `Admin with id:${req.params.id} not found`,
         error: true,
       });
     }
     return res.status(200)
       .json({
-        message: `Admin with id ${id} found and successfully edited!`,
+        message: `Admin with id:${req.params.id} updated successfully`,
         data: admin,
       });
   } catch (err) {
-    return res.status(400)
+    return res.status(500)
       .json({
-        message: `Something was wrong: ${err.message}`,
+        message: `Cannot edit Admin with id:${req.params.id}`,
       });
   }
 };
@@ -66,7 +69,7 @@ const getAllAdmins = async (req, res) => {
     const admins = await Admins.find(req.query);
     if (!admins.length) {
       return res.status(404).json({
-        message: 'Admin not found',
+        message: 'Admins not found',
         error: true,
       });
     }
@@ -76,8 +79,8 @@ const getAllAdmins = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred: ${err}`,
+    return res.status(500).json({
+      message: 'Cannot get admins',
       error: true,
     });
   }
@@ -94,13 +97,13 @@ const createAdmin = async (req, res) => {
 
     const result = await admin.save();
     return res.status(201).json({
-      message: 'Admin created',
+      message: 'Admin created successfully',
       data: result,
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred: ${err}`,
+    return res.status(500).json({
+      message: 'Cannot create admin',
       error: true,
     });
   }
