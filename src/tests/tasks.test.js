@@ -24,7 +24,7 @@ describe('GETALL /tasks', () => {
     test('Should return a success message', async () => {
       const response = await request(app).get('/api/tasks').send();
 
-      expect(response.body.message).toMatch('Tasks found!');
+      expect(response.body.message).toMatch('Tasks List');
     });
     test('Should return Error: false', async () => {
       const response = await request(app).get('/api/tasks').send();

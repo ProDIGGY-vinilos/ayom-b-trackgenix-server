@@ -29,7 +29,7 @@ describe('getAll function', () => {
     expect(response.status).toBe(200);
     expect(response.body.error).toBeFalsy();
     expect(response.body.data).toBeDefined();
-    expect(response.body.message).toBe('Employee found');
+    expect(response.body.message).toBe('Employees List');
     expect(response.body.data.length).toBe(employeesSeed.length);
   });
   test('Errors in the getAll', async () => {

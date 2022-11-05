@@ -65,12 +65,12 @@ describe('GET all projects', () => {
     test('Returns no projects', async () => {
       const response = await request(app).get('/api/projects').send();
 
-      expect(response.body.data).toBe(undefined);
+      expect(response.body.data).toStrictEqual([]);
     });
-    test('Returns error message', async () => {
+    test('Returns same message if List is empty', async () => {
       const response = await request(app).get('/api/projects').send();
 
-      expect(response.body.message).toBe('Projects List Empty');
+      expect(response.body.message).toBe('Projects List');
 
       await Project.collection.insertMany(projectSeed);
     });

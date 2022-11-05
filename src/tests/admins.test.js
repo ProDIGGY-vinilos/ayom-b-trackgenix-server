@@ -150,7 +150,7 @@ describe('getAll function', () => {
     expect(response.status).toBe(200);
     expect(response.body.error).toBeFalsy();
     expect(response.body.data).toBeDefined();
-    expect(response.body.message).toBe('Admins found');
+    expect(response.body.message).toBe('Admins List');
     expect(response.body.data.length).toBe(adminSeed.length);
   });
   test('Errors in the getAll', async () => {

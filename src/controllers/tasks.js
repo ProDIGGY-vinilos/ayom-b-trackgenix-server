@@ -3,15 +3,9 @@ import Tasks from '../models/Tasks';
 const getAllTasks = async (req, res) => {
   try {
     const taskList = await Tasks.find(req.body || {}).exec();
-    if (!taskList.length) {
-      return res.status(200).json({
-        message: 'Task List Empty',
-        data: taskList,
-      });
-    }
     return res.status(200)
       .json({
-        message: 'Tasks found!',
+        message: 'Tasks List',
         data: taskList,
         error: false,
       });

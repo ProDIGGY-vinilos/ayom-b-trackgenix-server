@@ -71,15 +71,8 @@ const editTimeSheet = async (req, res) => {
 const getAllTimeSheets = async (req, res) => {
   try {
     const timeSheets = await TimeSheetsModel.find().populate('project').populate('task').populate('employee');
-    if (!timeSheets.length) {
-      return res.status(200).json({
-        message: 'TimeSheets List Empty',
-        data: timeSheets,
-      });
-    }
-
     return res.status(200).json({
-      message: 'TimeSheets found',
+      message: 'TimeSheets List',
       data: timeSheets,
     });
   } catch (err) {

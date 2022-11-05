@@ -62,7 +62,7 @@ describe('Success GET /timeSheet test', () => {
   });
   test('GET should return a success status code.', async () => {
     const response = await request(app).get('/api/timeSheet').send();
-    expect(response.status).toBeLessThan(400);
+    expect(response.status).toBe(200);
   });
   test('GET should return at least one timesheet.', async () => {
     const response = await request(app).get('/api/timeSheet').send();
