@@ -11,16 +11,16 @@ const getProjectById = async (req, res) => {
     });
     if (project) {
       return res.status(200).json({
-        msg: 'Project found succesfully',
+        message: 'Project found',
         data: project,
       });
     }
     return res.status(400).json({
-      msg: `Cannot find project with ID: ${req.params.id}`,
+      message: `Project with id: ${req.params.id} not found `,
     });
   } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${err}`,
+      message: `Project with id: ${req.params.id} not found`,
     });
   }
 };
@@ -29,17 +29,17 @@ const deleteProject = async (req, res) => {
   try {
     const projectToDelete = await Projects.findByIdAndDelete({ _id: req.params.id });
     if (projectToDelete) {
-      return res.status(200).json({
-        msg: 'Project delete succesfully',
+      return res.status(204).json({
+        message: `Project with id:${req.params.id} delete successfully`,
         data: projectToDelete,
       });
     }
     return res.status(404).json({
-      msg: `Cannot delete project with ID: ${req.params.id}`,
+      message: `Project with id:${req.params.id} not found`,
     });
   } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${err}`,
+      message: `Can not delete Project with ID: ${req.params.id}`,
     });
   }
 };
@@ -53,16 +53,16 @@ const updateProject = async (req, res) => {
     );
     if (projectToUpdate) {
       return res.status(200).json({
-        msg: 'Project updated succesfully',
+        message: `Project with id:${req.params.id} updated succesfully`,
         data: projectToUpdate,
       });
     }
     return res.status(404).json({
-      msg: `Cannot find project with ID: ${req.params.id}`,
+      message: `Project with id:${req.params.id} not found`,
     });
   } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${err}`,
+      message: `Cannot edit Project with id ${req.params.id}`,
     });
   }
 };
@@ -78,12 +78,12 @@ const createProject = async (req, res) => {
     });
     const result = await project.save();
     return res.status(201).json({
-      message: 'The project was created.',
+      message: 'Project created successfully',
       data: result,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Error creating project. ${err}`,
+    return res.status(500).json({
+      message: 'Cannot create Project',
     });
   }
 };
@@ -98,8 +98,8 @@ const getAllProjects = async (req, res) => {
       },
     });
     if (!projects.length) {
-      return res.status(400).json({
-        message: 'Non existent project!',
+      return res.status(404).json({
+        message: 'Projects not found',
       });
     }
     return res.status(200).json({
@@ -107,8 +107,8 @@ const getAllProjects = async (req, res) => {
       data: projects,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Error getting projects. ${err}`,
+    return res.status(500).json({
+      message: 'Cannot get projects',
     });
   }
 };

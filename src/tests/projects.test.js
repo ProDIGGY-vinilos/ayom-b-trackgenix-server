@@ -60,7 +60,7 @@ describe('GET all projects', () => {
       await Project.deleteMany();
       const response = await request(app).get('/api/projects').send();
 
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(404);
     });
     test('Returns no projects', async () => {
       const response = await request(app).get('/api/projects').send();
@@ -70,7 +70,7 @@ describe('GET all projects', () => {
     test('Returns error message', async () => {
       const response = await request(app).get('/api/projects').send();
 
-      expect(response.body.message).toBe('Non existent project!');
+      expect(response.body.message).toBe('Projects not found');
 
       await Project.collection.insertMany(projectSeed);
     });
@@ -87,7 +87,7 @@ describe('CREATE project', () => {
     test('Returns success message', async () => {
       const response = await request(app).post('/api/projects').send(mockedProject);
 
-      expect(response.body.message).toBe('The project was created.');
+      expect(response.body.message).toBe('Project created successfully');
     });
     test('Returns created project', async () => {
       const response = await request(app).post('/api/projects').send(mockedProject);
@@ -231,9 +231,9 @@ describe('UPDATE /api/projects', () => {
 
 describe('DELETE /api/projects', () => {
   describe('Success cases', () => {
-    test('should return status code 200', async () => {
+    test('should return status code 204', async () => {
       const response = await request(app).delete(`/api/projects/${projectId}`).send();
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(204);
     });
     test('should return undefined data', async () => {
       const response = await request(app).delete(`/api/projects/${projectId}`).send();
