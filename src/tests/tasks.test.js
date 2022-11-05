@@ -24,7 +24,7 @@ describe('GETALL /tasks', () => {
     test('Should return a success message', async () => {
       const response = await request(app).get('/api/tasks').send();
 
-      expect(response.body.message).toMatch('Tasks found!');
+      expect(response.body.message).toMatch('Tasks found');
     });
     test('Should return Error: false', async () => {
       const response = await request(app).get('/api/tasks').send();
@@ -56,10 +56,10 @@ describe('GETALL /tasks', () => {
 
       expect(response.status).toBe(404);
     });
-    test('Should retorun status code 400 (incorrect body)', async () => {
+    test('Should retorun status code 404 (incorrect body)', async () => {
       const response = await request(app).get('/api/tasks').send(falseFilterByDescription);
 
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(404);
     });
     test('Should return Error: true', async () => {
       const response = await request(app).get('/api/tasks').send(falseFilterByDescription);
@@ -90,7 +90,7 @@ describe('CREATE /tasks', () => {
     test('Should return a success message', async () => {
       const response = await request(app).post('/api/tasks').send(newTask);
 
-      expect(response.body.message).toMatch('Task successfully created!');
+      expect(response.body.message).toMatch('Task created successfully');
     });
     test('Should have Error: false', async () => {
       const response = await request(app).post('/api/tasks').send(newTask);
@@ -206,9 +206,9 @@ describe('GETBYID /api/tasks', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 400', async () => {
+  test('Non valid id format response have to be 500', async () => {
     const response = await request(app).get('/api/tasks/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).get('/api/tasks/63534ef4fc13ae1a71000').send();
@@ -243,9 +243,9 @@ describe('DELETE-BY-ID /api/tasks', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 400', async () => {
+  test('Non valid id format response have to be 500', async () => {
     const response = await request(app).del('/api/tasks/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).del('/api/tasks/63534ef4fc13ae1a71000').send();
