@@ -1,14 +1,9 @@
+import mongoose from 'mongoose';
 import Employees from '../models/Employees';
 
-const { ObjectId } = require('mongoose').Types;
+const { ObjectId } = mongoose.Types;
 
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getEmployeeById = async (req, res) => {
   try {
@@ -44,7 +39,7 @@ const editEmployee = async (req, res) => {
       });
     }
     const employee = await Employees.findByIdAndUpdate(
-      { _id: id },
+      id,
       { ...req.body },
       { new: true },
     );

@@ -1,14 +1,9 @@
+import mongoose from 'mongoose';
 import TimeSheetsModel from '../models/TimeSheets';
 
-const { ObjectId } = require('mongoose').Types;
+const { ObjectId } = mongoose.Types;
 
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getTimeSheetById = async (req, res) => {
   try {
@@ -19,7 +14,7 @@ const getTimeSheetById = async (req, res) => {
         error: true,
       });
     }
-    const timeSheets = await TimeSheetsModel.findById({ _id: id }).populate('project').populate('task').populate('employee');
+    const timeSheets = await TimeSheetsModel.findById(id).populate('project').populate('task').populate('employee');
     if (!timeSheets) {
       return res.status(404).json({
         message: 'TimeSheet not found',
@@ -47,7 +42,7 @@ const deleteTimeSheet = async (req, res) => {
         error: true,
       });
     }
-    const result = await TimeSheetsModel.findByIdAndDelete({ _id: id });
+    const result = await TimeSheetsModel.findByIdAndDelete(id);
     if (!result) {
       return res.status(404).json({
         message: 'TimeSheet not found',
@@ -75,7 +70,7 @@ const editTimeSheet = async (req, res) => {
       });
     }
     const result = await TimeSheetsModel.findByIdAndUpdate(
-      { _id: id },
+      id,
       { ...req.body },
       { new: true },
     );

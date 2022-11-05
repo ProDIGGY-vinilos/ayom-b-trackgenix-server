@@ -1,14 +1,9 @@
+import mongoose from 'mongoose';
 import Projects from '../models/Projects';
 
-const { ObjectId } = require('mongoose').Types;
+const { ObjectId } = mongoose.Types;
 
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getProjectById = async (req, res) => {
   try {
@@ -78,7 +73,7 @@ const updateProject = async (req, res) => {
       });
     }
     const projectToUpdate = await Projects.findByIdAndUpdate(
-      { _id: id },
+      id,
       req.body,
       { new: true },
     );

@@ -1,14 +1,9 @@
+import mongoose from 'mongoose';
 import Admins from '../models/Admins';
 
-const { ObjectId } = require('mongoose').Types;
+const { ObjectId } = mongoose.Types;
 
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getAdminById = async (req, res) => {
   try {
@@ -25,10 +20,9 @@ const getAdminById = async (req, res) => {
       data: admin,
     });
   } catch (err) {
-    return res.status(404)
-      .json({
-        message: `Something was wrong: ${err.message}`,
-      });
+    return res.status(404).json({
+      message: `Something was wrong: ${err.message}`,
+    });
   }
 };
 
@@ -44,19 +38,17 @@ const deleteAdmin = async (req, res) => {
     const admin = await Admins.findByIdAndDelete(id);
 
     if (!admin) {
-      return res.status(404)
-        .json({
-          message: 'ID doesnt match with a valid admin!',
-          error: true,
-        });
+      return res.status(404).json({
+        message: 'ID doesnt match with a valid admin!',
+        error: true,
+      });
     }
     return res.status(204).json();
   } catch (err) {
-    return res.status(404)
-      .json({
-        message: `Something was wrong: ${err.message}`,
-        error: true,
-      });
+    return res.status(404).json({
+      message: `Something was wrong: ${err.message}`,
+      error: true,
+    });
   }
 };
 
@@ -70,7 +62,7 @@ const editAdmin = async (req, res) => {
       });
     }
     const admin = await Admins.findByIdAndUpdate(
-      { _id: id },
+      id,
       { ...req.body },
       { new: true },
     );
@@ -80,16 +72,14 @@ const editAdmin = async (req, res) => {
         error: true,
       });
     }
-    return res.status(200)
-      .json({
-        message: `Admin with id ${id} found and successfully edited!`,
-        data: admin,
-      });
+    return res.status(200).json({
+      message: `Admin with id ${id} found and successfully edited!`,
+      data: admin,
+    });
   } catch (err) {
-    return res.status(400)
-      .json({
-        message: `Something was wrong: ${err.message}`,
-      });
+    return res.status(400).json({
+      message: `Something was wrong: ${err.message}`,
+    });
   }
 };
 

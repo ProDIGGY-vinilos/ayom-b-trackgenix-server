@@ -1,14 +1,9 @@
+import mongoose from 'mongoose';
 import SuperAdmins from '../models/SuperAdmins';
 
-const { ObjectId } = require('mongoose').Types;
+const { ObjectId } = mongoose.Types;
 
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getAllSuperAdmins = async (req, res) => {
   try {
@@ -91,7 +86,7 @@ const editSuperAdmin = async (req, res) => {
       });
     }
     const superAdmin = await SuperAdmins.findByIdAndUpdate(
-      { _id: id },
+      id,
       { ...req.body },
       { new: true },
     );

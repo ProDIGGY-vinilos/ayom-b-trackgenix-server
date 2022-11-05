@@ -1,14 +1,9 @@
+import mongoose from 'mongoose';
 import Tasks from '../models/Tasks';
 
-const { ObjectId } = require('mongoose').Types;
+const { ObjectId } = mongoose.Types;
 
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getAllTasks = async (req, res) => {
   try {
@@ -65,7 +60,7 @@ const getTaskById = async (req, res) => {
       });
     }
 
-    const task = await Tasks.findById({ _id: id });
+    const task = await Tasks.findById(id);
     if (task) {
       return res.status(200).json({
         message: 'Task found successfully',
@@ -94,7 +89,7 @@ const deleteTask = async (req, res) => {
         error: true,
       });
     }
-    const taskToDelete = await Tasks.findByIdAndDelete({ _id: id });
+    const taskToDelete = await Tasks.findByIdAndDelete(id);
     if (taskToDelete) {
       return res.status(204).json({
       });
@@ -122,7 +117,7 @@ const updateTask = async (req, res) => {
     }
 
     const taskToUpdate = await Tasks.findByIdAndUpdate(
-      { _id: id },
+      id,
       req.body,
       { new: true },
     );
