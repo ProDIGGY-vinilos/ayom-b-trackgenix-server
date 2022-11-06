@@ -97,13 +97,8 @@ const getAllProjects = async (req, res) => {
       'employee',
       },
     });
-    if (!projects.length) {
-      return res.status(400).json({
-        message: 'Non existent project!',
-      });
-    }
     return res.status(200).json({
-      message: 'Projects found:',
+      message: 'Projects List',
       data: projects,
     });
   } catch (err) {

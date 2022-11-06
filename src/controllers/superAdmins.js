@@ -3,15 +3,9 @@ import SuperAdmins from '../models/SuperAdmins';
 const getAllSuperAdmins = async (req, res) => {
   try {
     const superAdmins = await SuperAdmins.find(req.query);
-    if (superAdmins.length) {
-      return res.status(200).json({
-        message: 'Super Admin found',
-        data: superAdmins,
-      });
-    }
-    return res.status(404).json({
-      message: 'Super Admin not found',
-      query: req.query,
+    return res.status(200).json({
+      message: 'Super Admin List',
+      data: superAdmins,
     });
   } catch (err) {
     return res.status(400).json({

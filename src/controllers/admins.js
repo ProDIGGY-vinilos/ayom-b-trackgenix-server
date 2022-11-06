@@ -64,14 +64,8 @@ const editAdmin = async (req, res) => {
 const getAllAdmins = async (req, res) => {
   try {
     const admins = await Admins.find(req.query);
-    if (!admins.length) {
-      return res.status(404).json({
-        message: 'Admin not found',
-        error: true,
-      });
-    }
     return res.status(200).json({
-      message: 'Admins found',
+      message: 'Admins List',
       data: admins,
       error: false,
     });
