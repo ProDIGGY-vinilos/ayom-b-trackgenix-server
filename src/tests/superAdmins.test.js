@@ -227,7 +227,7 @@ describe('PUT /api/superAdmins', () => {
   describe('Success PUT tests', () => {
     test('if send a VALID id as params & a VALID object as body it should return a valid request', async () => {
       const response = await request(app).put(`/api/superAdmins/${id}`).send(superAdminValid);
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
       expect(response.body.message).toBe(`Super Admin with id:${id} updated successfully`);
       expect(response.body.data).toMatchObject(superAdminValid);
     });

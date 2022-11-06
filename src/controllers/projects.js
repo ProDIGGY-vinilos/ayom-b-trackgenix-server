@@ -52,7 +52,7 @@ const updateProject = async (req, res) => {
       { new: true },
     );
     if (projectToUpdate) {
-      return res.status(200).json({
+      return res.status(201).json({
         message: `Project with id:${req.params.id} updated succesfully`,
         data: projectToUpdate,
       });

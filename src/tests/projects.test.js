@@ -201,11 +201,11 @@ describe('GET project by id', () => {
 
 describe('UPDATE /api/projects', () => {
   describe('Success cases', () => {
-    test('should return status code 200', async () => {
+    test('should return status code 201', async () => {
       const mockedProjectUpdated = mockedProject;
       mockedProjectUpdated.name = 'Emanuel';
       const response = await request(app).put(`/api/projects/${projectId}`).send(mockedProjectUpdated);
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
     });
     test('should return project', async () => {
       const mockedProjectUpdated = mockedProject;

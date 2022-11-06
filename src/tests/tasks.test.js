@@ -129,10 +129,10 @@ describe('UPDATE /tasks', () => {
   };
 
   describe('Successful cases:', () => {
-    test('Should return status code 200', async () => {
+    test('Should return status code 201', async () => {
       const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);
 
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
     });
     test('Should return a success message', async () => {
       const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);

@@ -72,9 +72,9 @@ describe('GET by id:', () => {
 
 describe('PUT:', () => {
   describe('Success EDIT /api/admins/:id', () => {
-    test('if send a VALID id with valid data on body it should have a 200 status code', async () => {
+    test('if send a VALID id with valid data on body it should have a 201 status code', async () => {
       const response = await callCorrectPUTRequest();
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
     });
     test('if send a VALID id it must have a "message" property on body', async () => {
       const response = await callCorrectPUTRequest();

@@ -74,7 +74,7 @@ const editSuperAdmin = async (req, res) => {
       { new: true },
     );
 
-    return res.status(200).json({
+    return res.status(201).json({
       message: `Super Admin with id:${req.params.id} updated successfully`,
       data: superAdmin,
     });

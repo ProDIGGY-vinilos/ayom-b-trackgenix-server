@@ -95,7 +95,7 @@ const updateTask = async (req, res) => {
       { new: true },
     );
     if (taskToUpdate) {
-      return res.status(200).json({
+      return res.status(201).json({
         message: 'Task updated successfully',
         data: taskToUpdate,
         error: false,

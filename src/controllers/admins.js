@@ -51,7 +51,7 @@ const editAdmin = async (req, res) => {
         error: true,
       });
     }
-    return res.status(200)
+    return res.status(201)
       .json({
         message: `Admin with id:${req.params.id} updated successfully`,
         data: admin,

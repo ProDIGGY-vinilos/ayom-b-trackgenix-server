@@ -27,7 +27,7 @@ const editEmployee = async (req, res) => {
       { new: true },
     );
 
-    return res.status(200).json({
+    return res.status(201).json({
       message: `Employee with id:${id} updated successfully`,
       data: employee,
       error: false,
@@ -45,7 +45,7 @@ const deleteEmployee = async (req, res) => {
     const { id } = req.params;
     await Employees.findByIdAndDelete(id);
 
-    return res.status(200).json({
+    return res.status(204).json({
       message: `Employee with id:${id} delete successfully`,
     });
   } catch (err) {
@@ -89,7 +89,7 @@ const createEmployee = async (req, res) => {
     });
 
     const result = await employee.save();
-    return res.status(200).json({
+    return res.status(201).json({
       message: 'Employee created successfully',
       data: result,
       error: false,

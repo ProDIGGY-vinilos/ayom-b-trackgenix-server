@@ -58,7 +58,7 @@ const editTimeSheet = async (req, res) => {
         error: true,
       });
     }
-    return res.status(200).json({
+    return res.status(201).json({
       message: `TimeSheet with the id ${searchId} updated successfully`,
       data: result,
       error: false,
