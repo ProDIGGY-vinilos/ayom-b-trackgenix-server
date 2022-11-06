@@ -93,10 +93,10 @@ describe('GET all /api/superAdmins', () => {
       const response = await request(app).get('/api/superDuperAdmins').send();
       expect(response.status).toBe(404);
     });
-    test('if send an INVALID query params it should return "Admin Not Found" with 404 status code', async () => {
+    test('if send an INVALID query params it should return "Super Admins found" with 200 status code', async () => {
       const response = await request(app).get('/api/superAdmins/?name=Alberto&lastName=queMalPensado').send();
-      expect(response.status).toBe(404);
-      expect(response.body.message).toBe('Super Admins not found');
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('Super Admins found');
     });
   });
 });

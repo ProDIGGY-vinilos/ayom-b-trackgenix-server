@@ -97,13 +97,8 @@ const getAllProjects = async (req, res) => {
       'employee',
       },
     });
-    if (!projects.length) {
-      return res.status(404).json({
-        message: 'Projects not found',
-      });
-    }
     return res.status(200).json({
-      message: 'Projects found:',
+      message: 'Projects found',
       data: projects,
     });
   } catch (err) {

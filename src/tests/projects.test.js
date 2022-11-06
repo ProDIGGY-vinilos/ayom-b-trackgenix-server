@@ -56,22 +56,19 @@ describe('GET all projects', () => {
     });
   });
   describe('Failure cases', () => {
-    test('Returns status code 400', async () => {
+    test('Returns status code 200', async () => {
       await Project.deleteMany();
       const response = await request(app).get('/api/projects').send();
-
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(200);
     });
     test('Returns no projects', async () => {
       const response = await request(app).get('/api/projects').send();
 
-      expect(response.body.data).toBe(undefined);
+      expect(response.body.data).toStrictEqual([]);
     });
-    test('Returns error message', async () => {
+    test('Returns same message if List is empty', async () => {
       const response = await request(app).get('/api/projects').send();
-
-      expect(response.body.message).toBe('Projects not found');
-
+      expect(response.body.message).toBe('Projects found');
       await Project.collection.insertMany(projectSeed);
     });
   });

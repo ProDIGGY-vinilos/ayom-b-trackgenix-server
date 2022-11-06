@@ -23,7 +23,6 @@ describe('GETALL /tasks', () => {
     });
     test('Should return a success message', async () => {
       const response = await request(app).get('/api/tasks').send();
-
       expect(response.body.message).toMatch('Tasks found');
     });
     test('Should return Error: false', async () => {
@@ -56,15 +55,13 @@ describe('GETALL /tasks', () => {
 
       expect(response.status).toBe(404);
     });
-    test('Should retorun status code 404 (incorrect body)', async () => {
+    test('Should retorun status code 200 (empty array)', async () => {
       const response = await request(app).get('/api/tasks').send(falseFilterByDescription);
-
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(200);
     });
     test('Should return Error: true', async () => {
       const response = await request(app).get('/api/tasks').send(falseFilterByDescription);
-
-      expect(response.error).toBeTruthy();
+      expect(response.data).toBeUndefined();
     });
   });
 });
