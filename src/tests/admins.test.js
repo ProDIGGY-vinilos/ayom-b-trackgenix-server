@@ -38,7 +38,7 @@ describe('GET by id:', () => {
     });
     test('if send a VALID id it must have a body message equal to "Admin Found with id"', async () => {
       const response = await callCorrectGETRequest();
-      expect(response.body.message).toBe('Admin with id:63533d49fc13ae16b7000000 found');
+      expect(response.body.message).toBe('Admin Found');
     });
     test('if send a VALID id it must have a body data property of "name"', async () => {
       const response = await callCorrectGETRequest();

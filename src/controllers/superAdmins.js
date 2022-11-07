@@ -6,6 +6,7 @@ const getAllSuperAdmins = async (req, res) => {
     return res.status(200).json({
       message: 'Super Admins found',
       data: superAdmins,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({
@@ -71,6 +72,7 @@ const editSuperAdmin = async (req, res) => {
     return res.status(201).json({
       message: `Super Admin with id:${req.params.id} updated successfully`,
       data: superAdmin,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({

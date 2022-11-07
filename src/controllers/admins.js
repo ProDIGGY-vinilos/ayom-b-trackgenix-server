@@ -4,8 +4,8 @@ import Admins from '../models/Admins';
 const getAdminById = async (req, res) => {
   const { id } = req.params;
   if (id && !mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({
-      message: `${id} is an invalid id`,
+    return res.status(500).json({
+      message: `Admin with id ${id} not found`,
       data: undefined,
       error: true,
     });
@@ -73,6 +73,7 @@ const editAdmin = async (req, res) => {
       .json({
         message: `Admin with id:${req.params.id} updated successfully`,
         data: admin,
+        error: false,
       });
   } catch (err) {
     return res.status(500)

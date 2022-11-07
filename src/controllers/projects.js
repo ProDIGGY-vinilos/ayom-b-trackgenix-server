@@ -13,6 +13,7 @@ const getProjectById = async (req, res) => {
       return res.status(200).json({
         message: 'Project found',
         data: project,
+        error: false,
       });
     }
     return res.status(400).json({
@@ -31,7 +32,6 @@ const deleteProject = async (req, res) => {
     if (projectToDelete) {
       return res.status(204).json({
         message: `Project with id:${req.params.id} delete successfully`,
-        data: projectToDelete,
       });
     }
     return res.status(404).json({
@@ -55,6 +55,7 @@ const updateProject = async (req, res) => {
       return res.status(201).json({
         message: `Project with id:${req.params.id} updated succesfully`,
         data: projectToUpdate,
+        error: false,
       });
     }
     return res.status(404).json({
@@ -80,6 +81,7 @@ const createProject = async (req, res) => {
     return res.status(201).json({
       message: 'Project created successfully',
       data: result,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({
@@ -100,6 +102,7 @@ const getAllProjects = async (req, res) => {
     return res.status(200).json({
       message: 'Projects found',
       data: projects,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({
