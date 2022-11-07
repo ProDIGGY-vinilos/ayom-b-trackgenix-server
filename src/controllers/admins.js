@@ -1,17 +1,35 @@
+import mongoose from 'mongoose';
 import Admins from '../models/Admins';
 
 const getAdminById = async (req, res) => {
+  const { id } = req.params;
+  if (id && !mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({
+      message: `${id} is an invalid id`,
+      data: undefined,
+      error: true,
+    });
+  }
   try {
-    const { id } = req.params;
     const admin = await Admins.findById(id);
-    return res.status(200).json({
-      message: `Admin with id:${req.params.id} found`,
-      data: admin,
+    if (admin) {
+      return res.status(200).json({
+        message: 'Admin Found',
+        data: admin,
+        error: false,
+      });
+    }
+    return res.status(404).json({
+      message: `Admin with id ${id} not found`,
+      data: undefined,
+      error: true,
     });
   } catch (err) {
     return res.status(500)
       .json({
         message: `Cannot get Admin with id:${req.params.id}`,
+        data: undefined,
+        error: true,
       });
   }
 };
