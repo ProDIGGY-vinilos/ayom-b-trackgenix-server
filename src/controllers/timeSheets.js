@@ -16,8 +16,9 @@ const getTimeSheetById = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -28,17 +29,19 @@ const deleteTimeSheet = async (req, res) => {
     const result = await TimeSheetsModel.findByIdAndDelete({ _id: searchId });
     if (!result) {
       return res.status(404).json({
-        message: 'TimeSheet not found',
+        message: `TimeSheet with id:${req.params.id} not found`,
         error: true,
       });
     }
     return res.status(204).json({
+      message: `TimeSheet with id:${req.params.id} deleted successfully`,
       data: result,
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -53,18 +56,19 @@ const editTimeSheet = async (req, res) => {
     );
     if (!result) {
       return res.status(404).json({
-        message: 'TimeSheet not found',
+        message: `TimeSheet with id:${req.params.id} not found`,
         error: true,
       });
     }
-    return res.status(200).json({
-      message: `TimeSheet with the id ${searchId} edited`,
+    return res.status(201).json({
+      message: `TimeSheet with the id ${searchId} updated successfully`,
       data: result,
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -74,10 +78,12 @@ const getAllTimeSheets = async (req, res) => {
     return res.status(200).json({
       message: 'TimeSheets List',
       data: timeSheets,
+      error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Has occurred a problem: ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -97,10 +103,12 @@ const createTimeSheet = async (req, res) => {
     return res.status(201).json({
       message: 'TimeSheet created successfully',
       data: result,
+      error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Problem detected, creating TimeSheet ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };

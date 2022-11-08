@@ -150,7 +150,7 @@ describe('GETBYID /api/timeSheet', () => {
   });
   test('Status should be 400 given an invalid ID', async () => {
     const response = await request(app).get('/api/timeSheet/bfdsiohsb').send();
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('Error should be true given an invalid ID', async () => {
     const response = await request(app).get('/api/timeSheet/bfdsiohsb').send();
@@ -181,17 +181,17 @@ describe('EDIT /api/timeSheet', () => {
     const response = await request(app).get('/api/timeSheet/6352e89b4760bc22934f3507').send();
     expect(typeof response).toBe('object');
   });
-  test('Status should be 200 given a valid ID', async () => {
+  test('Status should be 201 given a valid ID', async () => {
     const response = await request(app).put('/api/timeSheet/6352e89b4760bc22934f3507').send();
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
   });
   test('Error should be false given a valid ID', async () => {
     const response = await request(app).put('/api/timeSheet/6352e89b4760bc22934f3507').send();
     expect(response.error).toBeFalsy();
   });
-  test('Status should be 200 given a valid ID and a correct body to edit', async () => {
+  test('Status should be 201 given a valid ID and a correct body to edit', async () => {
     const response = await request(app).put('/api/timeSheet/6352e89b4760bc22934f3507').send(correctEdit);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
   });
   test('Error should be false given a valid ID a correct body to edit', async () => {
     const response = await request(app).put('/api/timeSheet/6352e89b4760bc22934f3507').send(correctEdit);
@@ -199,7 +199,7 @@ describe('EDIT /api/timeSheet', () => {
   });
   test('Status should be 400 given a valid ID but incorrect data to edit', async () => {
     const response = await request(app).put('/api/timeSheet/6352e89b4760bc22934f3507').send(incorrectEdit);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('Error should be true given a valid ID but incorrect data to edit', async () => {
     const response = await request(app).put('/api/timeSheet/6352e89b4760bc22934f3507').send(incorrectEdit);
@@ -215,7 +215,7 @@ describe('EDIT /api/timeSheet', () => {
   });
   test('Status should be 400 given an invalid ID', async () => {
     const response = await request(app).put('/api/timeSheet/bfdsiohsb').send();
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('Error should be true given an invalid ID', async () => {
     const response = await request(app).put('/api/timeSheet/bfdsiohsb').send();
@@ -242,7 +242,7 @@ describe('DELETE /api/timeSheet', () => {
   });
   test('Status should be 400 given an invalid ID', async () => {
     const response = await request(app).del('/api/timeSheet/bfdsiohsb').send();
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('Error should be true given an invalid ID', async () => {
     const response = await request(app).del('/api/timeSheet/bfdsiohsb').send();

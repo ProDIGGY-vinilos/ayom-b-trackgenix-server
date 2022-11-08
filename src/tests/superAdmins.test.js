@@ -54,7 +54,7 @@ describe('GET all /api/superAdmins', () => {
     });
     test('if send a VALID path it should return a message like "Super Admin found"', async () => {
       const response = await request(app).get('/api/superAdmins').send();
-      expect(response.body.message).toBe('Super Admin List');
+      expect(response.body.message).toBe('Super Admins found');
     });
     test('if send an object with invalid properties on body it should return ALL Super Admins', async () => {
       const response = await request(app).get('/api/superAdmins').send({ football: 'allways' });
@@ -93,10 +93,10 @@ describe('GET all /api/superAdmins', () => {
       const response = await request(app).get('/api/superDuperAdmins').send();
       expect(response.status).toBe(404);
     });
-    test('if send an INVALID query params it should return "Admin Not Found" with 404 status code', async () => {
+    test('if send an INVALID query params it should return "Super Admins found" with 200 status code', async () => {
       const response = await request(app).get('/api/superAdmins/?name=Alberto&lastName=queMalPensado').send();
       expect(response.status).toBe(200);
-      expect(response.body.message).toBe('Super Admin List');
+      expect(response.body.message).toBe('Super Admins found');
     });
   });
 });
@@ -132,9 +132,9 @@ describe('GETBYID /api/superAdmins', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 400', async () => {
+  test('Non valid id format response have to be 500', async () => {
     const response = await request(app).get('/api/superAdmins/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).get('/api/superAdmins/63534ef4fc13ae1a71000').send();
@@ -169,9 +169,9 @@ describe('DELETE-BY-ID /api/superAdmins', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 400', async () => {
+  test('Non valid id format response have to be 500', async () => {
     const response = await request(app).del('/api/superAdmins/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).del('/api/superAdmins/63534ef4fc13ae1a71000').send();
@@ -227,8 +227,8 @@ describe('PUT /api/superAdmins', () => {
   describe('Success PUT tests', () => {
     test('if send a VALID id as params & a VALID object as body it should return a valid request', async () => {
       const response = await request(app).put(`/api/superAdmins/${id}`).send(superAdminValid);
-      expect(response.status).toBe(200);
-      expect(response.body.message).toBe(`SuperAdmin with the ID: ${id}, has been successfully edited!`);
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe(`Super Admin with id:${id} updated successfully`);
       expect(response.body.data).toMatchObject(superAdminValid);
     });
   });
@@ -243,7 +243,7 @@ describe('PUT /api/superAdmins', () => {
     });
     test('if send an INVALID ID it should retunr a bad request', async () => {
       const response = await request(app).put('/api/superAdmins/48r812382472t829t2gw').send(superAdminValid);
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(500);
       expect(response.body).toHaveProperty('message');
     });
   });

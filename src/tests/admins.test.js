@@ -36,7 +36,7 @@ describe('GET by id:', () => {
       const response = await callCorrectGETRequest();
       expect(response.status).toBe(200);
     });
-    test('if send a VALID id it must have a body message equal to "Admin Found"', async () => {
+    test('if send a VALID id it must have a body message equal to "Admin Found with id"', async () => {
       const response = await callCorrectGETRequest();
       expect(response.body.message).toBe('Admin Found');
     });
@@ -71,9 +71,9 @@ describe('GET by id:', () => {
 
 describe('PUT:', () => {
   describe('Success EDIT /api/admins/:id', () => {
-    test('if send a VALID id with valid data on body it should have a 200 status code', async () => {
+    test('if send a VALID id with valid data on body it should have a 201 status code', async () => {
       const response = await callCorrectPUTRequest();
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
     });
     test('if send a VALID id it must have a "message" property on body', async () => {
       const response = await callCorrectPUTRequest();
@@ -115,7 +115,7 @@ describe('DELETE:', () => {
     });
     test('if send an INVALID ID it should return error message on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
-      expect(response.body.message).toBe('Something was wrong: ID doesnt match with a valid admin!');
+      expect(response.body.message).toBe('Admin with id:63533d49fc13ae16b7000099 not found');
     });
     test('if send an INVALID ID it should return true error property on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
@@ -130,7 +130,7 @@ describe('Post Function', () => {
     expect(response.status).toBe(201);
     expect(response.body.data).toBeDefined();
     expect(response.body.error).toBeFalsy();
-    expect(response.body.message).toBe('Admin created');
+    expect(response.body.message).toBe('Admin created successfully');
   });
   test('Should return status code 404 wrong path', async () => {
     const response = await request(app).post('/api/admin/').send(correctAdminMock);
