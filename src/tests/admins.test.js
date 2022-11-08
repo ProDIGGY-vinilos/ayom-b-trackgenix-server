@@ -58,9 +58,9 @@ describe('GET by id:', () => {
     });
   });
   describe('Incorrect GET /api/admins/:id', () => {
-    test('when send an INVALID id it should send a 500 status code', async () => {
+    test('when send an INVALID id it should send a 400 status code', async () => {
       const response = await callIncorrectGETRequest();
-      expect(response.status).toBe(500);
+      expect(response.status).toBe(400);
     });
     test('if send an INVALID id it must to have body message property', async () => {
       const response = await callIncorrectGETRequest();
@@ -109,13 +109,13 @@ describe('DELETE:', () => {
     });
   });
   describe('Incorrect DEL /api/admins/:id tests:', () => {
-    test('if send an INVALID ID it should return status code 500.', async () => {
+    test('if send an INVALID ID it should return status code 404.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
-      expect(response.status).toBe(500);
+      expect(response.status).toBe(404);
     });
     test('if send an INVALID ID it should return error message on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();
-      expect(response.body.message).toBe('Cannot delete Admin with id: 63533d49fc13ae16b7000099');
+      expect(response.body.message).toBe('Admin with id:63533d49fc13ae16b7000099 not found');
     });
     test('if send an INVALID ID it should return true error property on body.', async () => {
       const response = await request(app).del('/api/admins/63533d49fc13ae16b7000099').send();

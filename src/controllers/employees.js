@@ -46,7 +46,7 @@ const deleteEmployee = async (req, res) => {
     await Employees.findByIdAndDelete(id);
 
     return res.status(204).json({
-      message: `Employee with id:${id} delete successfully`,
+      message: `Employee with id:${id} deleted successfully`,
     });
   } catch (err) {
     return res.status(500).json({
@@ -66,7 +66,7 @@ const getAllEmployees = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get employees',
+      message: 'Cannot get Employees',
       error: true,
     });
   }

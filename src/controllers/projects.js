@@ -18,10 +18,12 @@ const getProjectById = async (req, res) => {
     }
     return res.status(400).json({
       message: `Project with id: ${req.params.id} not found `,
+      error: true,
     });
   } catch (err) {
     return res.status(500).json({
       message: `Project with id: ${req.params.id} not found`,
+      error: true,
     });
   }
 };
@@ -31,15 +33,18 @@ const deleteProject = async (req, res) => {
     const projectToDelete = await Projects.findByIdAndDelete({ _id: req.params.id });
     if (projectToDelete) {
       return res.status(204).json({
-        message: `Project with id:${req.params.id} delete successfully`,
+        message: `Project with id:${req.params.id} deleted successfully`,
+        error: false,
       });
     }
     return res.status(404).json({
       message: `Project with id:${req.params.id} not found`,
+      error: true,
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Can not delete Project with ID: ${req.params.id}`,
+      message: `Cannot delete Project with ID: ${req.params.id}`,
+      error: true,
     });
   }
 };
@@ -60,10 +65,12 @@ const updateProject = async (req, res) => {
     }
     return res.status(404).json({
       message: `Project with id:${req.params.id} not found`,
+      error: true,
     });
   } catch (err) {
     return res.status(500).json({
       message: `Cannot edit Project with id ${req.params.id}`,
+      error: true,
     });
   }
 };
@@ -86,6 +93,7 @@ const createProject = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       message: 'Cannot create Project',
+      error: true,
     });
   }
 };
@@ -106,7 +114,8 @@ const getAllProjects = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get projects',
+      message: 'Cannot get Projects',
+      error: true,
     });
   }
 };

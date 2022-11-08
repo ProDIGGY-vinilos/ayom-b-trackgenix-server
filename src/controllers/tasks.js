@@ -3,16 +3,15 @@ import Tasks from '../models/Tasks';
 const getAllTasks = async (req, res) => {
   try {
     const taskList = await Tasks.find(req.body || {}).exec();
-    return res.status(200)
-      .json({
-        message: 'Tasks found',
-        data: taskList,
-        error: false,
-      });
+    return res.status(200).json({
+      message: 'Tasks found',
+      data: taskList,
+      error: false,
+    });
   } catch (err) {
     return res.status(500)
       .json({
-        message: 'Cannot get tasks',
+        message: 'Cannot get Tasks',
         error: true,
       });
   }
@@ -66,7 +65,7 @@ const deleteTask = async (req, res) => {
     const taskToDelete = await Tasks.findByIdAndDelete({ _id: req.params.id });
     if (taskToDelete) {
       return res.status(204).json({
-        message: `Task with id:${req.params.id} delete successfully`,
+        message: `Task with id:${req.params.id} deleted successfully`,
       });
     }
     return res.status(404).json({
@@ -75,7 +74,7 @@ const deleteTask = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot delete Task with id: ${req.params.id}`,
+      message: `Cannot deleted Task with id: ${req.params.id}`,
       error: true,
     });
   }
