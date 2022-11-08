@@ -17,7 +17,7 @@ const getTimeSheetById = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get TimeSheet',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -40,7 +40,7 @@ const deleteTimeSheet = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot delete TimeSheet',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -67,7 +67,7 @@ const editTimeSheet = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot edit TimeSheet with id:${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -82,7 +82,7 @@ const getAllTimeSheets = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get TimeSheets',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -107,7 +107,7 @@ const createTimeSheet = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot create TimeSheet',
+      message: `Server Error ${err}`,
       error: true,
     });
   }

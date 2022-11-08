@@ -12,7 +12,7 @@ const getEmployeeById = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get Employee',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -34,7 +34,7 @@ const editEmployee = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot edit Employee with id:${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -50,7 +50,7 @@ const deleteEmployee = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot delete Employee',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -66,7 +66,7 @@ const getAllEmployees = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get Employees',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -90,7 +90,7 @@ const createEmployee = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot create Employee',
+      message: `Server Error ${err}`,
       error: true,
     });
   }

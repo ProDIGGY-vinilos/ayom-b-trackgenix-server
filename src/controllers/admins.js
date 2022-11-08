@@ -27,7 +27,7 @@ const getAdminById = async (req, res) => {
   } catch (err) {
     return res.status(500)
       .json({
-        message: `Cannot get Admin with id:${req.params.id}`,
+        message: `Server Error ${err}`,
         data: undefined,
         error: true,
       });
@@ -50,7 +50,7 @@ const deleteAdmin = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot delete Admin with id: ${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -70,15 +70,14 @@ const editAdmin = async (req, res) => {
         error: true,
       });
     }
-    return res.status(201)
-      .json({
-        message: `Admin with id:${req.params.id} updated successfully`,
-        data: admin,
-        error: false,
-      });
+    return res.status(201).json({
+      message: `Admin with id:${req.params.id} updated successfully`,
+      data: admin,
+      error: false,
+    });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot edit Admin with id:${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -94,7 +93,7 @@ const getAllAdmins = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get Admins',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -117,7 +116,7 @@ const createAdmin = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot create Admin',
+      message: `Server Error ${err}`,
       error: true,
     });
   }

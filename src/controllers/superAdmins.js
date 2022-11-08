@@ -10,7 +10,7 @@ const getAllSuperAdmins = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get Super Admins',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -34,7 +34,7 @@ const getSuperAdminById = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot get Super Admin with id:${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -56,7 +56,7 @@ const createSuperAdmin = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot create Super Admin',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -78,7 +78,7 @@ const editSuperAdmin = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot edit Admin with id:${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -100,7 +100,7 @@ const deleteSuperAdmin = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot delete Admin with id: ${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }

@@ -9,11 +9,10 @@ const getAllTasks = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(500)
-      .json({
-        message: 'Cannot get Tasks',
-        error: true,
-      });
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
   }
 };
 
@@ -23,18 +22,16 @@ const createNewTask = async (req, res) => {
       description: req.body.description,
     });
     const newTaskCreated = await newTask.save();
-    return res.status(201)
-      .json({
-        message: 'Task created successfully',
-        data: newTaskCreated,
-        error: false,
-      });
+    return res.status(201).json({
+      message: 'Task created successfully',
+      data: newTaskCreated,
+      error: false,
+    });
   } catch (err) {
-    return res.status(500)
-      .json({
-        message: 'Cannot create Task',
-        error: true,
-      });
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
   }
 };
 
@@ -54,7 +51,7 @@ const getTaskById = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get Task',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -74,7 +71,7 @@ const deleteTask = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot deleted Task with id: ${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -99,7 +96,7 @@ const updateTask = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot edit Task with id:${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }

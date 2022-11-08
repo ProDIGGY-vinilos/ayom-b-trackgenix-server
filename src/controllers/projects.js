@@ -22,7 +22,7 @@ const getProjectById = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Project with id: ${req.params.id} not found`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -43,7 +43,7 @@ const deleteProject = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot delete Project with ID: ${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -69,7 +69,7 @@ const updateProject = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: `Cannot edit Project with id ${req.params.id}`,
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -92,7 +92,7 @@ const createProject = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot create Project',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -114,7 +114,7 @@ const getAllProjects = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Cannot get Projects',
+      message: `Server Error ${err}`,
       error: true,
     });
   }
