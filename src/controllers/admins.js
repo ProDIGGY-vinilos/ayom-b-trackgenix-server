@@ -34,6 +34,22 @@ const getAdminById = async (req, res) => {
   }
 };
 
+const getAllAdmins = async (req, res) => {
+  try {
+    const admins = await Admins.find(req.query);
+    return res.status(200).json({
+      message: 'Admins List',
+      data: admins,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
 const deleteAdmin = async (req, res) => {
   try {
     const { id } = req.params;
@@ -73,22 +89,6 @@ const editAdmin = async (req, res) => {
     return res.status(201).json({
       message: `Admin with id:${req.params.id} updated successfully`,
       data: admin,
-      error: false,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      message: `Server Error ${err}`,
-      error: true,
-    });
-  }
-};
-
-const getAllAdmins = async (req, res) => {
-  try {
-    const admins = await Admins.find(req.query);
-    return res.status(200).json({
-      message: 'Admins List',
-      data: admins,
       error: false,
     });
   } catch (err) {
