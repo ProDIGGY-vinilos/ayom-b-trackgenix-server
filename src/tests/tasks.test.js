@@ -203,9 +203,9 @@ describe('GETBYID /api/tasks', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 500', async () => {
+  test('Non valid id format response have to be 400', async () => {
     const response = await request(app).get('/api/tasks/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).get('/api/tasks/63534ef4fc13ae1a71000').send();
@@ -240,9 +240,9 @@ describe('DELETE-BY-ID /api/tasks', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 500', async () => {
+  test('Non valid id format response have to be 400', async () => {
     const response = await request(app).del('/api/tasks/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).del('/api/tasks/63534ef4fc13ae1a71000').send();

@@ -184,14 +184,9 @@ describe('GET project by id', () => {
   });
   describe('Failure cases', () => {
     test('Returns error status code 400', async () => {
-      const response = await request(app).get(`/api/projects/${mongoose.Types.ObjectId(0)}`).send();
+      const response = await request(app).get('/api/projects/123').send();
 
       expect(response.status).toBe(400);
-    });
-    test('Returns error status code 500', async () => {
-      const response = await request(app).get('/api/projects/0').send();
-
-      expect(response.status).toBe(500);
     });
   });
 });

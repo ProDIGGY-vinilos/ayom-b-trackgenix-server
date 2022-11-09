@@ -1,42 +1,51 @@
 import mongoose from 'mongoose';
 import Admins from '../models/Admins';
 
+const { ObjectId } = mongoose.Types;
+
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
+
 const getAdminById = async (req, res) => {
-  const { id } = req.params;
-  if (id && !mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({
-      message: `Cannot get admin with id ${id}`,
-      data: undefined,
-      error: true,
-    });
-  }
   try {
-    const admin = await Admins.findById(id);
-    if (admin) {
-      return res.status(200).json({
-        message: 'Admin Found',
-        data: admin,
-        error: false,
-      });
-    }
-    return res.status(404).json({
-      message: `Admin with id ${id} not found`,
-      data: undefined,
-      error: true,
-    });
-  } catch (err) {
-    return res.status(500)
-      .json({
-        message: `Server Error ${err}`,
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
         data: undefined,
         error: true,
       });
+    }
+    const admin = await Admins.findById(id);
+    if (!admin) {
+      return res.status(404).json({
+        message: `Admin with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: 'Admin Found',
+      data: admin,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      data: undefined,
+      error: true,
+    });
   }
 };
 
 const deleteAdmin = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const admin = await Admins.findByIdAndDelete(id);
     if (!admin) {
       return res.status(404).json({
@@ -44,10 +53,7 @@ const deleteAdmin = async (req, res) => {
         error: true,
       });
     }
-    return res.status(204).json({
-      message: `Admin with id:${id} deleted successfully`,
-      error: false,
-    });
+    return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
       message: `Server Error ${err}`,
@@ -59,8 +65,14 @@ const deleteAdmin = async (req, res) => {
 const editAdmin = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const admin = await Admins.findByIdAndUpdate(
-      { _id: id },
+      id,
       { ...req.body },
       { new: true },
     );
@@ -107,7 +119,6 @@ const createAdmin = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-
     const result = await admin.save();
     return res.status(201).json({
       message: 'Admin created successfully',
