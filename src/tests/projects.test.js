@@ -56,22 +56,19 @@ describe('GET all projects', () => {
     });
   });
   describe('Failure cases', () => {
-    test('Returns status code 400', async () => {
+    test('Returns status code 200', async () => {
       await Project.deleteMany();
       const response = await request(app).get('/api/projects').send();
-
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(200);
     });
     test('Returns no projects', async () => {
       const response = await request(app).get('/api/projects').send();
 
-      expect(response.body.data).toBe(undefined);
+      expect(response.body.data).toStrictEqual([]);
     });
-    test('Returns error message', async () => {
+    test('Returns same message if List is empty', async () => {
       const response = await request(app).get('/api/projects').send();
-
-      expect(response.body.message).toBe('Non existent project!');
-
+      expect(response.body.message).toBe('Projects found');
       await Project.collection.insertMany(projectSeed);
     });
   });
@@ -87,7 +84,7 @@ describe('CREATE project', () => {
     test('Returns success message', async () => {
       const response = await request(app).post('/api/projects').send(mockedProject);
 
-      expect(response.body.message).toBe('The project was created.');
+      expect(response.body.message).toBe('Project created successfully');
     });
     test('Returns created project', async () => {
       const response = await request(app).post('/api/projects').send(mockedProject);
@@ -187,7 +184,7 @@ describe('GET project by id', () => {
   });
   describe('Failure cases', () => {
     test('Returns error status code 400', async () => {
-      const response = await request(app).get(`/api/projects/${mongoose.Types.ObjectId(0)}`).send();
+      const response = await request(app).get('/api/projects/123').send();
 
       expect(response.status).toBe(400);
     });
@@ -196,11 +193,11 @@ describe('GET project by id', () => {
 
 describe('UPDATE /api/projects', () => {
   describe('Success cases', () => {
-    test('should return status code 200', async () => {
+    test('should return status code 201', async () => {
       const mockedProjectUpdated = mockedProject;
       mockedProjectUpdated.name = 'Emanuel';
       const response = await request(app).put(`/api/projects/${projectId}`).send(mockedProjectUpdated);
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
     });
     test('should return project', async () => {
       const mockedProjectUpdated = mockedProject;
@@ -226,9 +223,9 @@ describe('UPDATE /api/projects', () => {
 
 describe('DELETE /api/projects', () => {
   describe('Success cases', () => {
-    test('should return status code 200', async () => {
+    test('should return status code 204', async () => {
       const response = await request(app).delete(`/api/projects/${projectId}`).send();
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(204);
     });
     test('should return undefined data', async () => {
       const response = await request(app).delete(`/api/projects/${projectId}`).send();

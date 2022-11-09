@@ -21,18 +21,22 @@ const getProjectById = async (req, res) => {
       'employee',
       },
     });
-    if (project) {
-      return res.status(200).json({
-        msg: 'Project found succesfully',
-        data: project,
+    if (!project) {
+      return res.status(404).json({
+        message: `Project with id ${id} not found`,
+        data: undefined,
+        error: true,
       });
     }
-    return res.status(400).json({
-      msg: `Cannot find project with ID: ${id}`,
+    return res.status(200).json({
+      message: 'Project found',
+      data: project,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${err}`,
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -47,18 +51,18 @@ const deleteProject = async (req, res) => {
       });
     }
     const projectToDelete = await Projects.findByIdAndDelete(id);
-    if (projectToDelete) {
-      return res.status(200).json({
-        msg: 'Project delete succesfully',
-        data: projectToDelete,
+    if (!projectToDelete) {
+      return res.status(404).json({
+        message: `Project with id ${id} not found`,
+        data: undefined,
+        error: true,
       });
     }
-    return res.status(404).json({
-      msg: `Cannot delete project with ID: ${id}`,
-    });
+    return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${err}`,
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -77,18 +81,21 @@ const updateProject = async (req, res) => {
       req.body,
       { new: true },
     );
-    if (projectToUpdate) {
-      return res.status(200).json({
-        msg: 'Project updated succesfully',
-        data: projectToUpdate,
+    if (!projectToUpdate) {
+      return res.status(404).json({
+        message: `Project with id:${id} not found`,
+        error: true,
       });
     }
-    return res.status(404).json({
-      msg: `Cannot find project with ID: ${id}`,
+    return res.status(201).json({
+      message: `Project with id:${id} updated succesfully`,
+      data: projectToUpdate,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({
-      msg: `There was an error: ${err}`,
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -104,12 +111,14 @@ const createProject = async (req, res) => {
     });
     const result = await project.save();
     return res.status(201).json({
-      message: 'The project was created.',
+      message: 'Project created successfully',
       data: result,
+      error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Error creating project. ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -123,18 +132,15 @@ const getAllProjects = async (req, res) => {
       'employee',
       },
     });
-    if (!projects.length) {
-      return res.status(400).json({
-        message: 'Non existent project!',
-      });
-    }
     return res.status(200).json({
-      message: 'Projects found:',
+      message: 'Projects found',
       data: projects,
+      error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Error getting projects. ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };

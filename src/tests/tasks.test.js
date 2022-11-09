@@ -23,8 +23,7 @@ describe('GETALL /tasks', () => {
     });
     test('Should return a success message', async () => {
       const response = await request(app).get('/api/tasks').send();
-
-      expect(response.body.message).toMatch('Tasks found!');
+      expect(response.body.message).toMatch('Tasks found');
     });
     test('Should return Error: false', async () => {
       const response = await request(app).get('/api/tasks').send();
@@ -56,15 +55,13 @@ describe('GETALL /tasks', () => {
 
       expect(response.status).toBe(404);
     });
-    test('Should retorun status code 400 (incorrect body)', async () => {
+    test('Should retorun status code 200 (empty array)', async () => {
       const response = await request(app).get('/api/tasks').send(falseFilterByDescription);
-
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(200);
     });
     test('Should return Error: true', async () => {
       const response = await request(app).get('/api/tasks').send(falseFilterByDescription);
-
-      expect(response.error).toBeTruthy();
+      expect(response.data).toBeUndefined();
     });
   });
 });
@@ -90,7 +87,7 @@ describe('CREATE /tasks', () => {
     test('Should return a success message', async () => {
       const response = await request(app).post('/api/tasks').send(newTask);
 
-      expect(response.body.message).toMatch('Task successfully created!');
+      expect(response.body.message).toMatch('Task created successfully');
     });
     test('Should have Error: false', async () => {
       const response = await request(app).post('/api/tasks').send(newTask);
@@ -129,10 +126,10 @@ describe('UPDATE /tasks', () => {
   };
 
   describe('Successful cases:', () => {
-    test('Should return status code 200', async () => {
+    test('Should return status code 201', async () => {
       const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);
 
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
     });
     test('Should return a success message', async () => {
       const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);

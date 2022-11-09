@@ -17,7 +17,8 @@ const getTimeSheetById = async (req, res) => {
     const timeSheets = await TimeSheetsModel.findById(id).populate('project').populate('task').populate('employee');
     if (!timeSheets) {
       return res.status(404).json({
-        message: 'TimeSheet not found',
+        message: `Time sheet with id ${id} not found`,
+        data: undefined,
         error: true,
       });
     }
@@ -27,8 +28,9 @@ const getTimeSheetById = async (req, res) => {
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -45,17 +47,16 @@ const deleteTimeSheet = async (req, res) => {
     const result = await TimeSheetsModel.findByIdAndDelete(id);
     if (!result) {
       return res.status(404).json({
-        message: 'TimeSheet not found',
+        message: `Time sheet with id ${id} not found`,
+        data: undefined,
         error: true,
       });
     }
-    return res.status(204).json({
-      data: result,
-      error: false,
-    });
+    return res.sendStatus(204);
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -76,32 +77,35 @@ const editTimeSheet = async (req, res) => {
     );
     if (!result) {
       return res.status(404).json({
-        message: 'TimeSheet not found',
+        message: `Time sheet with id ${id} not found`,
+        data: undefined,
         error: true,
       });
     }
-    return res.status(200).json({
-      message: `TimeSheet with the id ${id} edited`,
+    return res.status(201).json({
+      message: `TimeSheet with the id ${id} updated successfully`,
       data: result,
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
 const getAllTimeSheets = async (req, res) => {
   try {
     const timeSheets = await TimeSheetsModel.find().populate('project').populate('task').populate('employee');
-
     return res.status(200).json({
-      message: 'TimeSheets found',
+      message: 'TimeSheets List',
       data: timeSheets,
+      error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Has occurred a problem: ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };
@@ -121,10 +125,12 @@ const createTimeSheet = async (req, res) => {
     return res.status(201).json({
       message: 'TimeSheet created successfully',
       data: result,
+      error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Problem detected, creating TimeSheet ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
     });
   }
 };

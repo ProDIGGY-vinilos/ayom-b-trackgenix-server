@@ -15,15 +15,21 @@ const getEmployeeById = async (req, res) => {
       });
     }
     const employee = await Employees.findById(id);
-
+    if (!employee) {
+      return res.status(404).json({
+        message: `Employee with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
     return res.status(200).json({
-      message: `Employee found: ${employee.name} ${employee.lastName}!`,
+      message: `Employee with id:${id} found`,
       data: employee,
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Something was wrong: ${err.message}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -43,15 +49,21 @@ const editEmployee = async (req, res) => {
       { ...req.body },
       { new: true },
     );
-
-    return res.status(200).json({
-      message: `Employee with the ID: ${id}, has been successfully edited!`,
+    if (!employee) {
+      return res.status(404).json({
+        message: `Employee with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(201).json({
+      message: `Employee with id:${id} updated successfully`,
       data: employee,
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `Something was wrong: ${err.message}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -66,12 +78,18 @@ const deleteEmployee = async (req, res) => {
         error: true,
       });
     }
-    await Employees.findByIdAndDelete(id);
-
-    return res.status(200).json();
+    const employee = await Employees.findByIdAndDelete(id);
+    if (!employee) {
+      return res.status(404).json({
+        message: `Employee with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
   } catch (err) {
-    return res.status(400).json({
-      message: `Something was wrong: ${err.message}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -80,20 +98,14 @@ const deleteEmployee = async (req, res) => {
 const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employees.find(req.query);
-    if (!employees.length) {
-      return res.status(404).json({
-        message: 'Employee not found',
-        error: true,
-      });
-    }
     return res.status(200).json({
-      message: 'Employee found',
+      message: 'Employees found',
       data: employees,
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred: ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
       error: true,
     });
   }
@@ -110,14 +122,14 @@ const createEmployee = async (req, res) => {
     });
 
     const result = await employee.save();
-    return res.status(200).json({
+    return res.status(201).json({
       message: 'Employee created successfully',
       data: result,
       error: false,
     });
   } catch (err) {
-    return res.status(400).json({
-      message: `An error ocurred: ${err}`,
+    return res.status(500).json({
+      message: `Server Error ${err}`,
       error: true,
     });
   }
