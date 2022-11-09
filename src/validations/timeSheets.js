@@ -26,7 +26,8 @@ const validateCreation = (req, res, next) => {
   const timeSheetValidation = Joi.object({
     description: Joi.string().max(100).required(),
     date: Joi.date().required(),
-    task: Joi.string().valid('BE', 'FE').required(),
+    task: Joi.string().required().trim().regex(/^(?=.*[a-zA-Z].*)([\w\s\W]+)$/)
+      .min(3),
     project: projectValidation.required(),
     employee: employeesValidation.required(),
     hours: Joi.number().integer().positive().required(),
