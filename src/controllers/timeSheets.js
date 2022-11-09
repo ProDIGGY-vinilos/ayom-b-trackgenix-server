@@ -1,12 +1,24 @@
+import mongoose from 'mongoose';
 import TimeSheetsModel from '../models/TimeSheets';
+
+const { ObjectId } = mongoose.Types;
+
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getTimeSheetById = async (req, res) => {
   try {
-    const searchId = req.params.id;
-    const timeSheets = await TimeSheetsModel.findById({ _id: searchId }).populate('project').populate('task').populate('employee');
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const timeSheets = await TimeSheetsModel.findById(id).populate('project').populate('task').populate('employee');
     if (!timeSheets) {
       return res.status(404).json({
-        message: 'TimeSheet not found',
+        message: `Time sheet with id ${id} not found`,
+        data: undefined,
         error: true,
       });
     }
@@ -25,19 +37,22 @@ const getTimeSheetById = async (req, res) => {
 
 const deleteTimeSheet = async (req, res) => {
   try {
-    const searchId = req.params.id;
-    const result = await TimeSheetsModel.findByIdAndDelete({ _id: searchId });
-    if (!result) {
-      return res.status(404).json({
-        message: `TimeSheet with id:${req.params.id} not found`,
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
         error: true,
       });
     }
-    return res.status(204).json({
-      message: `TimeSheet with id:${req.params.id} deleted successfully`,
-      data: result,
-      error: false,
-    });
+    const result = await TimeSheetsModel.findByIdAndDelete(id);
+    if (!result) {
+      return res.status(404).json({
+        message: `Time sheet with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
       message: `Server Error ${err}`,
@@ -48,20 +63,27 @@ const deleteTimeSheet = async (req, res) => {
 
 const editTimeSheet = async (req, res) => {
   try {
-    const searchId = req.params.id;
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const result = await TimeSheetsModel.findByIdAndUpdate(
-      { _id: searchId },
+      id,
       { ...req.body },
       { new: true },
     );
     if (!result) {
       return res.status(404).json({
-        message: `TimeSheet with id:${req.params.id} not found`,
+        message: `Time sheet with id ${id} not found`,
+        data: undefined,
         error: true,
       });
     }
     return res.status(201).json({
-      message: `TimeSheet with the id ${searchId} updated successfully`,
+      message: `TimeSheet with the id ${id} updated successfully`,
       data: result,
       error: false,
     });

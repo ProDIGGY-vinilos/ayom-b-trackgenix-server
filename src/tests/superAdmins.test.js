@@ -132,9 +132,9 @@ describe('GETBYID /api/superAdmins', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 500', async () => {
+  test('Non valid id format response have to be 400', async () => {
     const response = await request(app).get('/api/superAdmins/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).get('/api/superAdmins/63534ef4fc13ae1a71000').send();
@@ -169,9 +169,9 @@ describe('DELETE-BY-ID /api/superAdmins', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 500', async () => {
+  test('Non valid id format response have to be 400', async () => {
     const response = await request(app).del('/api/superAdmins/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).del('/api/superAdmins/63534ef4fc13ae1a71000').send();
@@ -243,7 +243,7 @@ describe('PUT /api/superAdmins', () => {
     });
     test('if send an INVALID ID it should retunr a bad request', async () => {
       const response = await request(app).put('/api/superAdmins/48r812382472t829t2gw').send(superAdminValid);
-      expect(response.status).toBe(500);
+      expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('message');
     });
   });
