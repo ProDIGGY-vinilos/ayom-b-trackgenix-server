@@ -7,10 +7,8 @@ const taskSchema = new Schema(
     description: {
       type: String,
       required: true,
+      unique: true,
     },
-  },
-  {
-    strictQuery: true,
   },
 );
 
