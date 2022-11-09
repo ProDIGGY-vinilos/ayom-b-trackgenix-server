@@ -68,7 +68,7 @@ describe('GETALL /tasks', () => {
 
 describe('CREATE /tasks', () => {
   const newTask = {
-    description: 'BE',
+    description: 'Testing',
   };
   const falseNewTask = {
     description: 'EE',
@@ -102,15 +102,15 @@ describe('CREATE /tasks', () => {
 
       expect(response.status).toBe(404);
     });
-    test('Should return status code 406 (body not send)', async () => {
+    test('Should return status code 400 (body not send)', async () => {
       const response = await request(app).post('/api/tasks').send();
 
-      expect(response.status).toBe(406);
+      expect(response.status).toBe(400);
     });
-    test('Should return status code 406 (incorrect body)', async () => {
+    test('Should return status code 400 (incorrect body)', async () => {
       const response = await request(app).post('/api/tasks').send(falseNewTask);
 
-      expect(response.status).toBe(406);
+      expect(response.status).toBe(400);
     });
   });
 });
@@ -119,7 +119,7 @@ describe('UPDATE /tasks', () => {
   const taskToUpdateId = '63534ef4fc13ae1a7100001e';
   const falseTaskToUpdateId = '63534ef4fc13ae1a7101101e';
   const updatedTask = {
-    description: 'BE',
+    description: 'Backend',
   };
   const falseUpdatedTask = {
     description: 'EE',
