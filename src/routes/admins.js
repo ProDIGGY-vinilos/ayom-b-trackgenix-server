@@ -5,9 +5,9 @@ import adminControllers from '../controllers/admins';
 const router = express.Router();
 
 router.get('/', adminControllers.getAllAdmins);
-router.post('/', adminValidations.validateCreation, adminControllers.createAdmin);
 router.get('/:id', adminControllers.getAdminById);
-router.delete('/:id', adminControllers.deleteAdmin);
+router.post('/', adminValidations.validateCreation, adminControllers.createAdmin);
 router.put('/:id', adminValidations.editValidation, adminControllers.editAdmin);
+router.delete('/:id', adminControllers.deleteAdmin);
 
 export default router;

@@ -21,25 +21,6 @@ const getAllTasks = async (req, res) => {
   }
 };
 
-const createNewTask = async (req, res) => {
-  try {
-    const newTask = await Tasks.create({
-      description: req.body.description,
-    });
-    const newTaskCreated = await newTask.save();
-    return res.status(201).json({
-      message: 'Task created successfully',
-      data: newTaskCreated,
-      error: false,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      message: `Server Error ${err}`,
-      error: true,
-    });
-  }
-};
-
 const getTaskById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -71,24 +52,17 @@ const getTaskById = async (req, res) => {
   }
 };
 
-const deleteTask = async (req, res) => {
+const createNewTask = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${id}`,
-        error: true,
-      });
-    }
-    const taskToDelete = await Tasks.findByIdAndDelete(id);
-    if (!taskToDelete) {
-      return res.status(404).json({
-        message: `Task with id ${id} not found`,
-        data: undefined,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
+    const newTask = await Tasks.create({
+      description: req.body.description,
+    });
+    const newTaskCreated = await newTask.save();
+    return res.status(201).json({
+      message: 'Task created successfully',
+      data: newTaskCreated,
+      error: false,
+    });
   } catch (err) {
     return res.status(500).json({
       message: `Server Error ${err}`,
@@ -124,6 +98,32 @@ const updateTask = async (req, res) => {
       data: taskToUpdate,
       error: false,
     });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const taskToDelete = await Tasks.findByIdAndDelete(id);
+    if (!taskToDelete) {
+      return res.status(404).json({
+        message: `Task with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
       message: `Server Error ${err}`,
