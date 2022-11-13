@@ -6,12 +6,9 @@ const taskSchema = new Schema(
   {
     description: {
       type: String,
-      enum: ['BE', 'FE'],
       required: true,
+      unique: true,
     },
-  },
-  {
-    strictQuery: true,
   },
 );
 

@@ -1,4 +1,9 @@
+import mongoose from 'mongoose';
 import Tasks from '../models/Tasks';
+
+const { ObjectId } = mongoose.Types;
+
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getAllTasks = async (req, res) => {
   try {
@@ -6,6 +11,37 @@ const getAllTasks = async (req, res) => {
     return res.status(200).json({
       message: 'Tasks found',
       data: taskList,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const getTaskById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+
+    const task = await Tasks.findById(id);
+    if (!task) {
+      return res.status(404).json({
+        message: `Task with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: `Task with id:${id} found`,
+      data: task,
       error: false,
     });
   } catch (err) {
@@ -35,19 +71,32 @@ const createNewTask = async (req, res) => {
   }
 };
 
-const getTaskById = async (req, res) => {
+const updateTask = async (req, res) => {
   try {
-    const task = await Tasks.findById({ _id: req.params.id });
-    if (task) {
-      return res.status(200).json({
-        message: `Task with id:${req.params.id} found`,
-        data: task,
-        error: false,
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
       });
     }
-    return res.status(404).json({
-      message: `Task with id:${req.params.id} not found`,
-      error: true,
+
+    const taskToUpdate = await Tasks.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true },
+    );
+    if (!taskToUpdate) {
+      return res.status(404).json({
+        message: `Task with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(201).json({
+      message: 'Task updated successfully',
+      data: taskToUpdate,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({
@@ -59,41 +108,22 @@ const getTaskById = async (req, res) => {
 
 const deleteTask = async (req, res) => {
   try {
-    const taskToDelete = await Tasks.findByIdAndDelete({ _id: req.params.id });
-    if (taskToDelete) {
-      return res.status(204).json({
-        message: `Task with id:${req.params.id} deleted successfully`,
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
       });
     }
-    return res.status(404).json({
-      message: `Task with id: ${req.params.id} not found`,
-      error: true,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      message: `Server Error ${err}`,
-      error: true,
-    });
-  }
-};
-
-const updateTask = async (req, res) => {
-  try {
-    const taskToUpdate = await Tasks.findByIdAndUpdate(
-      { _id: req.params.id },
-      req.body,
-      { new: true },
-    );
-    if (taskToUpdate) {
-      return res.status(201).json({
-        message: 'Task updated successfully',
-        data: taskToUpdate,
-        error: false,
+    const taskToDelete = await Tasks.findByIdAndDelete(id);
+    if (!taskToDelete) {
+      return res.status(404).json({
+        message: `Task with id ${id} not found`,
+        data: undefined,
+        error: true,
       });
     }
-    return res.status(404).json({
-      message: `Task with id:${req.params.id} not found`,
-    });
+    return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
       message: `Server Error ${err}`,

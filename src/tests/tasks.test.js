@@ -68,7 +68,7 @@ describe('GETALL /tasks', () => {
 
 describe('CREATE /tasks', () => {
   const newTask = {
-    description: 'BE',
+    description: 'Testing',
   };
   const falseNewTask = {
     description: 'EE',
@@ -102,12 +102,12 @@ describe('CREATE /tasks', () => {
 
       expect(response.status).toBe(404);
     });
-    test('Should return status code 406 (body not send)', async () => {
+    test('Should return status code 400 (body not send)', async () => {
       const response = await request(app).post('/api/tasks').send();
 
       expect(response.status).toBe(406);
     });
-    test('Should return status code 406 (incorrect body)', async () => {
+    test('Should return status code 400 (incorrect body)', async () => {
       const response = await request(app).post('/api/tasks').send(falseNewTask);
 
       expect(response.status).toBe(406);
@@ -119,7 +119,7 @@ describe('UPDATE /tasks', () => {
   const taskToUpdateId = '63534ef4fc13ae1a7100001e';
   const falseTaskToUpdateId = '63534ef4fc13ae1a7101101e';
   const updatedTask = {
-    description: 'BE',
+    description: 'Backend',
   };
   const falseUpdatedTask = {
     description: 'EE',
@@ -203,9 +203,9 @@ describe('GETBYID /api/tasks', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 500', async () => {
+  test('Non valid id format response have to be 400', async () => {
     const response = await request(app).get('/api/tasks/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).get('/api/tasks/63534ef4fc13ae1a71000').send();
@@ -240,9 +240,9 @@ describe('DELETE-BY-ID /api/tasks', () => {
     expect(response.body.data).toBeUndefined();
     expect(response.body).toBeDefined();
   });
-  test('Non valid id format response have to be 500', async () => {
+  test('Non valid id format response have to be 400', async () => {
     const response = await request(app).del('/api/tasks/63534ef4fc13ae1a71000').send();
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
   test('Non valid id format error have to be true', async () => {
     const response = await request(app).del('/api/tasks/63534ef4fc13ae1a71000').send();

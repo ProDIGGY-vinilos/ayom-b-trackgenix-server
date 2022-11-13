@@ -1,60 +1,9 @@
+import mongoose from 'mongoose';
 import Employees from '../models/Employees';
 
-const getEmployeeById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const employee = await Employees.findById(id);
+const { ObjectId } = mongoose.Types;
 
-    return res.status(200).json({
-      message: `Employee with id:${id} found`,
-      data: employee,
-      error: false,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      message: `Server Error ${err}`,
-      error: true,
-    });
-  }
-};
-
-const editEmployee = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const employee = await Employees.findByIdAndUpdate(
-      { _id: id },
-      { ...req.body },
-      { new: true },
-    );
-
-    return res.status(201).json({
-      message: `Employee with id:${id} updated successfully`,
-      data: employee,
-      error: false,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      message: `Server Error ${err}`,
-      error: true,
-    });
-  }
-};
-
-const deleteEmployee = async (req, res) => {
-  try {
-    const { id } = req.params;
-    await Employees.findByIdAndDelete(id);
-
-    return res.status(204).json({
-      message: `Employee with id:${id} deleted successfully`,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      message: `Server Error ${err}`,
-      error: true,
-    });
-  }
-};
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getAllEmployees = async (req, res) => {
   try {
@@ -62,6 +11,36 @@ const getAllEmployees = async (req, res) => {
     return res.status(200).json({
       message: 'Employees found',
       data: employees,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const getEmployeeById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const employee = await Employees.findById(id);
+    if (!employee) {
+      return res.status(404).json({
+        message: `Employee with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: `Employee with id:${id} found`,
+      data: employee,
       error: false,
     });
   } catch (err) {
@@ -88,6 +67,66 @@ const createEmployee = async (req, res) => {
       data: result,
       error: false,
     });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const editEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const employee = await Employees.findByIdAndUpdate(
+      id,
+      { ...req.body },
+      { new: true },
+    );
+    if (!employee) {
+      return res.status(404).json({
+        message: `Employee with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(201).json({
+      message: `Employee with id:${id} updated successfully`,
+      data: employee,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const deleteEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const employee = await Employees.findByIdAndDelete(id);
+    if (!employee) {
+      return res.status(404).json({
+        message: `Employee with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
       message: `Server Error ${err}`,

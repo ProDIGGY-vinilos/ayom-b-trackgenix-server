@@ -1,4 +1,9 @@
+import mongoose from 'mongoose';
 import SuperAdmins from '../models/SuperAdmins';
+
+const { ObjectId } = mongoose.Types;
+
+const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id)) === id;
 
 const getAllSuperAdmins = async (req, res) => {
   try {
@@ -19,18 +24,24 @@ const getAllSuperAdmins = async (req, res) => {
 const getSuperAdminById = async (req, res) => {
   try {
     const { id } = req.params;
-    const superAdmin = await SuperAdmins.findById(id);
-
-    if (superAdmin) {
-      return res.status(200).json({
-        message: `Super Admin with id:${req.params.id} found`,
-        data: superAdmin,
-        error: false,
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
       });
     }
-    return res.status(404).json({
-      message: `Super Admin with id:${req.params.id} not found`,
-      error: true,
+    const superAdmin = await SuperAdmins.findById(id);
+    if (!superAdmin) {
+      return res.status(404).json({
+        message: `Super admin with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: `Super Admin with id:${id} found`,
+      data: superAdmin,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({
@@ -65,12 +76,24 @@ const createSuperAdmin = async (req, res) => {
 const editSuperAdmin = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const superAdmin = await SuperAdmins.findByIdAndUpdate(
-      { _id: id },
+      id,
       { ...req.body },
       { new: true },
     );
-
+    if (!superAdmin) {
+      return res.status(404).json({
+        message: `Super admin with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
     return res.status(201).json({
       message: `Super Admin with id:${req.params.id} updated successfully`,
       data: superAdmin,
@@ -87,17 +110,21 @@ const editSuperAdmin = async (req, res) => {
 const deleteSuperAdmin = async (req, res) => {
   try {
     const { id } = req.params;
-    const superAdminToDelete = await SuperAdmins.findByIdAndDelete(id);
-    if (superAdminToDelete) {
-      return res.status(204).json({
-        message: `Super Admin with id:${id} deleted successfully`,
-        error: false,
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
       });
     }
-    return res.status(404).json({
-      message: `Super Admin with id: ${req.params.id} not found`,
-      error: true,
-    });
+    const superAdminToDelete = await SuperAdmins.findByIdAndDelete(id);
+    if (!superAdminToDelete) {
+      return res.status(404).json({
+        message: `Super admin with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
       message: `Server Error ${err}`,
