@@ -105,12 +105,12 @@ describe('CREATE /tasks', () => {
     test('Should return status code 400 (body not send)', async () => {
       const response = await request(app).post('/api/tasks').send();
 
-      expect(response.status).toBe(406);
+      expect(response.status).toBe(400);
     });
     test('Should return status code 400 (incorrect body)', async () => {
       const response = await request(app).post('/api/tasks').send(falseNewTask);
 
-      expect(response.status).toBe(406);
+      expect(response.status).toBe(400);
     });
   });
 });

@@ -9,7 +9,7 @@ const createValidation = (req, res, next) => {
   const valdiation = createTask.validate(req.body);
 
   if (valdiation.error) {
-    return res.status(406)
+    return res.status(400)
       .json({
         message: valdiation.error.message,
         error: true,
