@@ -14,6 +14,7 @@ const validateCreation = (req, res, next) => {
   if (validation.error) {
     return res.status(400).json({
       message: `There was an error: ${validation.error.message}`,
+      error: true,
     });
   }
   return next();
