@@ -62,12 +62,6 @@ const createAdmin = async (req, res) => {
       password: req.body.password,
     });
     const result = await admin.save();
-    if (!result) {
-      return res.status(404).json({
-        message: 'Admin cannot be created',
-        error: true,
-      });
-    }
     return res.status(201).json({
       message: 'Admin created successfully',
       data: result,
