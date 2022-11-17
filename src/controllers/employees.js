@@ -39,7 +39,7 @@ const getEmployeeById = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: `Employee with id:${id} found`,
+      message: 'Employee found',
       data: employee,
       error: false,
     });
