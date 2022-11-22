@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import mongoose from 'mongoose';
 import TimeSheetsModel from '../models/TimeSheets';
 
@@ -41,6 +42,25 @@ const getTimeSheetById = async (req, res) => {
     return res.status(200).json({
       message: 'TimeSheet found',
       data: timeSheets,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const getTimesheetsByEmployee = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const timeSheets = await TimeSheetsModel.find().populate('project').populate('task').populate('employee');
+    const employeeTimesheets = timeSheets
+      .filter((timeSheet) => timeSheet.employee._id.toString() === id);
+    return res.status(200).json({
+      message: 'TimeSheets List',
+      data: employeeTimesheets,
       error: false,
     });
   } catch (err) {
@@ -137,9 +157,10 @@ const deleteTimeSheet = async (req, res) => {
 };
 
 export default {
+  getAllTimeSheets,
   getTimeSheetById,
+  getTimesheetsByEmployee,
   deleteTimeSheet,
   editTimeSheet,
-  getAllTimeSheets,
   createTimeSheet,
 };
