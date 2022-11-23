@@ -14,6 +14,7 @@ const getAllProjects = async (req, res) => {
       'employee',
       },
     });
+
     return res.status(200).json({
       message: 'Projects found',
       data: projects,
@@ -43,6 +44,7 @@ const getProjectById = async (req, res) => {
       'employee',
       },
     });
+
     if (!project) {
       return res.status(404).json({
         message: `Project with id ${id} not found`,
@@ -53,6 +55,46 @@ const getProjectById = async (req, res) => {
     return res.status(200).json({
       message: 'Project found',
       data: project,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const getProjectsByEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const projects = await Projects.find().populate({
+      path: 'employees',
+      populate: {
+        path:
+      'employee',
+      },
+    });
+
+    const filteredProjects = projects.filter((project) => project.employees[0].employee.id === id);
+
+    if (!filteredProjects.length) {
+      return res.status(404).json({
+        message: `Employee with id ${id} not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+
+    return res.status(200).json({
+      message: 'Projects found',
+      data: filteredProjects,
       error: false,
     });
   } catch (err) {
@@ -147,9 +189,10 @@ const deleteProject = async (req, res) => {
 };
 
 export default {
-  getProjectById,
-  deleteProject,
-  updateProject,
   getAllProjects,
+  getProjectById,
+  getProjectsByEmployee,
   createProject,
+  updateProject,
+  deleteProject,
 };
