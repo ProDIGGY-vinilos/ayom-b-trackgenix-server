@@ -74,27 +74,18 @@ const getProjectsByEmployee = async (req, res) => {
         error: true,
       });
     }
-    const projects = await Projects.find().populate({
-      path: 'employees',
-      populate: {
-        path:
+    const projects = await Projects.find({ 'employees.employee': id })
+      .populate({
+        path: 'employees',
+        populate: {
+          path:
       'employee',
-      },
-    });
-
-    const filteredProjects = projects.filter((project) => project.employees[0].employee.id === id);
-
-    if (!filteredProjects.length) {
-      return res.status(404).json({
-        message: `Employee with id ${id} not found`,
-        data: undefined,
-        error: true,
+        },
       });
-    }
 
     return res.status(200).json({
       message: 'Projects found',
-      data: filteredProjects,
+      data: projects,
       error: false,
     });
   } catch (err) {
