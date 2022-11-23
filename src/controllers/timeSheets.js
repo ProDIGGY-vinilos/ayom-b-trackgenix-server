@@ -54,13 +54,17 @@ const getTimeSheetById = async (req, res) => {
 
 const getTimesheetsByEmployee = async (req, res) => {
   const { id } = req.params;
+  if (!isValidObjectId(id)) {
+    return res.status(400).json({
+      message: `Invalid id: ${id}`,
+      error: true,
+    });
+  }
   try {
-    const timeSheets = await TimeSheetsModel.find().populate('project').populate('task').populate('employee');
-    const employeeTimesheets = timeSheets
-      .filter((timeSheet) => timeSheet.employee._id.toString() === id);
+    const timeSheets = await TimeSheetsModel.find({ employee: { $in: id } }).populate('project').populate('task').populate('employee');
     return res.status(200).json({
       message: 'TimeSheets List',
-      data: employeeTimesheets,
+      data: timeSheets,
       error: false,
     });
   } catch (err) {

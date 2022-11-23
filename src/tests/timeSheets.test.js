@@ -157,6 +157,28 @@ describe('GETBYID /api/timeSheet', () => {
     expect(response.status).toBeTruthy();
   });
 });
+describe('Endpoint GETbyEmployee test', () => {
+  test('Should fail because invalid ID', async () => {
+    const response = await request(app).get('/api/timeSheet/employee/bfdsiohsb').send();
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBeTruthy();
+    expect(response.body.message).toEqual('Invalid id: bfdsiohsb');
+  });
+  test('Should success to find at least 1 timesheets', async () => {
+    const response = await request(app).get('/api/timeSheet/employee/6352daf070bd974cac6927cc').send();
+    expect(response.status).toBe(200);
+    expect(response.body.error).toBeFalsy();
+    expect(response.body.message).toEqual('TimeSheets List');
+    expect(response.body.data.length).toBeGreaterThan(0);
+  });
+  test('Should success to find timesheets but return empty array', async () => {
+    const response = await request(app).get('/api/timeSheet/employee/636c1e8ddabe537336ae082a').send();
+    expect(response.status).toBe(200);
+    expect(response.body.error).toBeFalsy();
+    expect(response.body.message).toEqual('TimeSheets List');
+    expect(response.body.data.length).toBe(0);
+  });
+});
 
 const correctEdit = {
   description: 'Edited timeSheet',
