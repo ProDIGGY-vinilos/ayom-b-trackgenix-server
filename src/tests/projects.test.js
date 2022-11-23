@@ -203,34 +203,10 @@ describe('GET projects by employee ID', () => {
 
       expect(response.body.data.length).toBeGreaterThan(0);
     });
-    test('Returns all projects properties names are correct', async () => {
-      const response = await request(app).get('/api/projects').send();
-      for (let i = 0; i < response.body.data.length; i += 1) {
-        expect(Object.keys(response.body.data[i]))
-          .toEqual(['_id', 'name', 'description', 'startDate', 'endDate', 'clientName', 'employees']);
-      }
-    });
     test('Returns no error', async () => {
       const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
 
       expect(response.error).toBeFalsy();
-    });
-  });
-  describe('Failure cases', () => {
-    test('Returns status code 200', async () => {
-      await Project.deleteMany();
-      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
-      expect(response.status).toBe(200);
-    });
-    test('Returns no projects', async () => {
-      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
-
-      expect(response.body.data).toStrictEqual([]);
-    });
-    test('Returns same message if List is empty', async () => {
-      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
-      expect(response.body.message).toBe('Projects found');
-      await Project.collection.insertMany(projectSeed);
     });
   });
 });
