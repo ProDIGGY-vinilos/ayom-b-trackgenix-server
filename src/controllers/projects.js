@@ -10,8 +10,7 @@ const getAllProjects = async (req, res) => {
     const projects = await Projects.find(req.query).populate({
       path: 'employees',
       populate: {
-        path:
-      'employee',
+        path: 'employee',
       },
     });
 
@@ -40,8 +39,7 @@ const getProjectById = async (req, res) => {
     const project = await Projects.findById(id).populate({
       path: 'employees',
       populate: {
-        path:
-      'employee',
+        path: 'employee',
       },
     });
 
@@ -78,8 +76,7 @@ const getProjectsByEmployee = async (req, res) => {
       .populate({
         path: 'employees',
         populate: {
-          path:
-      'employee',
+          path: 'employee',
         },
       });
 
