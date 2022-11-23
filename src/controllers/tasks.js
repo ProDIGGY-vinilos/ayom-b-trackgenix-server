@@ -9,7 +9,7 @@ const getAllTasks = async (req, res) => {
   try {
     const taskList = await Tasks.find(req.body || {}).exec();
     return res.status(200).json({
-      message: 'Tasks found',
+      message: 'Tasks list',
       data: taskList,
       error: false,
     });
@@ -40,7 +40,7 @@ const getTaskById = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: `Task with id:${id} found`,
+      message: 'Task found',
       data: task,
       error: false,
     });
@@ -94,7 +94,7 @@ const updateTask = async (req, res) => {
       });
     }
     return res.status(201).json({
-      message: 'Task updated successfully',
+      message: `Task with id ${req.params.id} updated successfully`,
       data: taskToUpdate,
       error: false,
     });

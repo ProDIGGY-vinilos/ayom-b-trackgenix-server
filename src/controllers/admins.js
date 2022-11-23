@@ -9,7 +9,7 @@ const getAllAdmins = async (req, res) => {
   try {
     const admins = await Admins.find(req.query);
     return res.status(200).json({
-      message: 'Admins List',
+      message: 'Admins list',
       data: admins,
       error: false,
     });
@@ -40,7 +40,7 @@ const getAdminById = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: 'Admin Found',
+      message: 'Admin found',
       data: admin,
       error: false,
     });
@@ -96,7 +96,7 @@ const editAdmin = async (req, res) => {
       });
     }
     return res.status(201).json({
-      message: `Admin with id:${req.params.id} updated successfully`,
+      message: `Admin with id ${req.params.id} updated successfully`,
       data: admin,
       error: false,
     });

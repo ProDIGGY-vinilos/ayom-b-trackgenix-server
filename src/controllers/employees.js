@@ -9,7 +9,7 @@ const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employees.find(req.query);
     return res.status(200).json({
-      message: 'Employees found',
+      message: 'Employees list',
       data: employees,
       error: false,
     });
@@ -97,7 +97,7 @@ const editEmployee = async (req, res) => {
       });
     }
     return res.status(201).json({
-      message: `Employee with id:${id} updated successfully`,
+      message: `Employee with id ${id} updated successfully`,
       data: employee,
       error: false,
     });

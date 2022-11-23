@@ -9,7 +9,7 @@ const getAllTimeSheets = async (req, res) => {
   try {
     const timeSheets = await TimeSheetsModel.find().populate('project').populate('task').populate('employee');
     return res.status(200).json({
-      message: 'TimeSheets List',
+      message: 'TimeSheets list',
       data: timeSheets,
       error: false,
     });
@@ -98,7 +98,7 @@ const editTimeSheet = async (req, res) => {
       });
     }
     return res.status(201).json({
-      message: `TimeSheet with the id ${id} updated successfully`,
+      message: `TimeSheet with id ${id} updated successfully`,
       data: result,
       error: false,
     });

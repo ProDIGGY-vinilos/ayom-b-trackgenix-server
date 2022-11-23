@@ -54,7 +54,7 @@ describe('GET all /api/superAdmins', () => {
     });
     test('if send a VALID path it should return a message like "Super Admin found"', async () => {
       const response = await request(app).get('/api/superAdmins').send();
-      expect(response.body.message).toBe('Super Admins found');
+      expect(response.body.message).toBe('Super Admins list');
     });
     test('if send an object with invalid properties on body it should return ALL Super Admins', async () => {
       const response = await request(app).get('/api/superAdmins').send({ football: 'allways' });
@@ -96,7 +96,7 @@ describe('GET all /api/superAdmins', () => {
     test('if send an INVALID query params it should return "Super Admins found" with 200 status code', async () => {
       const response = await request(app).get('/api/superAdmins/?name=Alberto&lastName=queMalPensado').send();
       expect(response.status).toBe(200);
-      expect(response.body.message).toBe('Super Admins found');
+      expect(response.body.message).toBe('Super Admins list');
     });
   });
 });
@@ -228,7 +228,7 @@ describe('PUT /api/superAdmins', () => {
     test('if send a VALID id as params & a VALID object as body it should return a valid request', async () => {
       const response = await request(app).put(`/api/superAdmins/${id}`).send(superAdminValid);
       expect(response.status).toBe(201);
-      expect(response.body.message).toBe(`Super Admin with id:${id} updated successfully`);
+      expect(response.body.message).toBe(`Super Admin with id ${id} updated successfully`);
       expect(response.body.data).toMatchObject(superAdminValid);
     });
   });

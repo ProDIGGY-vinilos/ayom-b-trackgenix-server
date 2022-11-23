@@ -23,7 +23,7 @@ describe('GETALL /tasks', () => {
     });
     test('Should return a success message', async () => {
       const response = await request(app).get('/api/tasks').send();
-      expect(response.body.message).toMatch('Tasks found');
+      expect(response.body.message).toMatch('Tasks list');
     });
     test('Should return Error: false', async () => {
       const response = await request(app).get('/api/tasks').send();
@@ -134,7 +134,7 @@ describe('UPDATE /tasks', () => {
     test('Should return a success message', async () => {
       const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);
 
-      expect(response.body.message).toMatch('Task updated successfully');
+      expect(response.body.message).toMatch(`Task with id ${taskToUpdateId} updated successfully`);
     });
     test('Should return Error: false', async () => {
       const response = await request(app).put(`/api/tasks/${taskToUpdateId}`).send(updatedTask);

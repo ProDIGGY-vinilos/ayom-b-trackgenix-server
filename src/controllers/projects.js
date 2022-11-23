@@ -15,7 +15,7 @@ const getAllProjects = async (req, res) => {
       },
     });
     return res.status(200).json({
-      message: 'Projects found',
+      message: 'Projects list',
       data: projects,
       error: false,
     });
@@ -108,7 +108,7 @@ const updateProject = async (req, res) => {
       });
     }
     return res.status(201).json({
-      message: `Project with id:${id} updated succesfully`,
+      message: `Project with id ${id} updated successfully`,
       data: projectToUpdate,
       error: false,
     });

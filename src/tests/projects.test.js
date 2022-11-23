@@ -68,7 +68,7 @@ describe('GET all projects', () => {
     });
     test('Returns same message if List is empty', async () => {
       const response = await request(app).get('/api/projects').send();
-      expect(response.body.message).toBe('Projects found');
+      expect(response.body.message).toBe('Projects list');
       await Project.collection.insertMany(projectSeed);
     });
   });

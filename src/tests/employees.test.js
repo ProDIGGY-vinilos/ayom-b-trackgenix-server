@@ -29,7 +29,7 @@ describe('getAll function', () => {
     expect(response.status).toBe(200);
     expect(response.body.error).toBeFalsy();
     expect(response.body.data).toBeDefined();
-    expect(response.body.message).toBe('Employees found');
+    expect(response.body.message).toBe('Employees list');
     expect(response.body.data.length).toBe(employeesSeed.length);
   });
   test('Errors in the getAll', async () => {
@@ -46,7 +46,7 @@ describe('Edit function', () => {
     expect(response.status).toBe(201);
     expect(response.body.error).toBeFalsy();
     expect(response.body.data).toBeDefined();
-    expect(response.body.message).toBe(`Employee with id:${employeeId} updated successfully`);
+    expect(response.body.message).toBe(`Employee with id ${employeeId} updated successfully`);
   });
   test('Should return status code 404 because not found the employee', async () => {
     const response = await request(app).put(`/api/employee/${employeeId}`).send(mockEmployee);
