@@ -9,7 +9,7 @@ const getAllSuperAdmins = async (req, res) => {
   try {
     const superAdmins = await SuperAdmins.find(req.query);
     return res.status(200).json({
-      message: 'Super Admins found',
+      message: 'Super Admins list',
       data: superAdmins,
       error: false,
     });
@@ -39,7 +39,7 @@ const getSuperAdminById = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: `Super Admin with id:${id} found`,
+      message: 'Super Admin found',
       data: superAdmin,
       error: false,
     });
@@ -64,6 +64,7 @@ const createSuperAdmin = async (req, res) => {
     return res.status(201).json({
       message: 'Super Admin created successfully',
       data: result,
+      error: false,
     });
   } catch (err) {
     return res.status(500).json({
@@ -95,7 +96,7 @@ const editSuperAdmin = async (req, res) => {
       });
     }
     return res.status(201).json({
-      message: `Super Admin with id:${req.params.id} updated successfully`,
+      message: `Super Admin with id ${req.params.id} updated successfully`,
       data: superAdmin,
       error: false,
     });

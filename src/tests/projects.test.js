@@ -68,7 +68,7 @@ describe('GET all projects', () => {
     });
     test('Returns same message if List is empty', async () => {
       const response = await request(app).get('/api/projects').send();
-      expect(response.body.message).toBe('Projects found');
+      expect(response.body.message).toBe('Projects list');
       await Project.collection.insertMany(projectSeed);
     });
   });
@@ -187,6 +187,26 @@ describe('GET project by id', () => {
       const response = await request(app).get('/api/projects/123').send();
 
       expect(response.status).toBe(400);
+    });
+  });
+});
+
+describe('GET projects by employee ID', () => {
+  describe('Success cases', () => {
+    test('Returns status code 200', async () => {
+      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
+
+      expect(response.status).toBe(200);
+    });
+    test('Returns at least 1 project', async () => {
+      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
+
+      expect(response.body.data.length).toBeGreaterThan(0);
+    });
+    test('Returns no error', async () => {
+      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
+
+      expect(response.error).toBeFalsy();
     });
   });
 });

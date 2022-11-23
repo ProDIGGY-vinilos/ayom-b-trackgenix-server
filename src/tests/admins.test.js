@@ -38,7 +38,7 @@ describe('GET by id:', () => {
     });
     test('if send a VALID id it must have a body message equal to "Admin Found with id"', async () => {
       const response = await callCorrectGETRequest();
-      expect(response.body.message).toBe('Admin Found');
+      expect(response.body.message).toBe('Admin found');
     });
     test('if send a VALID id it must have a body data property of "name"', async () => {
       const response = await callCorrectGETRequest();
@@ -150,7 +150,7 @@ describe('getAll function', () => {
     expect(response.status).toBe(200);
     expect(response.body.error).toBeFalsy();
     expect(response.body.data).toBeDefined();
-    expect(response.body.message).toBe('Admins List');
+    expect(response.body.message).toBe('Admins list');
     expect(response.body.data.length).toBe(adminSeed.length);
   });
   test('Errors in the getAll', async () => {

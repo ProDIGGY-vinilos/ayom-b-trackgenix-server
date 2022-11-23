@@ -10,12 +10,12 @@ const getAllProjects = async (req, res) => {
     const projects = await Projects.find(req.query).populate({
       path: 'employees',
       populate: {
-        path:
-      'employee',
+        path: 'employee',
       },
     });
+
     return res.status(200).json({
-      message: 'Projects found',
+      message: 'Projects list',
       data: projects,
       error: false,
     });
@@ -39,10 +39,10 @@ const getProjectById = async (req, res) => {
     const project = await Projects.findById(id).populate({
       path: 'employees',
       populate: {
-        path:
-      'employee',
+        path: 'employee',
       },
     });
+
     if (!project) {
       return res.status(404).json({
         message: `Project with id ${id} not found`,
@@ -53,6 +53,36 @@ const getProjectById = async (req, res) => {
     return res.status(200).json({
       message: 'Project found',
       data: project,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const getProjectsByEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const projects = await Projects.find({ 'employees.employee': id })
+      .populate({
+        path: 'employees',
+        populate: {
+          path: 'employee',
+        },
+      });
+
+    return res.status(200).json({
+      message: 'Projects found',
+      data: projects,
       error: false,
     });
   } catch (err) {
@@ -108,7 +138,7 @@ const updateProject = async (req, res) => {
       });
     }
     return res.status(201).json({
-      message: `Project with id:${id} updated succesfully`,
+      message: `Project with id ${id} updated successfully`,
       data: projectToUpdate,
       error: false,
     });
@@ -147,9 +177,10 @@ const deleteProject = async (req, res) => {
 };
 
 export default {
-  getProjectById,
-  deleteProject,
-  updateProject,
   getAllProjects,
+  getProjectById,
+  getProjectsByEmployee,
   createProject,
+  updateProject,
+  deleteProject,
 };
