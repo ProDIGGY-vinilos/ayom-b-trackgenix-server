@@ -11,7 +11,6 @@ const createValidation = (req, res, next) => {
   if (valdiation.error) {
     return res.status(400).json({
       message: valdiation.error.message,
-      error: true,
     });
   }
 
