@@ -191,6 +191,26 @@ describe('GET project by id', () => {
   });
 });
 
+describe('GET projects by employee ID', () => {
+  describe('Success cases', () => {
+    test('Returns status code 200', async () => {
+      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
+
+      expect(response.status).toBe(200);
+    });
+    test('Returns at least 1 project', async () => {
+      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
+
+      expect(response.body.data.length).toBeGreaterThan(0);
+    });
+    test('Returns no error', async () => {
+      const response = await request(app).get('/api/projects/employee/6352daf070bd974cac6927cc').send();
+
+      expect(response.error).toBeFalsy();
+    });
+  });
+});
+
 describe('UPDATE /api/projects', () => {
   describe('Success cases', () => {
     test('should return status code 201', async () => {
