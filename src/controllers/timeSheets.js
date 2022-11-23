@@ -61,7 +61,7 @@ const getTimesheetsByEmployee = async (req, res) => {
     });
   }
   try {
-    const timeSheets = await TimeSheetsModel.find({ employee: { $in: id } }).populate('project').populate('task').populate('employee');
+    const timeSheets = await TimeSheetsModel.find({ employee: id }).populate('project').populate('task').populate('employee');
     return res.status(200).json({
       message: 'TimeSheets List',
       data: timeSheets,
