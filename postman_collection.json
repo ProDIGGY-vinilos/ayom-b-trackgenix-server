@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "27e9eb70-941c-4094-ad3a-e634816b55b3",
+		"_postman_id": "19307bcd-25f7-48ee-8d2a-53837a46a4c4",
 		"name": "Trackgenix Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "22779793"
+		"_exporter_id": "23758496"
 	},
 	"item": [
 		{
@@ -15,114 +15,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/superAdmins",
+							"raw": "localhost:4000/api/superAdmins",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"superAdmins"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetAllSuperAdminsByName",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/api/superAdmins?name=Kirby",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"superAdmins"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "Kirby"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetAllSuperAdminsByLastname",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/api/superAdmins?lastName=Gauge",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"superAdmins"
-							],
-							"query": [
-								{
-									"key": "lastName",
-									"value": "Gauge"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetAllSuperAdminsByEmail",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/api/superAdmins?email=kgauge0@uiuc.edu",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"superAdmins"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "kgauge0@uiuc.edu"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetAllSuperAdminsByPassword",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/api/superAdmins?password=8vaymhuZDC",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"superAdmins"
-							],
-							"query": [
-								{
-									"key": "password",
-									"value": "8vaymhuZDC"
-								}
 							]
 						}
 					},
@@ -134,11 +34,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/superAdmins/634cd7099c51012284376479",
+							"raw": "localhost:4000/api/superAdmins/634cd7099c51012284376479",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"superAdmins",
@@ -163,11 +63,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/superAdmins",
+							"raw": "localhost:4000/api/superAdmins",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"superAdmins"
@@ -182,11 +82,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/superAdmins/634cd6e79c51012284376475",
+							"raw": "localhost:4000/api/superAdmins/634cd6e79c51012284376475",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"superAdmins",
@@ -211,11 +111,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/superAdmins/634cd7099c51012284376479",
+							"raw": "localhost:4000/api/superAdmins/634cd7099c51012284376479",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"superAdmins",
@@ -236,11 +136,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/timeSheet",
+							"raw": "localhost:4000/api/timeSheet",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"timeSheet"
@@ -262,15 +162,43 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/api/timeSheet/634cae60982688571ffa7469",
+							"raw": "localhost:4000/api/timeSheet/636e4ebeffa802f0d7ecc6dd",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"timeSheet",
-								"634cae60982688571ffa7469"
+								"636e4ebeffa802f0d7ecc6dd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTimeSheetByEmployee",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:4000/api/timeSheet/employee/636c1e8ddabe537336ae082a",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"timeSheet",
+								"employee",
+								"636c1e8ddabe537336ae082a"
 							]
 						}
 					},
@@ -282,15 +210,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/timeSheet/634cae60982688571ffa7469",
+							"raw": "localhost:4000/api/timeSheet/637d04acb261e3f2a9afac72",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"timeSheet",
-								"634cae60982688571ffa7469"
+								"637d04acb261e3f2a9afac72"
 							]
 						}
 					},
@@ -311,15 +239,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/timeSheet/634cae60982688571ffa7469",
+							"raw": "localhost:4000/api/timeSheet/637d04acb261e3f2a9afac72",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"timeSheet",
-								"634cae60982688571ffa7469"
+								"637d04acb261e3f2a9afac72"
 							]
 						}
 					},
@@ -340,11 +268,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/timeSheet",
+							"raw": "localhost:4000/api/timeSheet",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"timeSheet"
@@ -376,11 +304,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/tasks",
+							"raw": "localhost:4000/api/tasks",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"tasks"
@@ -407,11 +335,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/tasks/634d731a704589b6e6e9849b",
+							"raw": "localhost:4000/api/tasks/634d731a704589b6e6e9849b",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"tasks",
@@ -436,11 +364,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/tasks",
+							"raw": "localhost:4000/api/tasks",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"tasks"
@@ -464,11 +392,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/tasks/634d731a704589b6e6e9849b",
+							"raw": "localhost:4000/api/tasks/634d731a704589b6e6e9849b",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"tasks",
@@ -484,11 +412,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/tasks/63531858295ff69db342f530",
+							"raw": "localhost:4000/api/tasks/63531858295ff69db342f530",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"tasks",
@@ -509,12 +437,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/admins/",
+							"raw": "http://localhost:4000/api/admins/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"admins",
@@ -530,11 +458,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/admins/634a0b062943924391b3b042",
+							"raw": "localhost:4000/api/admins/634a0b062943924391b3b042",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"admins",
@@ -550,11 +478,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/admins/634a0b062943924391b3b042",
+							"raw": "localhost:4000/api/admins/634a0b062943924391b3b042",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"admins",
@@ -579,11 +507,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/admins/6349fef374e909409eb16955",
+							"raw": "localhost:4000/api/admins/6349fef374e909409eb16955",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"admins",
@@ -614,12 +542,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/admins/",
+							"raw": "http://localhost:4000/api/admins/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"admins",
@@ -641,11 +569,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/projects",
+							"raw": "localhost:4000/api/projects",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"projects"
@@ -660,12 +588,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/projects/634b3e933f07c7b4d8da2ac5",
+							"raw": "http://localhost:4000/api/projects/634b3e933f07c7b4d8da2ac5",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"projects",
@@ -712,11 +640,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/projects",
+							"raw": "localhost:4000/api/projects",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"projects"
@@ -731,12 +659,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/projects/634b3e933f07c7b4d8da2ac5",
+							"raw": "http://localhost:4000/api/projects/634b3e933f07c7b4d8da2ac5",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"projects",
@@ -761,12 +689,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/projects/634b3e933f07c7b4d8da2ac5",
+							"raw": "http://localhost:4000/api/projects/634b3e933f07c7b4d8da2ac5",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"projects",
@@ -787,11 +715,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/employees",
+							"raw": "localhost:4000/api/employees",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"employees"
@@ -806,11 +734,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/employees/634d8c845702c8f99755b537",
+							"raw": "localhost:4000/api/employees/634d8c845702c8f99755b537",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"employees",
@@ -826,11 +754,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/employees/api/634d8dd80949819b38831d67",
+							"raw": "localhost:4000/api/employees/api/634d8dd80949819b38831d67",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"employees",
@@ -856,11 +784,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/employees/634d8c845702c8f99755b537",
+							"raw": "localhost:4000/api/employees/634d8c845702c8f99755b537",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"employees",
@@ -885,11 +813,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/employees",
+							"raw": "localhost:4000/api/employees",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"employees"
