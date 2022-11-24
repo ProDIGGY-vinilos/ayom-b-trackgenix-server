@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/', timeSheetsControllers.getAllTimeSheets);
 router.get('/:id', timeSheetsControllers.getTimeSheetById);
+router.get('/employee/:id', timeSheetsControllers.getTimesheetsByEmployee);
 router.post('/', timeSheetsValidations.validateCreation, timeSheetsControllers.createTimeSheet);
 router.put('/:id', timeSheetsValidations.validateCreation, timeSheetsControllers.editTimeSheet);
 router.delete('/:id', timeSheetsControllers.deleteTimeSheet);

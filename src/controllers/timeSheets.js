@@ -51,6 +51,29 @@ const getTimeSheetById = async (req, res) => {
   }
 };
 
+const getTimesheetsByEmployee = async (req, res) => {
+  const { id } = req.params;
+  if (!isValidObjectId(id)) {
+    return res.status(400).json({
+      message: `Invalid id: ${id}`,
+      error: true,
+    });
+  }
+  try {
+    const timeSheets = await TimeSheetsModel.find({ employee: id }).populate('project').populate('task').populate('employee');
+    return res.status(200).json({
+      message: 'TimeSheets List',
+      data: timeSheets,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
 const createTimeSheet = async (req, res) => {
   try {
     const timeSheets = new TimeSheetsModel({
@@ -137,9 +160,10 @@ const deleteTimeSheet = async (req, res) => {
 };
 
 export default {
+  getAllTimeSheets,
   getTimeSheetById,
+  getTimesheetsByEmployee,
   deleteTimeSheet,
   editTimeSheet,
-  getAllTimeSheets,
   createTimeSheet,
 };
