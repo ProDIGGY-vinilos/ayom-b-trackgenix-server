@@ -108,7 +108,7 @@ const editAdmin = async (req, res) => {
       });
     }
 
-    await firebase.auth().updateUser(admin.firebaseUid, {
+    await firebase.auth().updateUser(req.body.firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });

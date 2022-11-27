@@ -61,8 +61,6 @@ const createEmployee = async (req, res) => {
 
     await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'EMPLOYEE' });
 
-    const userToken = await firebase.auth().createCustomToken(newFirebaseUser.uid);
-
     const employee = new Employees({
       name: req.body.name,
       lastName: req.body.lastName,
@@ -77,7 +75,6 @@ const createEmployee = async (req, res) => {
       message: 'Employee created successfully',
       data: result,
       error: false,
-      token: userToken,
     });
   } catch (err) {
     return res.status(500).json({
