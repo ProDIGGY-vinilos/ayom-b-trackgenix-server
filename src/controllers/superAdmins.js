@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import SuperAdmins from '../models/SuperAdmins';
+import firebase from '../Helpers/Firebase';
 
 const { ObjectId } = mongoose.Types;
 
@@ -53,11 +54,19 @@ const getSuperAdminById = async (req, res) => {
 
 const createSuperAdmin = async (req, res) => {
   try {
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'SUPER_ADMIN' });
+
     const superAdmins = new SuperAdmins({
       name: req.body.name,
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
+      firebaseUid: newFirebaseUser.uid,
     });
 
     const result = await superAdmins.save();
@@ -95,6 +104,12 @@ const editSuperAdmin = async (req, res) => {
         error: true,
       });
     }
+
+    await firebase.auth().updateUser(req.body.firebaseUid, {
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     return res.status(201).json({
       message: `Super Admin with id ${req.params.id} updated successfully`,
       data: superAdmin,
@@ -125,6 +140,9 @@ const deleteSuperAdmin = async (req, res) => {
         error: true,
       });
     }
+
+    await firebase.auth().deleteUser(req.body.firebaseUid);
+
     return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
