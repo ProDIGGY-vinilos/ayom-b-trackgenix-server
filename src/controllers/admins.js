@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import firebase from '../Helpers/Firebase';
 import Admins from '../models/Admins';
 
 const { ObjectId } = mongoose.Types;
@@ -55,13 +56,23 @@ const getAdminById = async (req, res) => {
 
 const createAdmin = async (req, res) => {
   try {
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'ADMIN' });
+
     const admin = new Admins({
       name: req.body.name,
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
+      firebaseUid: newFirebaseUser.uid,
     });
+
     const result = await admin.save();
+
     return res.status(201).json({
       message: 'Admin created successfully',
       data: result,
@@ -89,12 +100,19 @@ const editAdmin = async (req, res) => {
       { ...req.body },
       { new: true },
     );
+
     if (!admin) {
       return res.status(404).json({
         message: `Admin with id:${req.params.id} not found`,
         error: true,
       });
     }
+
+    await firebase.auth().updateUser(req.body.firebaseUid, {
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     return res.status(201).json({
       message: `Admin with id ${req.params.id} updated successfully`,
       data: admin,
@@ -124,6 +142,9 @@ const deleteAdmin = async (req, res) => {
         error: true,
       });
     }
+
+    await firebase.auth().deleteUser(req.body.firebaseUid);
+
     return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({

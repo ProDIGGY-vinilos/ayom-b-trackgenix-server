@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Employees from '../models/Employees';
+import firebase from '../Helpers/Firebase';
 
 const { ObjectId } = mongoose.Types;
 
@@ -53,12 +54,20 @@ const getEmployeeById = async (req, res) => {
 
 const createEmployee = async (req, res) => {
   try {
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'EMPLOYEE' });
+
     const employee = new Employees({
       name: req.body.name,
       lastName: req.body.lastName,
       phone: req.body.phone,
       email: req.body.email,
       password: req.body.password,
+      firebaseUid: newFirebaseUser.uid,
     });
 
     const result = await employee.save();
@@ -96,6 +105,12 @@ const editEmployee = async (req, res) => {
         error: true,
       });
     }
+
+    await firebase.auth().updateUser(req.body.firebaseUid, {
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     return res.status(201).json({
       message: `Employee with id ${id} updated successfully`,
       data: employee,
@@ -126,6 +141,9 @@ const deleteEmployee = async (req, res) => {
         error: true,
       });
     }
+
+    await firebase.auth().deleteUser(req.body.firebaseUid);
+
     return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
