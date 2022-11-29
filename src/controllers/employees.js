@@ -106,7 +106,7 @@ const editEmployee = async (req, res) => {
       });
     }
 
-    await firebase.auth().updateUser(req.body.firebaseUid, {
+    await firebase.auth().updateUser(employee.firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });
@@ -142,7 +142,7 @@ const deleteEmployee = async (req, res) => {
       });
     }
 
-    await firebase.auth().deleteUser(req.body.firebaseUid);
+    await firebase.auth().deleteUser(employee.firebaseUid);
 
     return res.sendStatus(204);
   } catch (err) {

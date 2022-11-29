@@ -105,7 +105,7 @@ const editSuperAdmin = async (req, res) => {
       });
     }
 
-    await firebase.auth().updateUser(req.body.firebaseUid, {
+    await firebase.auth().updateUser(superAdmin.firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });
@@ -141,7 +141,7 @@ const deleteSuperAdmin = async (req, res) => {
       });
     }
 
-    await firebase.auth().deleteUser(req.body.firebaseUid);
+    await firebase.auth().deleteUser(superAdminToDelete.firebaseUid);
 
     return res.sendStatus(204);
   } catch (err) {
