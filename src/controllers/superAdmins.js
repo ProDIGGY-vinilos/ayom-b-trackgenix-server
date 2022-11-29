@@ -105,7 +105,7 @@ const editSuperAdmin = async (req, res) => {
       });
     }
 
-    await firebase.auth().updateUser(req.body.firebaseUid, {
+    await firebase.auth().updateUser(superAdmin.firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });
@@ -132,8 +132,8 @@ const deleteSuperAdmin = async (req, res) => {
         error: true,
       });
     }
-    const superAdminToDelete = await SuperAdmins.findByIdAndDelete(id);
-    if (!superAdminToDelete) {
+    const superAdmin = await SuperAdmins.findByIdAndDelete(id);
+    if (!superAdmin) {
       return res.status(404).json({
         message: `Super admin with id ${id} not found`,
         data: undefined,
@@ -141,7 +141,7 @@ const deleteSuperAdmin = async (req, res) => {
       });
     }
 
-    await firebase.auth().deleteUser(req.body.firebaseUid);
+    await firebase.auth().deleteUser(superAdmin.firebaseUid);
 
     return res.sendStatus(204);
   } catch (err) {
