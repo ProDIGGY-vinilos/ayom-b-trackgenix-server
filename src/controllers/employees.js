@@ -133,7 +133,8 @@ const deleteEmployee = async (req, res) => {
         error: true,
       });
     }
-    const employee = await Employees.findByIdAndDelete(id);
+    // const employee = await Employees.restore();
+    const employee = await Employees.deleteById(id);
     if (!employee) {
       return res.status(404).json({
         message: `Employee with id ${id} not found`,
@@ -142,7 +143,7 @@ const deleteEmployee = async (req, res) => {
       });
     }
 
-    await firebase.auth().deleteUser(employee.firebaseUid);
+    // await firebase.auth().deleteUser(employee.firebaseUid);
 
     return res.sendStatus(204);
   } catch (err) {

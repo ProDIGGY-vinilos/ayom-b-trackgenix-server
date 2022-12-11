@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongooseDelete from 'mongoose-delete';
 
 const { Schema } = mongoose;
 
@@ -10,5 +11,7 @@ const employeeSchema = new Schema({
   password: { type: String, required: true },
   firebaseUid: { type: String, required: true },
 });
+
+employeeSchema.plugin(mongooseDelete, { overrideMethods: false });
 
 export default mongoose.model('Employee', employeeSchema);
