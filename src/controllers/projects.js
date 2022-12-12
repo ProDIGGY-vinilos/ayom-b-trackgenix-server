@@ -11,6 +11,7 @@ const getAllProjects = async (req, res) => {
       path: 'employees',
       populate: {
         path: 'employee',
+        options: { withDeleted: true },
       },
     });
 
@@ -40,6 +41,7 @@ const getProjectById = async (req, res) => {
       path: 'employees',
       populate: {
         path: 'employee',
+        options: { withDeleted: true },
       },
     });
 
@@ -77,6 +79,7 @@ const getProjectsByEmployee = async (req, res) => {
         path: 'employees',
         populate: {
           path: 'employee',
+          options: { withDeleted: true },
         },
       });
 

@@ -12,6 +12,6 @@ const employeeSchema = new Schema({
   firebaseUid: { type: String, required: true },
 });
 
-employeeSchema.plugin(mongooseDelete, { overrideMethods: false });
+employeeSchema.plugin(mongooseDelete, { overrideMethods: ['find'] });
 
 export default mongoose.model('Employee', employeeSchema);

@@ -8,7 +8,8 @@ const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id
 
 const getAllEmployees = async (req, res) => {
   try {
-    const employees = await Employees.find(req.query);
+    // const employees = await Employees.restore();
+    const employees = await Employees.findWithDeleted(req.query);
     return res.status(200).json({
       message: 'Employees list',
       data: employees,

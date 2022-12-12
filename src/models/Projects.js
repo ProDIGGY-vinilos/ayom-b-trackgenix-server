@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongooseDelete from 'mongoose-delete';
 
 const { Schema } = mongoose;
 
@@ -39,4 +40,7 @@ const projectSchema = new Schema({
     },
   }],
 });
+
+projectSchema.plugin(mongooseDelete, { overrideMethods: false });
+
 export default mongoose.model('Project', projectSchema);
