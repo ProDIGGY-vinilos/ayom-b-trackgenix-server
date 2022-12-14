@@ -52,6 +52,25 @@ const getSuperAdminById = async (req, res) => {
   }
 };
 
+const getSuperAdminByFirebaseId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const SuperAdmin = await SuperAdmins.find({ firebaseUid: id });
+
+    return res.status(200).json({
+      message: 'Admin found',
+      data: SuperAdmin,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
 const createSuperAdmin = async (req, res) => {
   try {
     const newFirebaseUser = await firebase.auth().createUser({
@@ -154,8 +173,9 @@ const deleteSuperAdmin = async (req, res) => {
 
 export default {
   getAllSuperAdmins,
-  createSuperAdmin,
   getSuperAdminById,
+  getSuperAdminByFirebaseId,
+  createSuperAdmin,
   editSuperAdmin,
   deleteSuperAdmin,
 };
