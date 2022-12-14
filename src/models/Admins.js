@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongooseDelete from 'mongoose-delete';
 
 const { Schema } = mongoose;
 
@@ -9,5 +10,7 @@ const adminSchema = new Schema({
   password: { type: String, required: true },
   firebaseUid: { type: String, required: true },
 });
+
+adminSchema.plugin(mongooseDelete, { overrideMethods: ['find'] });
 
 export default mongoose.model('Admin', adminSchema);

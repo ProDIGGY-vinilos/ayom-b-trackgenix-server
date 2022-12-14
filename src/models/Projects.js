@@ -41,6 +41,6 @@ const projectSchema = new Schema({
   }],
 });
 
-projectSchema.plugin(mongooseDelete, { overrideMethods: false });
+projectSchema.plugin(mongooseDelete, { overrideMethods: ['find'] });
 
 export default mongoose.model('Project', projectSchema);

@@ -22,6 +22,22 @@ const getAllAdmins = async (req, res) => {
   }
 };
 
+const getAllWithDeletedAdmins = async (req, res) => {
+  try {
+    const admins = await Admins.find(req.query);
+    return res.status(200).json({
+      message: 'Admins list',
+      data: admins,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
 const getAdminById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -135,7 +151,7 @@ const deleteAdmin = async (req, res) => {
         error: true,
       });
     }
-    const admin = await Admins.findByIdAndDelete(id);
+    const admin = await Admins.deleteById(id);
     if (!admin) {
       return res.status(404).json({
         message: `Admin with id:${id} not found`,
@@ -143,7 +159,7 @@ const deleteAdmin = async (req, res) => {
       });
     }
 
-    await firebase.auth().deleteUser(admin.firebaseUid);
+    // await firebase.auth().deleteUser(admin.firebaseUid);
 
     return res.sendStatus(204);
   } catch (err) {
@@ -156,6 +172,7 @@ const deleteAdmin = async (req, res) => {
 
 export default {
   getAdminById,
+  getAllWithDeletedAdmins,
   deleteAdmin,
   editAdmin,
   getAllAdmins,

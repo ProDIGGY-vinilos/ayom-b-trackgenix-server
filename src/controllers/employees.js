@@ -9,6 +9,23 @@ const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id
 const getAllEmployees = async (req, res) => {
   try {
     // const employees = await Employees.restore();
+    const employees = await Employees.find(req.query);
+    return res.status(200).json({
+      message: 'Employees list',
+      data: employees,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const getAllWithDeletedEmployees = async (req, res) => {
+  try {
+    // const employees = await Employees.restore();
     const employees = await Employees.findWithDeleted(req.query);
     return res.status(200).json({
       message: 'Employees list',
@@ -134,7 +151,6 @@ const deleteEmployee = async (req, res) => {
         error: true,
       });
     }
-    // const employee = await Employees.restore();
     const employee = await Employees.deleteById(id);
     if (!employee) {
       return res.status(404).json({
@@ -156,9 +172,10 @@ const deleteEmployee = async (req, res) => {
 };
 
 export default {
+  getAllEmployees,
+  getAllWithDeletedEmployees,
   getEmployeeById,
+  createEmployee,
   editEmployee,
   deleteEmployee,
-  getAllEmployees,
-  createEmployee,
 };
