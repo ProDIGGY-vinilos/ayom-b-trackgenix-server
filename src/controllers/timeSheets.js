@@ -7,25 +7,17 @@ const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id
 
 const getAllTimeSheets = async (req, res) => {
   try {
-    const timeSheets = await TimeSheetsModel.find().populate([{
-      path: 'project',
-      populate: {
+    const timeSheets = await TimeSheetsModel.find()
+      .populate([{
         path: 'project',
         options: { withDeleted: true },
-      },
-    }, {
-      path: 'task',
-      populate: {
+      }, {
         path: 'task',
         options: { withDeleted: true },
-      },
-    }, {
-      path: 'employees',
-      populate: {
+      }, {
         path: 'employee',
         options: { withDeleted: true },
-      },
-    }]);
+      }]);
     return res.status(200).json({
       message: 'TimeSheets list',
       data: timeSheets,
@@ -41,25 +33,17 @@ const getAllTimeSheets = async (req, res) => {
 
 const getAllWithDeletedTimeSheets = async (req, res) => {
   try {
-    const timeSheets = await TimeSheetsModel.findWithDeleted().populate([{
-      path: 'project',
-      populate: {
+    const timeSheets = await TimeSheetsModel.findWithDeleted()
+      .populate([{
         path: 'project',
         options: { withDeleted: true },
-      },
-    }, {
-      path: 'task',
-      populate: {
+      }, {
         path: 'task',
         options: { withDeleted: true },
-      },
-    }, {
-      path: 'employees',
-      populate: {
+      }, {
         path: 'employee',
         options: { withDeleted: true },
-      },
-    }]);
+      }]);
     return res.status(200).json({
       message: 'TimeSheets list',
       data: timeSheets,
@@ -82,25 +66,17 @@ const getTimeSheetById = async (req, res) => {
         error: true,
       });
     }
-    const timeSheets = await TimeSheetsModel.findById(id).populate([{
-      path: 'project',
-      populate: {
+    const timeSheets = await TimeSheetsModel.findById(id)
+      .populate([{
         path: 'project',
         options: { withDeleted: true },
-      },
-    }, {
-      path: 'task',
-      populate: {
+      }, {
         path: 'task',
         options: { withDeleted: true },
-      },
-    }, {
-      path: 'employees',
-      populate: {
+      }, {
         path: 'employee',
         options: { withDeleted: true },
-      },
-    }]);
+      }]);
     if (!timeSheets) {
       return res.status(404).json({
         message: `Time sheet with id ${id} not found`,
@@ -130,25 +106,17 @@ const getTimesheetsByEmployee = async (req, res) => {
     });
   }
   try {
-    const timeSheets = await TimeSheetsModel.find({ employee: id }).populate([{
-      path: 'project',
-      populate: {
+    const timeSheets = await TimeSheetsModel.find({ employee: id })
+      .populate([{
         path: 'project',
         options: { withDeleted: true },
-      },
-    }, {
-      path: 'task',
-      populate: {
+      }, {
         path: 'task',
         options: { withDeleted: true },
-      },
-    }, {
-      path: 'employees',
-      populate: {
+      }, {
         path: 'employee',
         options: { withDeleted: true },
-      },
-    }]);
+      }]);
     return res.status(200).json({
       message: 'TimeSheets List',
       data: timeSheets,
