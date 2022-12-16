@@ -6,6 +6,7 @@ import checkAuth from '../middlewares/authMiddleware';
 const router = express.Router();
 
 router.get('/', checkAuth(['SUPER_ADMIN', 'ADMIN']), adminControllers.getAllAdmins);
+router.get('/withDeleted', checkAuth(['SUPER_ADMIN', 'ADMIN']), adminControllers.getAllWithDeletedAdmins);
 router.get('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN']), adminControllers.getAdminById);
 router.post('/', checkAuth(['SUPER_ADMIN']), adminValidations.validateCreation, adminControllers.createAdmin);
 router.put('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN']), adminValidations.editValidation, adminControllers.editAdmin);
