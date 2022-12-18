@@ -8,7 +8,6 @@ const isValidObjectId = (id) => ObjectId.isValid(id) && (String)(new ObjectId(id
 
 const getAllEmployees = async (req, res) => {
   try {
-    // const employees = await Employees.restore();
     const employees = await Employees.find(req.query);
     return res.status(200).json({
       message: 'Employees list',
@@ -25,7 +24,6 @@ const getAllEmployees = async (req, res) => {
 
 const getAllWithDeletedEmployees = async (req, res) => {
   try {
-    // const employees = await Employees.restore();
     const employees = await Employees.findWithDeleted(req.query);
     return res.status(200).json({
       message: 'Employees list',
@@ -59,6 +57,25 @@ const getEmployeeById = async (req, res) => {
     }
     return res.status(200).json({
       message: 'Employee found',
+      data: employee,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const getEmployeeByFirebaseId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const employee = await Employees.find({ firabaseUid: id });
+
+    return res.status(200).json({
+      message: 'Projects found',
       data: employee,
       error: false,
     });
@@ -160,8 +177,6 @@ const deleteEmployee = async (req, res) => {
       });
     }
 
-    // await firebase.auth().deleteUser(employee.firebaseUid);
-
     return res.sendStatus(204);
   } catch (err) {
     return res.status(500).json({
@@ -175,6 +190,7 @@ export default {
   getAllEmployees,
   getAllWithDeletedEmployees,
   getEmployeeById,
+  getEmployeeByFirebaseId,
   createEmployee,
   editEmployee,
   deleteEmployee,
