@@ -68,6 +68,25 @@ const getEmployeeById = async (req, res) => {
   }
 };
 
+const getEmployeeByFirebaseId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const employee = await Employees.find({ firabaseUid: id });
+
+    return res.status(200).json({
+      message: 'Projects found',
+      data: employee,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
 const createEmployee = async (req, res) => {
   try {
     const newFirebaseUser = await firebase.auth().createUser({
@@ -171,6 +190,7 @@ export default {
   getAllEmployees,
   getAllWithDeletedEmployees,
   getEmployeeById,
+  getEmployeeByFirebaseId,
   createEmployee,
   editEmployee,
   deleteEmployee,

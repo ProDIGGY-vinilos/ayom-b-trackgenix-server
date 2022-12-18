@@ -70,6 +70,25 @@ const getAdminById = async (req, res) => {
   }
 };
 
+const getAdminByFirebaseId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const admin = await Admins.find({ firebaseUid: id });
+
+    return res.status(200).json({
+      message: 'Admin found',
+      data: admin,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
 const createAdmin = async (req, res) => {
   try {
     const newFirebaseUser = await firebase.auth().createUser({
@@ -169,10 +188,11 @@ const deleteAdmin = async (req, res) => {
 };
 
 export default {
-  getAdminById,
-  getAllWithDeletedAdmins,
-  deleteAdmin,
-  editAdmin,
   getAllAdmins,
+  getAllWithDeletedAdmins,
+  getAdminById,
+  getAdminByFirebaseId,
   createAdmin,
+  editAdmin,
+  deleteAdmin,
 };
