@@ -6,6 +6,7 @@ import checkAuth from '../middlewares/authMiddleware';
 const router = express.Router();
 
 router.get('/', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), timeSheetsControllers.getAllTimeSheets);
+router.get('/withDeleted', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), timeSheetsControllers.getAllWithDeletedTimeSheets);
 router.get('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN']), timeSheetsControllers.getTimeSheetById);
 router.get('/employee/:id', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), timeSheetsControllers.getTimesheetsByEmployee);
 router.post('/', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), timeSheetsValidations.validateCreation, timeSheetsControllers.createTimeSheet);

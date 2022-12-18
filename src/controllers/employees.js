@@ -72,7 +72,7 @@ const getEmployeeByFirebaseId = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const employee = await Employees.find({ firabaseUid: id });
+    const employee = await Employees.find({ firebaseUid: id });
 
     return res.status(200).json({
       message: 'Projects found',
