@@ -21,6 +21,22 @@ const getAllTasks = async (req, res) => {
   }
 };
 
+const getAllWithDeletedTasks = async (req, res) => {
+  try {
+    const taskList = await Tasks.findWithDeleted(req.body || {}).exec();
+    return res.status(200).json({
+      message: 'Tasks list',
+      data: taskList,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
 const getTaskById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -115,8 +131,8 @@ const deleteTask = async (req, res) => {
         error: true,
       });
     }
-    const taskToDelete = await Tasks.findByIdAndDelete(id);
-    if (!taskToDelete) {
+    const task = await Tasks.delteById(id);
+    if (!task) {
       return res.status(404).json({
         message: `Task with id ${id} not found`,
         data: undefined,
@@ -134,8 +150,9 @@ const deleteTask = async (req, res) => {
 
 export default {
   getAllTasks,
+  getAllWithDeletedTasks,
   createNewTask,
   getTaskById,
-  deleteTask,
   updateTask,
+  deleteTask,
 };

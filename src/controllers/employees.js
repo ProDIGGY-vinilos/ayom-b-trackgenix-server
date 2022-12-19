@@ -22,6 +22,22 @@ const getAllEmployees = async (req, res) => {
   }
 };
 
+const getAllWithDeletedEmployees = async (req, res) => {
+  try {
+    const employees = await Employees.findWithDeleted(req.query);
+    return res.status(200).json({
+      message: 'Employees list',
+      data: employees,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
 const getEmployeeById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -56,7 +72,7 @@ const getEmployeeByFirebaseId = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const employee = await Employees.find({ firabaseUid: id });
+    const employee = await Employees.find({ firebaseUid: id });
 
     return res.status(200).json({
       message: 'Projects found',
@@ -152,7 +168,7 @@ const deleteEmployee = async (req, res) => {
         error: true,
       });
     }
-    const employee = await Employees.findByIdAndDelete(id);
+    const employee = await Employees.deleteById(id);
     if (!employee) {
       return res.status(404).json({
         message: `Employee with id ${id} not found`,
@@ -160,8 +176,6 @@ const deleteEmployee = async (req, res) => {
         error: true,
       });
     }
-
-    await firebase.auth().deleteUser(employee.firebaseUid);
 
     return res.sendStatus(204);
   } catch (err) {
@@ -174,6 +188,7 @@ const deleteEmployee = async (req, res) => {
 
 export default {
   getAllEmployees,
+  getAllWithDeletedEmployees,
   getEmployeeById,
   getEmployeeByFirebaseId,
   createEmployee,

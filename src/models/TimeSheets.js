@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongooseDelete from 'mongoose-delete';
 
 const { Schema } = mongoose;
 
@@ -10,5 +11,7 @@ const timeSheetSchema = new Schema({
   employee: { type: Schema.Types.ObjectId, ref: 'Employee', required: true },
   hours: { type: Number, required: true },
 });
+
+timeSheetSchema.plugin(mongooseDelete, { overrideMethods: ['find'] });
 
 export default mongoose.model('TimeSheet', timeSheetSchema);

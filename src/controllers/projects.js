@@ -11,6 +11,30 @@ const getAllProjects = async (req, res) => {
       path: 'employees',
       populate: {
         path: 'employee',
+        options: { withDeleted: true },
+      },
+    });
+
+    return res.status(200).json({
+      message: 'Projects list',
+      data: projects,
+      error: false,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: `Server Error ${err}`,
+      error: true,
+    });
+  }
+};
+
+const getAllWithDeletedProjects = async (req, res) => {
+  try {
+    const projects = await Projects.findWithDeleted(req.query).populate({
+      path: 'employees',
+      populate: {
+        path: 'employee',
+        options: { withDeleted: true },
       },
     });
 
@@ -40,6 +64,7 @@ const getProjectById = async (req, res) => {
       path: 'employees',
       populate: {
         path: 'employee',
+        options: { withDeleted: true },
       },
     });
 
@@ -77,6 +102,7 @@ const getProjectsByEmployee = async (req, res) => {
         path: 'employees',
         populate: {
           path: 'employee',
+          options: { withDeleted: true },
         },
       });
 
@@ -159,8 +185,8 @@ const deleteProject = async (req, res) => {
         error: true,
       });
     }
-    const projectToDelete = await Projects.findByIdAndDelete(id);
-    if (!projectToDelete) {
+    const project = await Projects.deleteById(id);
+    if (!project) {
       return res.status(404).json({
         message: `Project with id ${id} not found`,
         data: undefined,
@@ -178,6 +204,7 @@ const deleteProject = async (req, res) => {
 
 export default {
   getAllProjects,
+  getAllWithDeletedProjects,
   getProjectById,
   getProjectsByEmployee,
   createProject,

@@ -6,6 +6,7 @@ import checkAuth from '../middlewares/authMiddleware';
 const router = express.Router();
 
 router.get('/', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), tasksControllers.getAllTasks);
+router.get('/withDeleted', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), tasksControllers.getAllWithDeletedTasks);
 router.get('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), tasksControllers.getTaskById);
 router.post('/', checkAuth(['SUPER_ADMIN', 'ADMIN']), taskValidation.createValidation, tasksControllers.createNewTask);
 router.put('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN']), taskValidation.createValidation, tasksControllers.updateTask);
