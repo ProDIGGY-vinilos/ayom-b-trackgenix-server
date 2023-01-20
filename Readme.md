@@ -2,7 +2,6 @@
 
 Trackgenix is a system that provides Human Resources services to companies.
 
-<br>
 
 ## Quick Start
 
@@ -51,22 +50,26 @@ Currently using this technologies:
 - Mongo DB
 - ESlint
 ```
+<br>
 
 ### Members
 
-|Photo | Name  | Mail | Github
-| :-----: | :-----: | :-----: | :-----: |
-<img src="https://avatars.githubusercontent.com/u/100219704?v=4" height="50" width="50">| Verona Baudracco| verona.baudracco@radiumrocket.com | [@baudraccoverona](https://https://https://github.com/baudraccoverona)
-<img src="https://avatars.githubusercontent.com/u/72083744?v=4" height="50" width="50">| Ignacio Aristo| ignacio.aristo@radiumrocket.com | [@ignacioaristo](https://https://github.com/ignacioaristo)
-<img src="https://avatars.githubusercontent.com/u/96196361?v=4" height="50" width="50">| Julian Flores | julianfloresdev@gmail.com | [@JulianF](https://github.com/JulianFloresDev)
-<img src="https://avatars.githubusercontent.com/u/96145652?v=4" height="50" width="50">| Juan Ignacio Vescovo | jivescovo@gmail.com | [@jivescovo](https://github.com/jivescovo)
-<img src="https://avatars.githubusercontent.com/u/111143526?v=4" height="50" width="50">| Maximiliano Licarzze | maxilicarzze@gmail.com | [@Licamus](https://github.com/Licamus)
-<img src="https://avatars.githubusercontent.com/u/109966958?v=4" height="50" width="50">| Camila Diaz | diazcamilae@gmail.com | [@cami-diaz](https://github.com/cami-diaz)
-<img src="https://avatars.githubusercontent.com/u/96145652?v=4" height="50" width="50">| Juan Ignacio Vescovo | jivescovo@gmail.com | [@jivescovo](https://github.com/jivescovo)
-<img src="https://avatars.githubusercontent.com/u/111143526?v=4" height="50" width="50">| Maximiliano Licarzze | maxilicarzze@gmail.com | [@Licamus](https://github.com/Licamus)
+
+|Photo | Name  | Mail | Github | Role |
+| :-----: | :-----: | :-----: | :-----: | :-----: |
+<img src="https://avatars.githubusercontent.com/u/81392294?v=4" height="50" width="50">| Cristian Gerster | cristiangerster@gmail.com | [@ProDIGGY-vinilos](https://github.com/ProDIGGY-vinilos)|DEV
+<img src="https://avatars.githubusercontent.com/u/51496564?v=4" height="50" width="50">| Gonzalo Asencio | gestorgonzalo@gmail.com | [@GonzaloAsencio](https://github.com/GonzaloAsencio)|DEV
+<img src="https://avatars.githubusercontent.com/u/10933399?v=4" height="50" width="50">| Julián Montenegro | julian.montenegro.1895@gmail.com | [@JuliMonte5](https://github.com/JuliMonte5)|DEV
+<img src="https://avatars.githubusercontent.com/u/99300863?v=4" height="50" width="50">| Federico Peralta Quinteros | federicoperaltaquinteros@gmail.com | [@fede230298](https://github.com/fede230298)|DEV
+<img src="https://avatars.githubusercontent.com/u/111021258?v=4" height="50" width="50">| Maicol Freire | maicolfreire001@gmail.com | [@MaicolFreire001](https://github.com/MaicolFreire001)|DEV
+<img src="https://avatars.githubusercontent.com/u/56328577?v=4" height="50" width="50">| Alejandro Tiscornia | tiscorniaale@gmail.com   | [@aletiscornia](https://github.com/aletiscornia)|DEV
+<img src="https://avatars.githubusercontent.com/u/90708856?v=4" height="50" width="50">| Sofia Hojberg | sofiahojberg@gmail.com | [@sofihoj](https://github.com/sofihoj)|QA
+<img src="https://avatars.githubusercontent.com/u/111089727?v=4" height="50" width="50">| Javier Pérez Raffo | javierperezraffo@gmail.com | [@javierperezraffo](https://github.com/javierperezraffo)|QA
+
+
+
 
 <br>
-
 ### License & Copyright
 
 © Radium Rocket "Become a Software Professional 2022"
